@@ -19,5 +19,8 @@
         "postcss": "^8.0.0",
         "postcss-import": "^13.0.0",
         "tailwindcss": "^2.0.1"
+    },
+    "dependencies": {
+        "chart.js": "^2.9.4"
     }
 }
