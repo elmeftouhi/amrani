@@ -1,4 +1,4 @@
-<div class="flex items-center justify-between border-b border-gray-300 h-14">
+<div class="flex items-center justify-between shadow-lg border-b border-gray-300 h-14">
     <div class="flex items-center">
         <button class="p-4 py-5 hover:bg-gray-100 text-lg"><i class="fas fa-bars"></i></button>
         <div class="rounded-lg border overflow-hidden relative">

@@ -17,15 +17,21 @@
         <script src="{{ mix('js/app.js') }}" defer></script>
     </head>
     <body class="" style="font-family: 'Nunito', sans-serif;">
-        <div class="h-full bg-gray-100 overflow-hidden flex">
+        <div class="max-h-full h-full bg-gray-100 flex">
                 <!-- Vertical Menu -->
                 @include('amrani.layout.vertical_menu')
                 <!-- Page Content -->
-                <main class="bg-white flex-1 overflow-y-auto">
-                    <!-- Header -->
-                    @include('amrani.layout.header')
-                    <!-- Content -->
-                    @yield('content')
+                <main class="bg-white flex-1 max-h-full h-full ">
+                    <div class="flex flex-col h-full">
+                        <!-- Header -->
+                        @include('amrani.layout.header')
+                        <!-- Content -->
+                        <div class="flex-1 bg-red-100 overflow-y-auto">
+                            @yield('content')  
+                        </div>
+                                              
+                    </div>
+
                 </main>
         </div>
     </body>
