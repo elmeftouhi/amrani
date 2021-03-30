@@ -9,38 +9,94 @@
         </div>
         <ul>
             <li class="">
-                <a href="" 
-                    class="flex items-center cursor-pointer block hover:bg-gray-300 hover:text-gray-800 py-2 px-3 text-gray-100 text-sm bg-gray-600 rounded-r-full"
+                <a href="{{ route('dashboard.index') }}" 
+                    class="flex items-center block py-2 px-3 text-sm 
+                    @if(Route::currentRouteNamed( 'dashboard.index' )) 
+                        bg-gray-600 rounded-r-full text-gray-100 pointer-events-none
+                    @else 
+                        hover:bg-gray-300 cursor-pointer hover:text-gray-800 text-gray-600 @endif "
                 >                                
                     <div class="w-6"><i class="fas fa-columns"></i> </div>
                     Dashboard
                 </a>
-                <a href="" class="flex items-center cursor-pointer block hover:bg-gray-300 hover:text-gray-800 py-2 px-3 text-gray-600 text-sm">                                
+                <a href="{{ route('client.index') }}" 
+                    class="flex items-center block py-2 px-3 text-sm 
+                    @if(Route::currentRouteNamed( 'client.index' )) 
+                        bg-gray-600 rounded-r-full text-gray-100 pointer-events-none
+                    @else 
+                        hover:bg-gray-300 cursor-pointer hover:text-gray-800 text-gray-600 @endif "
+                >                                
                     <div class="w-6"><i class="fas fa-user-tie"></i> </div>
                      Clients <small class="ml-2 text-xs font-bold">(45)</small>
                 </a>
-                <a href="" 
-                    class="flex items-center cursor-pointer block hover:bg-gray-300 hover:text-gray-800 py-2 px-3 text-gray-600 text-sm">                                
+                <a href="{{ route('dashboard.index') }}" 
+                    class="flex items-center block py-2 px-3 text-sm 
+                    @if(Route::currentRouteNamed( 'intermediaire.index' )) 
+                        bg-gray-600 rounded-r-full text-gray-100 pointer-events-none
+                    @else 
+                        hover:bg-gray-300 cursor-pointer hover:text-gray-800 text-gray-600 @endif "
+                >                                
                     <div class="w-6"><i class="fas fa-user-friends"></i> </div>
                     Intermédiaires <small class="ml-2 text-xs font-bold">(45)</small>
                </a>
-                <a href="" class="flex items-center cursor-pointer block hover:bg-gray-300 hover:text-gray-800 py-2 px-3 text-gray-600 text-sm">                                
+               <a href="{{ route('dashboard.index') }}" 
+                    class="flex items-center block py-2 px-3 text-sm 
+                    @if(Route::currentRouteNamed( 'appartement.index' )) 
+                        bg-gray-600 rounded-r-full text-gray-100 pointer-events-none
+                    @else 
+                        hover:bg-gray-300 cursor-pointer hover:text-gray-800 text-gray-600 @endif "
+                >                                 
                     <div class="w-6"><i class="far fa-building"></i> </div>
                      Appartements <small class="ml-2 text-xs font-bold">(96)</small>
                 </a>
-                <a href="" class="flex items-center cursor-pointer block hover:bg-gray-300 hover:text-gray-800 py-2 px-3 text-gray-600 text-sm">                                <div class="w-6"><i class="fas fa-map-marked"></i> </div>
+                <a href="{{ route('dashboard.index') }}" 
+                    class="flex items-center block py-2 px-3 text-sm 
+                    @if(Route::currentRouteNamed( 'terrain.index' )) 
+                        bg-gray-600 rounded-r-full text-gray-100 pointer-events-none
+                    @else 
+                        hover:bg-gray-300 cursor-pointer hover:text-gray-800 text-gray-600 @endif "
+                >                                
+                    <div class="w-6"><i class="fas fa-map-marked"></i> </div>
                      Terrains <small class="ml-2 text-xs font-bold">(24)</small>
                 </a>
-                <a href="" class="flex items-center cursor-pointer block hover:bg-gray-300 hover:text-gray-800 py-2 px-3 text-gray-600 text-sm">                                <div class="w-6"><i class="fas fa-home"></i> </div>
+                <a href="{{ route('dashboard.index') }}" 
+                    class="flex items-center block py-2 px-3 text-sm 
+                    @if(Route::currentRouteNamed( 'maison.index' )) 
+                        bg-gray-600 rounded-r-full text-gray-100 pointer-events-none
+                    @else 
+                        hover:bg-gray-300 cursor-pointer hover:text-gray-800 text-gray-600 @endif "
+                >                                
+                    <div class="w-6"><i class="fas fa-home"></i> </div>
                      Maison <small class="ml-2 text-xs font-bold">(12)</small>
                 </a>
-                <a href="" class="flex items-center cursor-pointer block hover:bg-gray-300 hover:text-gray-800 py-2 px-3 text-gray-600 text-sm">                                <div class="w-6"><i class="fas fa-warehouse"></i> </div>
+                <a href="{{ route('dashboard.index') }}" 
+                    class="flex items-center block py-2 px-3 text-sm 
+                    @if(Route::currentRouteNamed( 'commercial.index' )) 
+                        bg-gray-600 rounded-r-full text-gray-100 pointer-events-none
+                    @else 
+                        hover:bg-gray-300 cursor-pointer hover:text-gray-800 text-gray-600 @endif "
+                >                                 
+                    <div class="w-6"><i class="fas fa-warehouse"></i> </div>
                      Local Commercial <small class="ml-2 text-xs font-bold">(5)</small>
                 </a>
-                <a href="" class="flex items-center cursor-pointer block hover:bg-gray-300 hover:text-gray-800 py-2 px-3 text-gray-600 text-sm">                                <div class="w-6"><i class="fas fa-home"></i> </div>
+                <a href="{{ route('dashboard.index') }}" 
+                    class="flex items-center block py-2 px-3 text-sm 
+                    @if(Route::currentRouteNamed( 'villa.index' )) 
+                        bg-gray-600 rounded-r-full text-gray-100 pointer-events-none
+                    @else 
+                        hover:bg-gray-300 cursor-pointer hover:text-gray-800 text-gray-600 @endif "
+                >                                
+                    <div class="w-6"><i class="fas fa-home"></i> </div>
                      Villas <small class="ml-2 text-xs font-bold">(2)</small>
                 </a>
-                <a href="" class="flex items-center cursor-pointer block hover:bg-gray-300 hover:text-gray-800 py-2 px-3 text-gray-600 text-sm">                                <div class="w-6"><i class="fas fa-horse-head"></i> </div>
+                <a href="{{ route('dashboard.index') }}" 
+                    class="flex items-center block py-2 px-3 text-sm 
+                    @if(Route::currentRouteNamed( 'ferme.index' )) 
+                        bg-gray-600 rounded-r-full text-gray-100 pointer-events-none
+                    @else 
+                        hover:bg-gray-300 cursor-pointer hover:text-gray-800 text-gray-600 @endif "
+                >                               
+                    <div class="w-6"><i class="fas fa-horse-head"></i> </div>
                      Fermes <small class="ml-2 text-xs font-bold">(1)</small>
                 </a>
             </li>
@@ -48,11 +104,23 @@
     </div>
     <ul>
         <li>
-            <a href="" class="flex items-center cursor-pointer block hover:bg-gray-300 hover:text-gray-800 py-2 px-3 text-gray-600 text-sm">
+            <a href="{{ route('user.index') }}" 
+                class="flex items-center block py-2 px-3 text-sm 
+                @if(Route::currentRouteNamed( 'user.index' )) 
+                    bg-gray-600 rounded-r-full text-gray-100 pointer-events-none
+                @else 
+                    hover:bg-gray-300 cursor-pointer hover:text-gray-800 text-gray-600 @endif "
+            > 
                 <div class="w-6"><i class="fas fa-users"></i> </div>
                 Utilisateurs
            </a> 
-           <a href="" class="flex items-center cursor-pointer block hover:bg-gray-300 hover:text-gray-800 py-2 px-3 text-gray-600 text-sm">
+           <a href="{{ route('dashboard.index') }}" 
+                class="flex items-center block py-2 px-3 text-sm 
+                @if(Route::currentRouteNamed( 'setting.index' )) 
+                    bg-gray-600 rounded-r-full text-gray-100 pointer-events-none
+                @else 
+                    hover:bg-gray-300 cursor-pointer hover:text-gray-800 text-gray-600 @endif "
+            > 
                 <div class="w-6"><i class="fas fa-wrench"></i> </div>
                 Paramêtres
        </a> 
