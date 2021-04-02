@@ -9,11 +9,10 @@
 
         <div class="flex gap-4 px-4">
             <div class="w-2/3">
-                @include('amrani.dashboard.charts.pie')
-                
+                @include('amrani.dashboard.charts.bars')
             </div>
             <div class="w-1/3">
-                
+                @include('amrani.dashboard.charts.pie')
                 @include('amrani.dashboard.partials.logs')
             </div>
         </div>

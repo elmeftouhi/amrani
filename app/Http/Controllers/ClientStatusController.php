@@ -2,19 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Client;
+use App\Models\ClientStatus;
 use Illuminate\Http\Request;
 
-class ClientController extends Controller
+class ClientStatusController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($is_intermediaire=0)
+    public function index()
     {
-        return view('amrani.pages.client.index');
+        //
     }
 
     /**
@@ -24,7 +24,7 @@ class ClientController extends Controller
      */
     public function create()
     {
-       return view('amrani.pages.client.create');
+        //
     }
 
     /**
@@ -41,10 +41,10 @@ class ClientController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Client  $client
+     * @param  \App\Models\ClientStatus  $clientStatus
      * @return \Illuminate\Http\Response
      */
-    public function show(Client $client)
+    public function show(ClientStatus $clientStatus)
     {
         //
     }
@@ -52,10 +52,10 @@ class ClientController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Client  $client
+     * @param  \App\Models\ClientStatus  $clientStatus
      * @return \Illuminate\Http\Response
      */
-    public function edit(Client $client)
+    public function edit(ClientStatus $clientStatus)
     {
         //
     }
@@ -64,10 +64,10 @@ class ClientController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Client  $client
+     * @param  \App\Models\ClientStatus  $clientStatus
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Client $client)
+    public function update(Request $request, ClientStatus $clientStatus)
     {
         //
     }
@@ -75,10 +75,10 @@ class ClientController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Client  $client
+     * @param  \App\Models\ClientStatus  $clientStatus
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Client $client)
+    public function destroy(ClientStatus $clientStatus)
     {
         //
     }

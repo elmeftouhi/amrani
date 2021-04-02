@@ -4,6 +4,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
+        <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
+        <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}">
+
         <title>@yield('title')</title>
 
         <!-- Fonts -->
@@ -14,6 +17,7 @@
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
 
         <!-- Scripts -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="{{ mix('js/app.js') }}" defer></script>
     </head>
     <body class="" style="font-family: 'Nunito', sans-serif;">
@@ -21,7 +25,7 @@
                 <!-- Vertical Menu -->
                 @include('amrani.layout.vertical_menu')
                 <!-- Page Content -->
-                <main class="bg-white flex-1 max-h-full h-full ">
+                <main class="bg-gray-50 flex-1 max-h-full h-full ">
                     <div class="flex flex-col h-full">
                         <!-- Header -->
                         @include('amrani.layout.header')

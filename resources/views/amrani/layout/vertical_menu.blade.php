@@ -1,4 +1,4 @@
-<div class="flex flex-col justify-between min-w-48 w-48 h-full bg-gradient-to-r from-gray-100 to-gray-200 border-r border-gray-300 pb-4 overflow-y-auto">
+<div class="vertical_menu flex flex-col justify-between min-w-48 w-48 h-full bg-gradient-to-r from-gray-100 to-gray-200 border-r border-gray-300 pb-4 overflow-y-auto" style="min-width: 185px">
     <div class="">
         <div class="flex items-center border-b border-gray-300 px-4 h-14 mb-2">
             <img class="w-8 mr-2" src="http://adminmart.com/src/assets/images/logo-icon.png" alt="">
@@ -29,7 +29,7 @@
                     <div class="w-6"><i class="fas fa-user-tie"></i> </div>
                      Clients <small class="ml-2 text-xs font-bold">(45)</small>
                 </a>
-                <a href="{{ route('dashboard.index') }}" 
+                <a href="{{ route('intermediaire.index') }}" 
                     class="flex items-center block py-2 px-3 text-sm 
                     @if(Route::currentRouteNamed( 'intermediaire.index' )) 
                         bg-gray-600 rounded-r-full text-gray-100 pointer-events-none

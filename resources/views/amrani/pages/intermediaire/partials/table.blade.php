@@ -6,7 +6,7 @@
                     <input type="text" class="border-0 text-sm w-64" placeholder="Chercher">
                     <button class="absolute top-0 right-0 m-2 pt-1 text-sm text-gray-400"><i class="fas fa-search"></i></button>
                 </div>
-                <a href="{{ route('client.create') }}" class="border px-4 py-1 rounded-lg bg-blue-400 hover:bg-gray-400 text-white text-sm"><i class="fas fa-user-plus"></i> Ajouter</a>
+                <button class="border px-4 py-1 rounded-lg bg-blue-400 hover:bg-gray-400 text-white text-sm"><i class="fas fa-user-plus"></i> Ajouter</button>
             </div>
             <div class="bg-white shadow-md rounded my-6">
                 <table class="min-w-max w-full table-auto">

@@ -21,6 +21,7 @@
         "tailwindcss": "^2.0.1"
     },
     "dependencies": {
-        "chart.js": "^2.9.4"
+        "chart.js": "^2.9.4",
+        "jquery": "^3.6.0"
     }
 }

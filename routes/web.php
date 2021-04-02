@@ -8,7 +8,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
 
 Route::get('/client', [ ClientController::class, 'index' ])->name('client.index');
+Route::get('/client/create', [ ClientController::class, 'create' ])->name('client.create');
 
+Route::get('/intermediaire', [ ClientController::class, 'index' ])->name('intermediaire.index');
 
 Route::get('/user', [ UserController::class, 'index' ])->name('user.index');
 // Route::get('/', function () {
