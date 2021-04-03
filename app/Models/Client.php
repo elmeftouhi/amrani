@@ -13,6 +13,17 @@ class Client extends Model
     use SoftDeletes;
     use LogsActivity;
 
+    protected $fillable = [
+        'client_code',
+        'client_name',
+        'client_category_id',
+        'client_status_id',
+        'client_city',
+        'client_telephone',
+        'created_at',
+        'updated_at'
+    ];
+
     public function status()
     {
         return $this->HasOne(ClientStatus::class,'id', 'client_status_id');

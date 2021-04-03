@@ -1,21 +1,11 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
-
-/* Card */
-.card{
-    @apply p-4 pb-8 shadow bg-white rounded m-3 mb-6
-  }
-  a{ @apply text-purple-200; }
-  a:hover { @apply text-purple-500; }
-  /* Buttons */
-  .btn { @apply border py-2 px-4 rounded-lg text-sm text-gray-700; }
-  .btn:hover { @apply bg-gray-200; transition: all .3s; }
-  .btn:focus { @apply outline-none;  }
-  .btn:active { @apply bg-gray-300 outline-none; }
-  
-  .btn-primary { @apply border-pink-700 bg-pink-500 text-white; }
-  .btn-primary:hover { @apply bg-pink-400; transition: all .3s; }
-  .btn-primary:focus { @apply outline-none;  }
-  .btn-primary:active { @apply bg-pink-600; }
-
 @import 'tailwindcss/utilities';
+
+.form-input{
+    border-radius: 5px;
+    border: 1px solid #cbcbcb;
+    padding: 3px 10px;
+    font-size: 14px;
+    color: #343434;
+}

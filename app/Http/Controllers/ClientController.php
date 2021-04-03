@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Client;
+use App\Models\ClientCategory;
+use App\Models\ClientStatus;
 use Illuminate\Http\Request;
 
 class ClientController extends Controller
@@ -14,7 +16,9 @@ class ClientController extends Controller
      */
     public function index($is_intermediaire=0)
     {
-        return view('amrani.pages.client.index');
+        return view('amrani.pages.client.index')->with([
+            'clients'   =>  Client::orderBy('client_name')->get()
+        ]);
     }
 
     /**
@@ -24,7 +28,12 @@ class ClientController extends Controller
      */
     public function create()
     {
-       return view('amrani.pages.client.create');
+        $lastID = 'CL' . str_pad( (Client::max('id') + 1) , 5, 0, STR_PAD_LEFT );
+        return view('amrani.pages.client.create')->with([
+            'categories'    =>  ClientCategory::all(),
+            'statuses'      =>  ClientStatus::all(),
+            'code_client'   =>  $lastID
+        ]);
     }
 
     /**
@@ -35,7 +44,15 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'client_code'           => 'required|max:10',
+            'client_name'           => 'required|max:255',
+            'client_category_id'    => 'required',
+            'client_status_id'      => 'required'
+        ]);
+
+        Client::create($request->all());
+        return redirect()->route('client.index');
     }
 
     /**
@@ -57,7 +74,11 @@ class ClientController extends Controller
      */
     public function edit(Client $client)
     {
-        //
+        return view('amrani.pages.client.edit')->with([
+            'categories'    =>  ClientCategory::all(),
+            'statuses'      =>  ClientStatus::all(),
+            'client'        =>  $client
+        ]);
     }
 
     /**
@@ -69,7 +90,15 @@ class ClientController extends Controller
      */
     public function update(Request $request, Client $client)
     {
-        //
+        $validated = $request->validate([
+            'client_code'           => 'required|max:10',
+            'client_name'           => 'required|max:255',
+            'client_category_id'    => 'required',
+            'client_status_id'      => 'required'
+        ]);
+
+        $client->update($request->all());
+        return redirect()->route('client.index');
     }
 
     /**

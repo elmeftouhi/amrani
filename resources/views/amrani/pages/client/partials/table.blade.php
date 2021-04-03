@@ -1,5 +1,5 @@
 <div class="overflow-x-auto">
-    <div class="min-w-screen bg-white flex items-center justify-center font-sans overflow-hidden bg-gray-100">
+    <div class="min-w-screen flex items-center justify-center font-sans overflow-hidden bg-gray-100">
         <div class="w-full lg:w-5/6">
             <div class="flex items-center justify-between pt-6">
                 <div class="rounded-lg border overflow-hidden relative">
@@ -22,35 +22,46 @@
                         </tr>
                     </thead>
                     <tbody class="text-gray-600 text-sm font-light">
-                        @for ($i = 0; $i < 34; $i++)
+                        @foreach ($clients as $client)
                             <tr class="border-b border-gray-200 bg-white hover:bg-gray-100">
                                 <td class="py-3 px-6 text-left">
                                     <div class="flex items-center">
-                                        <span class="font-medium">CL0001</span>
+                                        <span class="font-medium">{{$client->client_code}}</span>
                                     </div>
                                 </td>
                                 <td class="py-3 px-6 text-left">
                                     <div class="flex items-center">
-                                        <span class="font-medium">Yassine EL MEFTOUHI</span>
+                                        <span class="font-medium">{{$client->client_name}}</span>
                                     </div>
                                 </td>
                                 <td class="py-3 px-6 text-left">
                                     <div class="flex items-center">
-                                        Persone Physique
+                                        {{$client->category->client_category}}
                                     </div>
                                 </td>
                                 <td class="py-3 px-6 text-left">
                                     <div class="flex items-center">
-                                        +212661098984
+                                        {{$client->client_telephone}}
                                     </div>
                                 </td>
                                 <td class="py-3 px-6 text-left">
                                     <div class="flex items-center">
-                                        Tetouan
+                                        {{$client->client_city}}
                                     </div>
                                 </td>
                                 <td class="py-3 px-6 text-center">
-                                    <span class="bg-green-200 text-green-600 py-1 px-3 rounded-full text-xs">Completed</span>
+                                    @if ($client->client_status_id == 1)
+                                        <span class="bg-green-200 text-green-600 py-1 px-3 rounded-full text-xs">{{$client->status->client_status}}</span>
+                                    @endif
+
+                                    @if ($client->client_status_id == 2)
+                                        <span class="bg-red-200 text-red-600 py-1 px-3 rounded-full text-xs">{{$client->status->client_status}}</span>
+                                    @endif
+
+                                    @if ($client->client_status_id == 3)
+                                        <span class="bg-gray-200 text-gray-600 py-1 px-3 rounded-full text-xs">{{$client->status->client_status}}</span>
+                                    @endif
+
                                 </td>
                                 <td class="py-3 px-6 text-center">
                                     <div class="flex item-center justify-center">
@@ -66,7 +77,7 @@
                                     </div>
                                 </td>
                             </tr>
-                        @endfor
+                        @endforeach
                     </tbody>
                 </table>
             </div>

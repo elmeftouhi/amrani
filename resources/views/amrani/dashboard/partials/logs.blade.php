@@ -6,7 +6,17 @@
     @foreach ($activities as $log)
         <div class="flex items-center justify-between bg-white border-b py-2 px-4">
             <p class="text-xs">
-                {{$log['description']}}
+                @php
+                   switch($log->subject_type){
+                        case 'App\Models\Client':
+                            echo $log->subject->client_name;
+                           break;
+                       
+                       default:
+                            echo $log->description;
+                            break;
+                   }
+                @endphp
             </p>
             <p class="text-xs font-bold">
                 {{$log->created_at->diffForHumans()}}
