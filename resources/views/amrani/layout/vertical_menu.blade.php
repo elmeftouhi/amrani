@@ -21,17 +21,17 @@
                 </a>
                 <a href="{{ route('client.index') }}" 
                     class="flex items-center block py-2 px-3 text-sm 
-                    @if(Route::currentRouteNamed( 'client.index' )) 
+                    @if( Str::contains(Route::currentRouteName(), 'client') ) 
                         bg-gray-600 rounded-r-full text-gray-100 pointer-events-none
                     @else 
                         hover:bg-gray-300 cursor-pointer hover:text-gray-800 text-gray-600 @endif "
                 >                                
                     <div class="w-6"><i class="fas fa-user-tie"></i> </div>
-                     Clients <small class="ml-2 text-xs font-bold">(45)</small>
+                     Clients<small class="ml-2 text-xs font-bold">(45)</small>
                 </a>
                 <a href="{{ route('intermediaire.index') }}" 
                     class="flex items-center block py-2 px-3 text-sm 
-                    @if(Route::currentRouteNamed( 'intermediaire.index' )) 
+                    @if( Str::contains(Route::currentRouteName(), 'intermediaire') ) 
                         bg-gray-600 rounded-r-full text-gray-100 pointer-events-none
                     @else 
                         hover:bg-gray-300 cursor-pointer hover:text-gray-800 text-gray-600 @endif "
