@@ -2,12 +2,12 @@
 @section('title') {{ __('Agence Amrani') }} @endsection
 
 @section('content')
-    <div class="w-full h-full bg-white">
-        <div class="flex items-center justify-between h-12 px-4 text-gray-600">
+    <div class="w-full h-full bg-white flex flex-col">
+        <div class="flex items-center justify-between h-12 px-4 text-gray-600 shadow">
             <h1 class="font-bold text-xl">Dashboard</h1>
         </div>
 
-        <div class="flex gap-4 px-4">
+        <div class="flex gap-4 px-4 py-6 flex-1 overflow-auto bg-gray-50">
             <div class="w-2/3">
                 @include('amrani.dashboard.charts.bars')
             </div>
