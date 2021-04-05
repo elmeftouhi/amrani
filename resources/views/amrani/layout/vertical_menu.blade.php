@@ -27,7 +27,10 @@
                         hover:bg-gray-300 cursor-pointer hover:text-gray-800 text-gray-600 @endif "
                 >                                
                     <div class="w-6"><i class="fas fa-user-tie"></i> </div>
-                     Clients<small class="ml-2 text-xs font-bold">(45)</small>
+                     Clients
+                     <small class="ml-2 text-xs font-bold total_clients">
+                         <i class="fas fa-sync fa-spin"></i>
+                    </small>
                 </a>
                 <a href="{{ route('intermediaire.index') }}" 
                     class="flex items-center block py-2 px-3 text-sm 
@@ -37,7 +40,10 @@
                         hover:bg-gray-300 cursor-pointer hover:text-gray-800 text-gray-600 @endif "
                 >                                
                     <div class="w-6"><i class="fas fa-user-friends"></i> </div>
-                    Intermédiaires <small class="ml-2 text-xs font-bold">(45)</small>
+                    Intermédiaires 
+                    <small class="ml-2 text-xs font-bold total_intermediaires">
+                        <i class="fas fa-sync fa-spin"></i>
+                   </small>
                </a>
                <a href="{{ route('dashboard.index') }}" 
                     class="flex items-center block py-2 px-3 text-sm 
@@ -127,3 +133,14 @@
         </li>
     </ul>
 </div>
+<script>
+    $(document).ready(function(){
+        $.get(
+            "{{route('dashboard.totals')}}",
+            function(r){
+                $('.total_clients').html('(' + r.total_clients + ')');
+                $('.total_intermediaires').html('(' + r.total_intermediaires + ')');
+            }
+        );
+    });
+</script>

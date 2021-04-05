@@ -12,6 +12,7 @@ Route::resource('client', ClientController::class);
 
 Route::resource('intermediaire', IntermediaireController::class);
 
+Route::get('/dashboard/totals', [DashboardController::class, 'getTotals'])->name('dashboard.totals');
 
 Route::get('/user', [ UserController::class, 'index' ])->name('user.index');
 // Route::get('/', function () {
