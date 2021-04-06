@@ -20,7 +20,22 @@ class CreateAppartementsTable extends Migration
             $table->string('appartement_etat'); //  neuf/occupe
             $table->string('appartement_situation'); // titre/milikia/contrat/miftah/contrat adlia
             $table->string('appartement_etage'); // RDC/1/2/3/4
-            $table->integer('appartements_en_etage'); // 0/1/2/3
+            $table->integer('appartements_en_etage')->default(0); // 0/1/2/3
+            $table->string('appartement_facade');   // Rue, Patio, Place, Piscine, Sur Mer
+            $table->string('surface');
+            $table->integer('ascenseur')->default(0);
+            $table->integer('parking')->default(0);
+            $table->integer('nbr_chambre')->default(0);
+            $table->integer('nbr_salon')->default(0);
+            $table->integer('nbr_facade')->default(0);
+            $table->integer('nbr_patio')->default(0);
+            $table->integer('nbr_toilette')->default(0);
+            $table->integer('nbr_cuisine')->default(0);
+            $table->integer('prix_metre')->default(0);
+            $table->integer('prix_total')->default(0);
+            $table->integer('prix_declaration')->default(0);
+            $table->integer('client_id');
+            $table->integer('intermediaire_id');
             $table->timestamps();
             $table->softDeletes();
         });
