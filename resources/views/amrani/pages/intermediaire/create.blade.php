@@ -4,7 +4,7 @@
 @section('content')
     <div class="w-full h-full bg-gray-100">
         <div class="flex gap-4 items-center h-12 px-4 text-gray-600 bg-white">
-            <a href="" class="py-2 px-4 hover:bg-gray-200 rounded-lg"><i class="fas fa-arrow-left"></i></a>
+            @include('components.ui.back')
             <h1 class="font-bold text-xl">{{ __('Ajouter un Intermediaire') }} </h1>
         </div>
 

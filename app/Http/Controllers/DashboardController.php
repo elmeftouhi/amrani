@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Appartement;
 use App\Models\Client;
 use App\Models\Intermediaire;
 use Spatie\Activitylog\Models\Activity;
@@ -18,7 +19,8 @@ class DashboardController extends Controller
     public function getTotals(){
         $totals = [
             'total_clients'          =>   Client::count(),
-            'total_intermediaires'   =>   Intermediaire::count()
+            'total_intermediaires'   =>   Intermediaire::count(),
+            'total_appartements'     =>   Appartement::count()
         ];
         return $totals;
     }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AppartementController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
@@ -12,7 +13,10 @@ Route::resource('client', ClientController::class);
 
 Route::resource('intermediaire', IntermediaireController::class);
 
+Route::resource('appartement', AppartementController::class);
+
 Route::get('/dashboard/totals', [DashboardController::class, 'getTotals'])->name('dashboard.totals');
+
 
 Route::get('/user', [ UserController::class, 'index' ])->name('user.index');
 // Route::get('/', function () {

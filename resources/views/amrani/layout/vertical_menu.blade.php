@@ -45,15 +45,18 @@
                         <i class="fas fa-sync fa-spin"></i>
                    </small>
                </a>
-               <a href="{{ route('dashboard.index') }}" 
+               <a href="{{ route('appartement.index') }}" 
                     class="flex items-center block py-2 px-3 text-sm 
-                    @if(Route::currentRouteNamed( 'appartement.index' )) 
+                    @if( Str::contains(Route::currentRouteName(), 'appartement') ) 
                         bg-gray-600 rounded-r-full text-gray-100 pointer-events-none
                     @else 
                         hover:bg-gray-300 cursor-pointer hover:text-gray-800 text-gray-600 @endif "
                 >                                 
                     <div class="w-6"><i class="far fa-building"></i> </div>
-                     Appartements <small class="ml-2 text-xs font-bold">(96)</small>
+                     Appartements 
+                     <small class="ml-2 text-xs font-bold total_appartements">
+                        <i class="fas fa-sync fa-spin"></i>
+                   </small>
                 </a>
                 <a href="{{ route('dashboard.index') }}" 
                     class="flex items-center block py-2 px-3 text-sm 
@@ -140,6 +143,7 @@
             function(r){
                 $('.total_clients').html('(' + r.total_clients + ')');
                 $('.total_intermediaires').html('(' + r.total_intermediaires + ')');
+                $('.total_appartements').html('(' + r.total_appartements + ')');
             }
         );
     });
