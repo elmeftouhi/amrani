@@ -22,6 +22,7 @@ class CreateAppartementsTable extends Migration
             $table->string('appartement_etage'); // RDC/1/2/3/4
             $table->integer('appartements_en_etage'); // 0/1/2/3
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
