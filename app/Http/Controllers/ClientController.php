@@ -28,11 +28,10 @@ class ClientController extends Controller
      */
     public function create()
     {
-        $lastID = 'CL' . str_pad( (Client::max('id') + 1) , 5, 0, STR_PAD_LEFT );
         return view('amrani.pages.client.create')->with([
             'categories'    =>  ClientCategory::all(),
             'statuses'      =>  ClientStatus::all(),
-            'code_client'   =>  $lastID
+            'code_client'   =>  $this->newCodeClient()
         ]);
     }
 
@@ -110,5 +109,19 @@ class ClientController extends Controller
     public function destroy(Client $client)
     {
         //
+    }
+
+    public function newCodeClient(){
+        return 'CL' . str_pad( (Client::max('id') + 1) , 5, 0, STR_PAD_LEFT );
+    }
+
+    public function getDefaultClientCategory(){
+        $cc_default = ClientCategory::where('is_default', 1)->first();
+        return $cc_default->id;
+    }
+
+    public function getDefaultClientStatus(){
+        $cs_default = ClientStatus::where('is_default', 1)->first();
+        return $cs_default->id;
     }
 }

@@ -16,13 +16,13 @@ class CreateAppartementsTable extends Migration
         Schema::create('appartements', function (Blueprint $table) {
             $table->id();
             $table->string('appartement_code'); //  APP00001
-            $table->string('appartement_type'); //  appartement/duplexe
-            $table->string('appartement_etat'); //  neuf/occupe
-            $table->string('appartement_situation'); // titre/milikia/contrat/miftah/contrat adlia
-            $table->string('appartement_etage'); // RDC/1/2/3/4
+            $table->string('appartement_type')->nullable(); //  appartement/duplexe
+            $table->string('appartement_etat')->nullable(); //  neuf/occupe
+            $table->string('appartement_situation')->nullable(); // titre/milikia/contrat/miftah/contrat adlia
+            $table->string('appartement_etage')->nullable(); // RDC/1/2/3/4
             $table->integer('appartements_en_etage')->default(0); // 0/1/2/3
-            $table->string('appartement_facade');   // Rue, Patio, Place, Piscine, Sur Mer
-            $table->string('surface');
+            $table->string('appartement_facade')->nullable();   // Rue, Patio, Place, Piscine, Sur Mer
+            $table->string('surface')->nullable();
             $table->integer('ascenseur')->default(0);
             $table->integer('parking')->default(0);
             $table->integer('nbr_chambre')->default(0);

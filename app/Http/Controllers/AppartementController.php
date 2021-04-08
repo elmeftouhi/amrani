@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Appartement;
+use App\Models\Client;
 use Illuminate\Http\Request;
 
 class AppartementController extends Controller
@@ -47,6 +48,19 @@ class AppartementController extends Controller
             'appartement_code'           => 'required|max:10'
         ]);
 
+        if(!$request->client_id){
+            $clientTemp = new ClientController;
+            $client = Client::create([
+                'client_code'           =>  $clientTemp->newCodeClient(),
+                'client_category_id'    =>  $clientTemp->getDefaultClientCategory(),
+                'client_status_id'    =>  $clientTemp->getDefaultClientStatus()
+            ]);
+        }
+
+        $request->merge([
+            'appartements_en_etage' => $request->appartements_en_etage? $request->appartements_en_etage:0,
+            'client_id' =>  $client->id
+        ]);
         Appartement::create($request->all());
         return redirect()->route('appartement.index');
     }
