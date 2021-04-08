@@ -124,4 +124,9 @@ class ClientController extends Controller
         $cs_default = ClientStatus::where('is_default', 1)->first();
         return $cs_default->id;
     }
+
+    public function search(Request $request){
+        $str = addslashes( $request->req );
+        return Client::where('client_name', 'like', '%'.$str.'%')->get()->toJson();
+    }
 }

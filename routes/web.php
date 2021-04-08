@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
 
 Route::resource('client', ClientController::class);
+Route::post('client/search', [ClientController::class, 'search'])->name('client.search');
 
 Route::resource('intermediaire', IntermediaireController::class);
 

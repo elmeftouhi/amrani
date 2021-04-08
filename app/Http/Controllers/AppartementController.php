@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Appartement;
 use App\Models\Client;
+use App\Models\ClientCategory;
+use App\Models\ClientStatus;
 use Illuminate\Http\Request;
 
 class AppartementController extends Controller
@@ -25,10 +27,15 @@ class AppartementController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create()  
+    {   
+        $client = new ClientController;
         $lastID = 'APP' . str_pad( (Appartement::max('id') + 1) , 5, 0, STR_PAD_LEFT );
         return view('amrani.pages.appartement.create')->with([
+            'code_client'           =>  $client->newCodeClient(),
+            'client_categories'     =>  ClientCategory::all(),
+            'client_statuses'       =>  ClientStatus::all(),
+            'facades'               =>  ['Rue', 'Pation', 'Place', 'Piscine', 'Sur Mer'],
             'etats'                 =>  ['Nouveau', 'Habite'],
             'types'                 =>  ['Appartement', 'Duplexe'],
             'situations'            =>  ['Titre', 'Milikia', 'Contrat', 'Miftah', 'Contrat Adlia'],
@@ -55,11 +62,13 @@ class AppartementController extends Controller
                 'client_category_id'    =>  $clientTemp->getDefaultClientCategory(),
                 'client_status_id'    =>  $clientTemp->getDefaultClientStatus()
             ]);
+            $request->merge([
+                'client_id' =>  $client->id
+            ]);
         }
 
         $request->merge([
             'appartements_en_etage' => $request->appartements_en_etage? $request->appartements_en_etage:0,
-            'client_id' =>  $client->id
         ]);
         Appartement::create($request->all());
         return redirect()->route('appartement.index');
