@@ -28,11 +28,10 @@ class IntermediaireController extends Controller
      */
     public function create()
     {
-        $lastID = 'INT' . str_pad( (Intermediaire::max('id') + 1) , 5, 0, STR_PAD_LEFT );
         return view('amrani.pages.intermediaire.create')->with([
             'categories'    =>  IntermediaireCategory::all(),
             'statuses'      =>  IntermediaireStatus::all(),
-            'code_intermediaire'   =>  $lastID
+            'code_intermediaire'   =>  $this->newCodeIntermediaire()
         ]);
     }
 
@@ -112,4 +111,18 @@ class IntermediaireController extends Controller
        $intermediaire->delete();
        return redirect()->route('intermediaire.index');
     }
+
+    public function newCodeIntermediaire(){
+        return 'INT' . str_pad( (Intermediaire::max('id') + 1) , 5, 0, STR_PAD_LEFT );
+    }
+
+    public function getDefaultIntermediaireCategory(){
+        $cc_default = IntermediaireCategory::where('is_default', 1)->first();
+        return $cc_default->id;
+    }
+
+    public function getDefaultIntermediaireStatus(){
+        $cs_default = IntermediaireStatus::where('is_default', 1)->first();
+        return $cs_default->id;
+    }    
 }

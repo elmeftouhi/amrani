@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Client;
 use App\Models\ClientCategory;
 use App\Models\ClientStatus;
+use App\Models\Intermediaire;
 use Illuminate\Http\Request;
 
 class ClientController extends Controller
@@ -127,6 +128,9 @@ class ClientController extends Controller
 
     public function search(Request $request){
         $str = addslashes( $request->req );
-        return Client::with('category', 'status')->where('client_name', 'like', '%'.$str.'%')->get()->toJson();
+        if($request->is_intermediaire)
+            return Intermediaire::with('category', 'status')->where('intermediaire_name', 'like', '%'.$str.'%')->get()->toJson();
+        else
+            return Client::with('category', 'status')->where('client_name', 'like', '%'.$str.'%')->get()->toJson();
     }
 }

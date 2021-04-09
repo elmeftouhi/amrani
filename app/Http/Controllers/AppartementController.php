@@ -6,6 +6,7 @@ use App\Models\Appartement;
 use App\Models\Client;
 use App\Models\ClientCategory;
 use App\Models\ClientStatus;
+use App\Models\Intermediaire;
 use Illuminate\Http\Request;
 
 class AppartementController extends Controller
@@ -51,21 +52,42 @@ class AppartementController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
+        $request->validate([
             'appartement_code'           => 'required|max:10'
         ]);
 
-        if(!$request->client_id){
-            $clientTemp = new ClientController;
-            $client = Client::create([
-                'client_code'           =>  $clientTemp->newCodeClient(),
-                'client_category_id'    =>  $clientTemp->getDefaultClientCategory(),
-                'client_status_id'    =>  $clientTemp->getDefaultClientStatus()
-            ]);
-            $request->merge([
-                'client_id' =>  $client->id
-            ]);
+        if($request->is_intermediaire){
+            if(!$request->intermediaire_id){
+                $intermediaireTemp = new IntermediaireController;
+                $intermediaire = Intermediaire::create([
+                    'intermediaire_name'            =>  $request->client_name,
+                    'intermediaire_telephone'          =>  $request->client_telephone? $request->client_telephone: "",
+                    'intermediaire_city'          =>  $request->client_city? $request->client_city: "",
+                    'intermediaire_code'           =>  $intermediaireTemp->newCodeIntermediaire(),
+                    'intermediaire_category_id'    =>  $intermediaireTemp->getDefaultIntermediaireCategory(),
+                    'intermediaire_status_id'    =>  $intermediaireTemp->getDefaultIntermediaireStatus()
+                ]);
+                $request->merge([
+                    'intermediaire_id' =>  $intermediaire->id
+                ]);
+            }  
+        }else{
+            if(!$request->client_id){
+                $clientTemp = new ClientController;
+                $client = Client::create([
+                    'client_name'            =>  $request->client_name,
+                    'client_telephone'          =>  $request->client_telephone? $request->client_telephone: "",
+                    'client_city'          =>  $request->client_city? $request->client_city: "",
+                    'client_code'           =>  $clientTemp->newCodeClient(),
+                    'client_category_id'    =>  $clientTemp->getDefaultClientCategory(),
+                    'client_status_id'    =>  $clientTemp->getDefaultClientStatus()
+                ]);
+                $request->merge([
+                    'client_id' =>  $client->id
+                ]);
+            }            
         }
+        dd($request->all());
 
         $request->merge([
             'appartements_en_etage' => $request->appartements_en_etage? $request->appartements_en_etage:0,
