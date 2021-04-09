@@ -127,6 +127,6 @@ class ClientController extends Controller
 
     public function search(Request $request){
         $str = addslashes( $request->req );
-        return Client::where('client_name', 'like', '%'.$str.'%')->get()->toJson();
+        return Client::with('category', 'status')->where('client_name', 'like', '%'.$str.'%')->get()->toJson();
     }
 }

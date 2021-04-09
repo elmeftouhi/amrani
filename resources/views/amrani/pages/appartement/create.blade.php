@@ -16,7 +16,7 @@
                 <div class="w-full lg:w-4/6 mx-auto bg-white my-5 rounded border shadow-sm">
                     <div class="flex items-center justify-between bg-gray-50">
                         @include('components.ui.title', ['title'=>'Client / Intermediaire'])
-                        <a class="p-2 mr-2 text-gray-400 cursor-pointer hover:text-gray-600"><i class="fas fa-search"></i></a>
+                        <button class="new_client btn p-2 mr-2 text-green-400 cursor-pointer hover:text-green-600"><i class="fas fa-user-plus"></i></button>
                     </div>
                     
                     <hr>
@@ -32,27 +32,20 @@
                     <div class="flex items-center block gap-4 mb-4 ">
                         <label class="w-1/5 text-right text-gray-500 text-sm" for="client_name">Nom Client</label>
                         <div class="relative w-3/5">
-                            <input class="form-input w-full form-input-search" type="text" id="client_name" name="client_name" required>
+                            <input autocomplete="off" class="form-input w-full form-input-search" type="text" id="client_name" name="client_name" required>
                             <span class="absolute top-0 right-0 p-2 mr-2 text-gray-400 cursor-pointer hover:text-gray-600"><i class="fas fa-search"></i></span>
                             <div class="form-input-search-result hidden absolute top-0 left-0 bg-gray-50 border w-full h-30 py-2 px-2 mt-8 overflow-y-auto shadow-lg">
-                                <ul>
-                                    <li>
-                                        client 1
-                                    </li>
-                                    <li>
-                                        client 1
-                                    </li>
-                                </ul>
                             </div>                            
                         </div>
 
                     </div>
-
+                    <input type="hidden" id="client_id" value="0" name="client_name">
+                    <input type="hidden" id="intermediaire_id" value="0" name="intermediaire_id">
                     <div class="flex items-center block gap-4 mb-4">
                         <label class="w-1/5 text-right text-gray-500 text-sm" for="client_category_id">Category</label>
                         <select class="form-input w-3/5" id="client_category_id" name="client_category_id">
                         @foreach ($client_categories as $category)
-                            <option value="{{$category->id}}" @if ($category->is_default) selected @endif>{{$category->client_category}}</option>
+                            <option value="{{$category->id}}" @if ($category->is_default) data-default="1" selected @endif>{{$category->client_category}}</option>
                         @endforeach
                         </select>
                     </div>
@@ -61,7 +54,7 @@
                         <label class="w-1/5 text-right text-gray-500 text-sm" for="client_status_id">Status du client</label>
                         <select class="form-input w-3/5" id="client_status_id" name="client_status_id">
                         @foreach ($client_statuses as $status)
-                            <option value="{{$status->id}}" @if ($status->is_default) selected @endif>{{$status->client_status}}</option>
+                            <option value="{{$status->id}}" @if ($status->is_default) data-default="1" selected @endif>{{$status->client_status}}</option>
                         @endforeach
                         </select>
                     </div>
@@ -205,7 +198,10 @@
         $('.form-input-search').on('keyup', function(){
             var input = $(this).val();
             if(input.length > 1){
-
+                $('.form-input-search-result').removeClass('hidden').html(
+                    '<div class="w-full my-4 text-center"><i class="fas fa-sync fa-spin"></i></div>'
+                );
+                
                 $.ajax({
                     type		: 	"POST",
                     url: "{{route('client.search')}}",
@@ -217,10 +213,14 @@
                 }).done(function(response){
                     var ul = '<ul class="">'
                     for (item in response) {
-                        ul += '<li data-id="'+response[item].id+'" class="select_this text-sm hover:bg-gray-100 cursor-pointer px-2 py-1">'+ response[item].client_name + '</li>';
+                        ul += '<li data-city="'+response[item].client_city+'" data-telephone="'+response[item].client_telephone+'" data-status_id="'+response[item].status.id+'" data-category_id="'+response[item].category.id+'" data-id="'+response[item].id+'" class="select_this text-sm hover:bg-gray-100 cursor-pointer px-2 py-1">'+ response[item].client_name + '</li>';
                     } 
                     ul += '</ul>';
-                    $('.form-input-search-result').removeClass('hidden').html(ul);
+                    if(response.length){
+                        $('.form-input-search-result').html(ul);
+                    }else{
+                        $('.form-input-search-result').addClass('hidden').html('');
+                    }
 
                 }).fail(function(xhr){
                     alert("Error");
@@ -242,8 +242,34 @@
         });
 
         $(document).on('click', '.select_this', function(){
-            $("#client_name").val($(this).html())
-        })
+            $("#client_name").val($(this).html());
+            $("#client_category_id").val($(this).data('category_id'));
+            $("#client_status_id").val($(this).data('status_id'));
+            $("#client_city").val($(this).data('city'));
+            $("#client_telephone").val($(this).data('telephone'));
+        });
+
+        $.fn.hasAttr = function(name) {  
+            return this.attr(name) !== undefined;
+        };
+
+        $('.new_client').on('click', function(e){
+            e.preventDefault();
+            $('#client_name').val('');
+            $('#client_category_id > option').each(function(){
+                if($(this).hasAttr('data-default')) {
+                    $('#client_category_id').val($(this).val());
+                }
+            });
+
+            $('#client_status_id > option').each(function(){
+                if($(this).hasAttr('data-default')) {
+                    $('#client_status_id').val($(this).val());
+                }
+            });
+            $('#client_telephone').val('');
+            $('#client_city').val('');
+        });
     });
 </script>
 
