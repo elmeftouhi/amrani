@@ -53,7 +53,8 @@ class AppartementController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'appartement_code'           => 'required|max:10'
+            'appartement_code'           => 'required|max:10',
+            'client_name'                => 'required|string|max:255'
         ]);
 
         if($request->is_intermediaire){
@@ -87,7 +88,6 @@ class AppartementController extends Controller
                 ]);
             }            
         }
-        dd($request->all());
 
         $request->merge([
             'appartements_en_etage' => $request->appartements_en_etage? $request->appartements_en_etage:0,
