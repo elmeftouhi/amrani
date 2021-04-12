@@ -18,7 +18,8 @@
                 </div>
             @endif
             <form class="m-0 w-full" action="{{route('appartement.store')}}" method="POST">
-                    @csrf
+                @csrf
+                @include('amrani.pages.common.upload')
                 @include('amrani.pages.common.client')
 
                 <div class="w-full lg:w-4/6 mx-auto bg-white my-5 rounded border pb-4 shadow-sm">

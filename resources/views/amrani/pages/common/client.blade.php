@@ -20,7 +20,7 @@
         <div class="relative w-3/5">
             <input autocomplete="off" class="form-input w-full form-input-search" type="text" id="client_name" name="client_name" required>
             <span class="absolute top-0 right-0 p-2 mr-2 text-gray-400 cursor-pointer hover:text-gray-600"><i class="fas fa-search"></i></span>
-            <div class="form-input-search-result hidden absolute top-0 left-0 bg-gray-50 border w-full h-30 py-2 px-2 mt-8 overflow-y-auto shadow-lg">
+            <div class="form-input-search-result hidden absolute top-0 left-0 z-10 bg-blue-50 border w-full max-h-48 py-2 px-2 mt-8 overflow-y-auto shadow-lg">
             </div>                            
         </div>
 
@@ -80,9 +80,9 @@
                     var ul = '<ul class="">'
                     for (item in response) {
                         if($("#is_intermediaire").is(':checked')){
-                            ul += '<li data-city="'+response[item].intermediaire_city+'" data-telephone="'+response[item].intermediaire_telephone+'" data-status_id="'+response[item].status.id+'" data-category_id="'+response[item].category.id+'" data-id="'+response[item].id+'" class="select_this text-sm hover:bg-gray-100 cursor-pointer px-2 py-1">'+ response[item].intermediaire_name + '</li>';
+                            ul += '<li data-city="'+response[item].intermediaire_city+'" data-telephone="'+response[item].intermediaire_telephone+'" data-status_id="'+response[item].status.id+'" data-category_id="'+response[item].category.id+'" data-id="'+response[item].id+'" class="select_this text-sm rounded-lg -mx-1 hover:bg-blue-100 cursor-pointer px-3 py-1">'+ response[item].intermediaire_name + '</li>';
                         }else{
-                            ul += '<li data-city="'+response[item].client_city+'" data-telephone="'+response[item].client_telephone+'" data-status_id="'+response[item].status.id+'" data-category_id="'+response[item].category.id+'" data-id="'+response[item].id+'" class="select_this text-sm hover:bg-gray-100 cursor-pointer px-2 py-1">'+ response[item].client_name + '</li>';
+                            ul += '<li data-city="'+response[item].client_city+'" data-telephone="'+response[item].client_telephone+'" data-status_id="'+response[item].status.id+'" data-category_id="'+response[item].category.id+'" data-id="'+response[item].id+'" class="select_this text-sm rounded-lg -mx-1 hover:bg-blue-100 cursor-pointer px-3 py-1">'+ response[item].client_name + '</li>';
                         }
                     } 
                     ul += '</ul>';

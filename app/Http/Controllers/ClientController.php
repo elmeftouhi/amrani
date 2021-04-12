@@ -18,7 +18,7 @@ class ClientController extends Controller
     public function index($is_intermediaire=0)
     {
         return view('amrani.pages.client.index')->with([
-            'clients'   =>  Client::orderBy('client_name')->get()
+            'clients'   =>  Client::orderBy('client_name')->paginate(20)
         ]);
     }
 

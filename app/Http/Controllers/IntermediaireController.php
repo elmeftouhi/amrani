@@ -17,7 +17,7 @@ class IntermediaireController extends Controller
     public function index()
     {
         return view('amrani.pages.intermediaire.index')->with([
-            'intermediaires'   =>  Intermediaire::orderBy('intermediaire_name')->get()
+            'intermediaires'   =>  Intermediaire::orderBy('intermediaire_name')->paginate(20)
         ]);
     }
 

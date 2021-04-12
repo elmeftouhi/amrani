@@ -20,5 +20,7 @@ class DatabaseSeeder extends Seeder
             IntermediaireStatusSeeder::class,
             IntermediaireCategorySeeder::class
         ]);
+        \App\Models\Client::factory(414)->create();
+        \App\Models\Intermediaire::factory(365)->create();
     }
 }

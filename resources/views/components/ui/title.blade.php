@@ -1,1 +1,1 @@
-<h1 class="py-2 px-4 text-xl font-bold text-gray-600 bg-gray-50"> {{$title}} </h1>
+<h1 class="py-2 px-4 text-md font-bold text-gray-600 bg-gray-50"> {{$title}} </h1>
