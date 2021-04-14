@@ -24,7 +24,7 @@ class FileUploadController extends Controller
     public function getFiles(Request $request){
         $images = [];
         foreach(Storage::disk('public')->allFiles($request->folder) as $file){
-            array_push($images,  asset('/storage/' . $file) );
+            array_push($images,  Storage::url($file) );
         }
         return $images;
     }
