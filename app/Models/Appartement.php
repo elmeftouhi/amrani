@@ -43,7 +43,7 @@ class Appartement extends Model
         return $this->belongsTo(Client::class);
     }
     public function intermediaire(){
-        return $this->belongsTo(intermediaire::class);
+        return $this->belongsTo(Intermediaire::class);
     }
 
 }
