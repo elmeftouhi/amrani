@@ -115,7 +115,15 @@ class AppartementController extends Controller
      */
     public function edit(Appartement $appartement)
     {
-        //
+        return view('amrani.pages.appartement.edit')->with([
+            'client_categories'     =>  ClientCategory::all(),
+            'client_statuses'       =>  ClientStatus::all(),
+            'facades'               =>  ['Rue', 'Pation', 'Place', 'Piscine', 'Sur Mer'],
+            'etats'                 =>  ['Nouveau', 'Habite'],
+            'types'                 =>  ['Appartement', 'Duplexe'],
+            'situations'            =>  ['Titre', 'Milikia', 'Contrat', 'Miftah', 'Contrat Adlia'],
+            'appartement'        =>  $appartement
+        ]);
     }
 
     /**

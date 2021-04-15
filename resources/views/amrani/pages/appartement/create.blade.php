@@ -19,7 +19,7 @@
             @endif
             <form class="m-0 w-full" action="{{route('appartement.store')}}" method="POST">
                 @csrf
-                @include('amrani.pages.common.upload')
+                <!-- @include('amrani.pages.common.upload') -->
                 @include('amrani.pages.common.client')
 
                 <div class="w-full lg:w-4/6 mx-auto bg-white my-5 rounded border pb-4 shadow-sm">
@@ -60,23 +60,32 @@
                         </select>
                     </div>
                     <div class="flex items-center block gap-4 mb-4 flex-1">
-                        <label class="w-1/5 text-right text-gray-500 text-sm" for="appartement_situation">Situation</label>
-                        <select class="form-input w-3/5" name="appartement_facade">
+                        <label class="w-1/5 text-right text-gray-500 text-sm" for="appartement_situation">Facades</label>
+                        <select class="facade form-input w-3/5" name="appartement_facade">
                             <option value="-1">-- Facade --</option> 
                             @foreach ($facades as $facade)
                                 <option value="{{$facade}}">{{$facade}}</option>    
                             @endforeach
                         </select>
                     </div>
+                    <div class="largeur hidden flex items-center block gap-4 mb-4">
+                        <label class="w-1/5 text-right text-gray-500 text-sm" for="appartement_etage">Largeur</label>
+                        <input value="" placeholder="0" class="form-input w-16 text-center" type="text" name="largeur_1">
+                        <input value="" placeholder="0" class="form-input w-16 text-center" type="text" name="largeur_2">
+                        <input value="" placeholder="0" class="form-input w-16 text-center" type="text" name="largeur_3">
+                    </div> 
                     <div class="flex items-center block gap-4 mb-4">
                         <label class="w-1/5 text-right text-gray-500 text-sm" for="appartement_etage">Etage</label>
                         <input value="" placeholder="0" class="form-input" type="text" name="appartement_etage">
                     </div>
                     <div class="flex items-center block gap-4 mb-4">
-                        <label class="w-1/5 text-right text-gray-500 text-sm" for="appartements_en_etage">Appartements / Etage</label>
+                        <label class="w-1/5 text-right text-gray-500 text-sm" for="appartements_en_etage">App. / Etage</label>
                         <input value="" placeholder="0" class="form-input" type="text" name="appartements_en_etage">
                     </div>
-
+                    <div class="flex items-center block gap-4 mb-4">
+                        <label class="w-1/5 text-right text-gray-500 text-sm" for="appartements_en_immeuble">App. / immeuble</label>
+                        <input value="" placeholder="0" class="form-input" type="text" name="appartements_en_immeuble">
+                    </div>
                     <div class="flex items-center block gap-4 mb-4">
                         <label class="w-1/5 text-right text-gray-500 text-sm" for="surface">Surface</label>
                         <input value="" placeholder="0" class="form-input" type="text" name="surface">
@@ -145,6 +154,16 @@
 
 </div>
 
-
+<script>
+    $(document).ready(function(){
+        $('.facade').on('change', function(){
+            if($(this).val() == 'Rue'){
+                $('.largeur').removeClass('hidden');
+            }else{
+                $('.largeur').addClass('hidden')
+            }
+        })
+    });
+</script>
 
 @endsection

@@ -1,68 +1,171 @@
 @extends('amrani.layout.app')
-@section('title') {{ __('Ajouter un Client') }} @endsection
+@section('title') {{ __('Modifier un Appartement') }} @endsection
 
 @section('content')
-    <div class="w-full h-full bg-gray-100">
-        <div class="flex gap-4 items-center h-12 px-4 text-gray-600 bg-white">
-            @include('components.ui.back')
-            <h1 class="font-bold text-xl">{{ __('Ajouter un Client') }} </h1>
-        </div>
-
-        <div class="overflow-x-auto">
-            <div class="min-w-screen flex items-center justify-center font-sans overflow-hidden bg-gray-100">
-                <div class="w-full lg:w-4/6 bg-white my-5 py-5 rounded border">
-                    <form class="m-0" action="{{route('client.update', $client->id)}}" method="POST">
-                        @csrf
-                        @method('PUT')
-                        <div class="flex items-center block gap-4 mb-4">
-                            <label class="w-1/5 text-right text-gray-500 text-sm" for="client_code">Code Client</label>
-                            <input readonly value="{{$client->client_code}}" class="form-input bg-green-100 font-bold" type="text" id="client_code" name="client_code" required>
-                        </div>
-                        
-                        <div class="flex items-center block gap-4 mb-4">
-                            <label class="w-1/5 text-right text-gray-500 text-sm" for="client_name">Nom Client</label>
-                            <input value="{{$client->client_name}}" class="form-input w-3/5" type="text" id="client_name" name="client_name" required>
-                        </div>
-
-                        <div class="flex items-center block gap-4 mb-4">
-                            <label class="w-1/5 text-right text-gray-500 text-sm" for="client_category_id">Category</label>
-                            <select class="form-input w-3/5" id="client_category_id" name="client_category_id" required>
-                            @foreach ($categories as $category)
-                                <option value="{{$category->id}}" @if ($category->id == $client->client_category_id) selected @endif>{{$category->client_category}}</option>
-                            @endforeach
-                            </select>
-                        </div>
-
-                        <div class="flex items-center block gap-4 mb-4">
-                            <label class="w-1/5 text-right text-gray-500 text-sm" for="client_status_id">Status du client</label>
-                            <select class="form-input w-3/5" id="client_status_id" name="client_status_id" required>
-                            @foreach ($statuses as $status)
-                                <option value="{{$status->id}}" @if ($status->id == $client->client_status_id) selected @endif>{{$status->client_status}}</option>
-                            @endforeach
-                            </select>
-                        </div>
-
-                        <div class="flex items-center block gap-4 mb-4">
-                            <label class="w-1/5 text-right text-gray-500 text-sm" for="client_city">Ville</label>
-                            <input value="{{$client->client_city}}" class="form-input w-3/5" type="text" id="client_city" name="client_city" required>
-                        </div>
-
-                        <div class="flex items-center block gap-4 mb-4">
-                            <label class="w-1/5 text-right text-gray-500 text-sm" for="client_telephone">Téléphone</label>
-                            <input value="{{$client->client_telephone}}" class="form-input" type="text" id="client_telephone" name="client_telephone" required>
-                        </div>
-
-                        <hr>
-
-                        <div class="flex justify-center lg:justify-start items-center block gap-4 mt-4">
-                            <div class="lg:block lg:w-1/5 hidden"></div>
-                            <button class="py-2 px-4 border rounded-lg bg-green-500 text-white center"><i class="far fa-save"></i> Enregistrer</button>
-                        </div>
-
-                    </form>
-                </div>
-            </div>
-        </div>
-
+<div class="w-full h-full bg-gray-100">
+    <div class="flex gap-4 items-center h-12 px-4 text-gray-600 bg-white">
+        @include('components.ui.back')
+        <h1 class="font-bold text-xl">{{ __('Modifier un Appartement') }} </h1>
     </div>
+
+    <div class="overflow-x-auto">
+        <div class="min-w-screen justify-center font-sans overflow-hidden bg-gray-100">
+            @if ($errors->any())
+                <div class="w-full lg:w-4/6 mx-auto bg-white my-5 rounded border shadow-sm">
+                    @foreach ($errors->all() as $error)
+                        <div>{{$error}}</div>
+                    @endforeach
+                </div>
+            @endif
+            <form class="m-0" action="{{route('appartement.update', $appartement->id)}}" method="POST">
+                @csrf
+                @method('PUT')
+
+                <!-- @include('amrani.pages.common.upload') -->
+                @include('amrani.pages.common.client', ['client'=>$appartement->client, 'intermediaire'=>$appartement->intermediaire])
+
+                <div class="w-full lg:w-4/6 mx-auto bg-white my-5 rounded border pb-4 shadow-sm">
+
+                    @include('components.ui.title', ['title'=>'Appartement / شقة'])
+                    <hr>
+
+                    <div class="flex items-center block gap-4 mb-4 mt-4">
+                        <label class="w-1/5 text-right text-gray-500 text-sm" for="appartement_code">Code Appartement</label>
+                        <input readonly value="{{$appartement->appartement_code}}" class="form-input bg-green-100 font-bold" type="text" name="appartement_code" required>
+                    </div>
+                    
+                    <div class="flex items-center block gap-4 mb-4 flex-1">
+                        <label class="w-1/5 text-right text-gray-500 text-sm" for="appartement_etat">Etat</label>
+                        <select class="form-input w-3/5" name="appartement_etat">
+                            <option value="-1">-- Etats --</option> 
+                            @foreach ($etats as $etat)
+                                <option @if($etat == $appartement->appartement_etat) selected @endif value="{{$etat}}">{{$etat}}</option>    
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="flex items-center block gap-4 mb-4 flex-1">
+                        <label class="w-1/5 text-right text-gray-500 text-sm" for="appartement_type">Type</label>
+                        <select class="form-input w-3/5" name="appartement_type">
+                            <option value="-1">-- Types --</option> 
+                            @foreach ($types as $type)
+                                <option @if($type == $appartement->appartement_type) selected @endif value="{{$type}}">{{$type}}</option>    
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="flex items-center block gap-4 mb-4 flex-1">
+                        <label class="w-1/5 text-right text-gray-500 text-sm" for="appartement_situation">Situation</label>
+                        <select class="form-input w-3/5" name="appartement_situation">
+                            <option value="-1">-- Situation --</option> 
+                            @foreach ($situations as $situation)
+                                <option @if($situation == $appartement->appartement_situation) selected @endif value="{{$situation}}">{{$situation}}</option>    
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="flex items-center block gap-4 mb-4 flex-1">
+                        <label class="w-1/5 text-right text-gray-500 text-sm" for="appartement_situation">Facades</label>
+                        <select class="facade form-input w-3/5" name="appartement_facade">
+                            <option value="-1">-- Facade --</option> 
+                            @foreach ($facades as $facade)
+                                <option @if($facade == $appartement->appartement_facade) selected @endif value="{{$facade}}">{{$facade}}</option>    
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="largeur @if($appartement->appartement_facade != 'Rue') hidden @endif flex items-center block gap-4 mb-4">
+                        <label class="w-1/5 text-right text-gray-500 text-sm" for="appartement_etage">Largeur</label>
+                        <input value="{{$appartement->largeur_1}}" placeholder="0" class="form-input w-16 text-center" type="text" name="largeur_1">
+                        <input value="{{$appartement->largeur_2}}" placeholder="0" class="form-input w-16 text-center" type="text" name="largeur_2">
+                        <input value="{{$appartement->largeur_3}}" placeholder="0" class="form-input w-16 text-center" type="text" name="largeur_3">
+                    </div> 
+                    <div class="flex items-center block gap-4 mb-4">
+                        <label class="w-1/5 text-right text-gray-500 text-sm" for="appartement_etage">Etage</label>
+                        <input value="" placeholder="0" class="form-input" type="text" name="appartement_etage">
+                    </div>
+                    <div class="flex items-center block gap-4 mb-4">
+                        <label class="w-1/5 text-right text-gray-500 text-sm" for="appartements_en_etage">App. / Etage</label>
+                        <input value="" placeholder="0" class="form-input" type="text" name="appartements_en_etage">
+                    </div>
+                    <div class="flex items-center block gap-4 mb-4">
+                        <label class="w-1/5 text-right text-gray-500 text-sm" for="appartements_en_immeuble">App. / immeuble</label>
+                        <input value="" placeholder="0" class="form-input" type="text" name="appartements_en_immeuble">
+                    </div>
+                    <div class="flex items-center block gap-4 mb-4">
+                        <label class="w-1/5 text-right text-gray-500 text-sm" for="surface">Surface</label>
+                        <input value="" placeholder="0" class="form-input" type="text" name="surface">
+                    </div>
+
+                    <div class="flex items-center block gap-4 mb-4">
+                        <label class="w-1/5 text-right text-gray-500 text-sm" for="ascenseur">Ascenseur</label>
+                        <input value="" placeholder="0" class="form-input" type="text" name="ascenseur">
+                    </div>
+                    <div class="flex items-center block gap-4 mb-4">
+                        <label class="w-1/5 text-right text-gray-500 text-sm" for="parking">Place Parking</label>
+                        <input value="" placeholder="0" class="form-input" type="text" name="parking">
+                    </div>
+
+                    <div class="flex items-center block gap-4 mb-4">
+                        <label class="w-1/5 text-right text-gray-500 text-sm" for="nbr_chambre">Nbr. Chambres</label>
+                        <input value="" placeholder="0" class="form-input" type="text" name="nbr_chambre">
+                    </div>
+
+                    <div class="flex items-center block gap-4 mb-4">
+                        <label class="w-1/5 text-right text-gray-500 text-sm" for="nbr_salon">Nbr. Salons</label>
+                        <input value="" placeholder="0" class="form-input" type="text" name="nbr_salon">
+                    </div>
+                    <div class="flex items-center block gap-4 mb-4">
+                        <label class="w-1/5 text-right text-gray-500 text-sm" for="nbr_facade">Nbr. Facades</label>
+                        <input value="" placeholder="0" class="form-input" type="text" name="nbr_facade">
+                    </div>
+
+                    <div class="flex items-center block gap-4 mb-4">
+                        <label class="w-1/5 text-right text-gray-500 text-sm" for="nbr_patio">nbr. Patios</label>
+                        <input value="" placeholder="0" class="form-input" type="text" name="nbr_patio">
+                    </div>
+
+                    <div class="flex items-center block gap-4 mb-4">
+                        <label class="w-1/5 text-right text-gray-500 text-sm" for="nbr_toilette">Nbr. Toilettes</label>
+                        <input value="" placeholder="0" class="form-input" type="text" name="nbr_toilette">
+                    </div>
+
+                    <div class="flex items-center block gap-4 mb-4">
+                        <label class="w-1/5 text-right text-gray-500 text-sm" for="nbr_cuisine">Nbr. Cuisines</label>
+                        <input value="" placeholder="0" class="form-input" type="text" name="nbr_cuisine">
+                    </div>
+
+                    <div class="flex items-center block gap-4 mb-4">
+                        <label class="w-1/5 text-right text-gray-500 text-sm" for="prix_metre">Prix / M</label>
+                        <input value="" placeholder="0" class="form-input bg-red-50" type="text" name="prix_metre">
+                        <span class="text-xs text-gray-500">DH</span>
+                    </div>
+
+                    <div class="flex items-center block gap-4 mb-4">
+                        <label class="w-1/5 text-right text-gray-500 text-sm" for="prix_total">Prix Total</label>
+                        <input value="" placeholder="0" class="form-input bg-blue-50" type="text" name="prix_total">
+                        <span class="text-xs text-gray-500">DH</span>
+                    </div>
+                    <hr>
+
+                    <div class="flex justify-center lg:justify-start items-center block gap-4 mt-4">
+                        <div class="lg:block lg:w-1/5 hidden"></div>
+                        <button class="py-2 px-4 border rounded-lg bg-green-500 text-white center"><i class="far fa-save"></i> Enregistrer</button>
+                    </div>
+                </div>
+            </form>
+            
+        </div>
+    </div>
+
+</div>
+
+<script>
+    $(document).ready(function(){
+        $('.facade').on('change', function(){
+            if($(this).val() == 'Rue'){
+                $('.largeur').removeClass('hidden');
+            }else{
+                $('.largeur').addClass('hidden')
+            }
+        })
+    });
+</script>
+
 @endsection

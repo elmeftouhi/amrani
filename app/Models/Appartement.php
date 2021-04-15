@@ -38,4 +38,12 @@ class Appartement extends Model
         'created_at',
         'updated_at'
     ];
+
+    public function client(){
+        return $this->belongsTo(Client::class);
+    }
+    public function intermediaire(){
+        return $this->belongsTo(intermediaire::class);
+    }
+
 }

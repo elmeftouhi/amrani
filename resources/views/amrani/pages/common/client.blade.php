@@ -10,7 +10,11 @@
     <div class="flex items-center block gap-4 mb-4 mt-4">
         <label class="w-1/5 text-right text-gray-500 text-sm" for=""></label>
         <div class="relative w-3/5">
-            @include('components.ui.switch', ['title'=>'Intermediaire / صمصار', 'name'=>'is_intermediaire'])
+            @if(isset($intermediaire))
+               @include('components.ui.switch', ['title'=>'Intermediaire / وسيط', 'name'=>'is_intermediaire', 'checked'=>'checked']) 
+            @else
+               @include('components.ui.switch', ['title'=>'Intermediaire / وسيط', 'name'=>'is_intermediaire', 'checked'=>'']) 
+            @endif
         </div>
     </div>
 
@@ -18,7 +22,7 @@
     <div class="flex items-center block gap-4 mb-4 ">
         <label class="w-1/5 text-right text-gray-500 text-sm" for="client_name">Nom Client</label>
         <div class="relative w-3/5">
-            <input autocomplete="off" class="form-input w-full form-input-search" type="text" id="client_name" name="client_name" required>
+            <input @isset($intermediaire) value="{{$intermediaire->intermediaire_name}}" @endisset @isset($client) value="{{$client->client_name}}" @endisset autocomplete="off" class="form-input w-full form-input-search" type="text" id="client_name" name="client_name" required>
             <span class="absolute top-0 right-0 p-2 mr-2 text-gray-400 cursor-pointer hover:text-gray-600"><i class="fas fa-search"></i></span>
             <div class="form-input-search-result hidden absolute top-0 left-0 z-10 bg-blue-50 border w-full max-h-48 py-2 px-2 mt-8 overflow-y-auto shadow-lg">
             </div>                            
@@ -30,6 +34,9 @@
     <div class="flex items-center block gap-4 mb-4">
         <label class="w-1/5 text-right text-gray-500 text-sm" for="client_category_id">Category</label>
         <select disabled class="bg-gray-200 form-input w-3/5" id="client_category_id" name="client_category_id">
+            @isset($intermediaire)
+                
+            @endisset
         @foreach ($client_categories as $category)
             <option value="{{$category->id}}" @if ($category->is_default) data-default="1" selected @endif>{{$category->client_category}}</option>
         @endforeach
