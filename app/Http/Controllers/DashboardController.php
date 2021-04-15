@@ -12,7 +12,7 @@ class DashboardController extends Controller
     public function index()
     {
         return view('amrani.dashboard.index')->with([
-            'activities'    =>  Activity::orderBy('created_at', 'desc')->get()
+            'activities'    =>  Activity::orderBy('created_at', 'desc')->paginate(5)
         ]);
     }
 
