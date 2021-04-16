@@ -1,7 +1,8 @@
 <div class="vertical_menu flex flex-col justify-between min-w-48 w-48 h-full bg-gradient-to-r from-gray-100 to-gray-200 border-r border-gray-300 pb-4 overflow-y-auto" style="min-width: 185px">
     <div class="">
         <div class="flex items-center border-b border-gray-300 px-4 h-14 mb-2">
-            <img class="w-8 mr-2" src="http://adminmart.com/src/assets/images/logo-icon.png" alt="">
+            <!-- http://adminmart.com/src/assets/images/logo-icon.png -->
+            <img class="w-8 mr-2" src="{{Storage::url("images/logo.png")}}" alt="">
             <div class="text-gray-100 text-lg text-gray-800">
                 <span class="font-bold text-sm">Agence</span> 
                 <span class="text-sm">Amrani</span>

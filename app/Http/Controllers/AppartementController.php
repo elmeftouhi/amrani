@@ -135,7 +135,13 @@ class AppartementController extends Controller
      */
     public function update(Request $request, Appartement $appartement)
     {
-        //
+        $validated = $request->validate([
+            'appartement_code'           => 'required|max:10',
+            'client_name'                => 'required|string|max:255'
+        ]);
+
+        $appartement->update($request->all());
+        return redirect()->route('appartement.index');
     }
 
     /**
@@ -146,6 +152,7 @@ class AppartementController extends Controller
      */
     public function destroy(Appartement $appartement)
     {
-        //
+        $appartement->delete();
+        return redirect()->route('appartement.index');
     }
 }

@@ -13,12 +13,14 @@
                     <thead>
                         <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
                             <th class="py-3 px-6 text-left cursor-pointer">#CODE</th>
+                            <th class="py-3 px-6 text-left cursor-pointer">Client/Inter.</th>
                             <th class="py-3 px-6 text-left cursor-pointer">Type</th>
                             <th class="py-3 px-6 text-left cursor-pointer">Etat</th>
                             <th class="py-3 px-6 text-left cursor-pointer">Situation</th>
                             <th class="py-3 px-6 text-left cursor-pointer">Etage</th>
                             <th class="py-3 px-6 text-center cursor-pointer">App/Etage</th>
-                            <th class="py-3 px-6 text-center">Actions</th>
+                            <th class="py-3 px-6 text-right cursor-pointer">Prix</th>
+                            <th class="py-3 px-2 text-center"></th>
                         </tr>
                     </thead>
                     <tbody class="text-gray-600 text-sm font-light">
@@ -27,6 +29,18 @@
                                 <td class="py-3 px-6 text-left">
                                     <div class="flex items-center">
                                         <span class="font-medium">{{$appartement->appartement_code}}</span>
+                                    </div>
+                                </td>
+                                <td class="py-3 px-6 text-left">
+                                    <div class="flex items-center">
+                                        <span class="font-medium">
+                                            @if ($appartement->client_id)
+                                                {{$appartement->client->client_name}}
+                                            @else
+                                               {{$appartement->intermediaire->intermediaire_name}} 
+                                            @endif
+                                            
+                                        </span>
                                     </div>
                                 </td>
                                 <td class="py-3 px-6 text-left">
@@ -54,17 +68,21 @@
                                         {{$appartement->appartements_en_etage}}
                                     </div>
                                 </td>
-                                <td class="py-3 px-6 text-center">
-                                    <div class="flex item-center justify-center">
-                                        <div class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
-                                            @include('amrani.pages.appartement.partials.btn-show')
-                                        </div>
-                                        <div class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
-                                            @include('amrani.pages.appartement.partials.btn-delete')
-                                        </div>
+                                <td class="py-3 px-6 text-right text-pink-700 font-bold">
+                                    @money($appartement->prix_total) <span style="font-size: 8px" class="font-light">MAD</span>
+                                </td>
+                                <td class="py-3 text-right" style="width: 90px">
+                                    <div class="flex justify-end pt-2">
                                         <div class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
                                             @include('amrani.pages.appartement.partials.btn-edit')
                                         </div>
+                                        <form action="{{route('appartement.destroy', $appartement->id)}}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="destroy_appartement w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
+                                                @include('amrani.pages.appartement.partials.btn-delete')
+                                            </button>
+                                        </form>
                                     </div>
                                 </td>
                             </tr>
@@ -75,3 +93,27 @@
         </div>
     </div>
 </div>
+<script>
+
+
+    $(document).ready(function(){
+        $('.destroy_appartement').on('click', function(e){
+            e.preventDefault();
+            var that = $(this);
+            Swal.fire({
+                title: 'Supprimer?',
+                icon: 'warning',
+                showDenyButton: true,
+                showCancelButton: false,
+                confirmButtonText: `Supprimer`,
+                denyButtonText: `Annuler`,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    that.closest( "form" ).submit();
+                }
+            }
+            );
+        });
+    });
+    
+    </script>
