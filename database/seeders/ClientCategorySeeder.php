@@ -29,7 +29,15 @@ class ClientCategorySeeder extends Seeder
                 'is_default'    =>  0
             ],
             [
-                'client_category'   => 'Divers',
+                'client_category'   => 'Promoteur',
+                'is_default'    =>  0
+            ],
+            [
+                'client_category'   => 'Etranger',
+                'is_default'    =>  0
+            ],
+            [
+                'client_category'   => 'Marocains',
                 'is_default'    =>  0
             ]
         ]);
