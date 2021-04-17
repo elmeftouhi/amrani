@@ -91,6 +91,7 @@ class AppartementController extends Controller
 
         $request->merge([
             'appartements_en_etage' => $request->appartements_en_etage? $request->appartements_en_etage:0,
+            'is_demande' => $request->is_demande? true:false,
         ]);
         Appartement::create($request->all());
         return redirect()->route('appartement.index');
@@ -139,7 +140,10 @@ class AppartementController extends Controller
             'appartement_code'           => 'required|max:10',
             'client_name'                => 'required|string|max:255'
         ]);
-
+        $request->merge([
+            'appartements_en_etage' => $request->appartements_en_etage? $request->appartements_en_etage:0,
+            'is_demande' => $request->is_demande? true:false,
+        ]);
         $appartement->update($request->all());
         return redirect()->route('appartement.index');
     }

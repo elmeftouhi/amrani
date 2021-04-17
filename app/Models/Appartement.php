@@ -39,6 +39,7 @@ class Appartement extends Model
         'prix_declaration',
         'client_id',
         'intermediaire_id',
+        'is_demande',
         'created_at',
         'updated_at'
     ];

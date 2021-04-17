@@ -13,70 +13,51 @@
                     <thead>
                         <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
                             <th class="py-3 px-6 text-left cursor-pointer">#CODE</th>
-                            <th class="py-3 px-6 text-left cursor-pointer">Client/Inter.</th>
-                            <th class="py-3 px-6 text-left cursor-pointer">Type</th>
-                            <th class="py-3 px-6 text-left cursor-pointer">Etat</th>
                             <th class="py-3 px-6 text-left cursor-pointer">Situation</th>
-                            <th class="py-3 px-6 text-left cursor-pointer">Etage</th>
-                            <th class="py-3 px-6 text-center cursor-pointer">App/Etage</th>
+                            <th class="py-3 px-6 text-center cursor-pointer">Etage</th>
+                            <th class="py-3 px-6 text-center cursor-pointer">Surface</th>
+                            <th class="py-3 px-6 text-center cursor-pointer">Nbr. Chambre</th>
                             <th class="py-3 px-6 text-right cursor-pointer">Prix</th>
                             <th class="py-3 px-2 text-center"></th>
                         </tr>
                     </thead>
                     <tbody class="text-gray-600 text-sm font-light">
                         @foreach ($appartements as $appartement)
-                            <tr class="border-b border-gray-200 bg-white hover:bg-gray-100">
-                                <td class="py-3 px-6 text-left">
+                            <tr class="border-b border-gray-200 bg-white hover:bg-gray-100 @if($appartement->is_demande) bg-green-50  @endif">
+                                <td class="py-1 px-6 text-left">
                                     <div class="flex items-center">
                                         <span class="font-medium">{{$appartement->appartement_code}}</span>
                                     </div>
                                 </td>
-                                <td class="py-3 px-6 text-left">
+                                <td class="py-1 px-6 text-left">
                                     <div class="flex items-center">
-                                        <span class="font-medium">
-                                            @if ($appartement->client_id)
-                                                {{$appartement->client->client_name}}
-                                            @else
-                                               {{$appartement->intermediaire->intermediaire_name}} 
-                                            @endif
-                                            
-                                        </span>
+                                        <span class="font-medium">{{$appartement->appartement_situation}}</span>
                                     </div>
                                 </td>
-                                <td class="py-3 px-6 text-left">
-                                    <div class="flex items-center">
-                                        <span class="font-medium">{{$appartement->appartement_type}}</span>
+                                <td class="py-1 px-6 text-center">
+                                    <div class="font-bold">
+                                        <span class="font-medium">{{$appartement->appartement_etage}}</span>
                                     </div>
                                 </td>
-                                <td class="py-3 px-6 text-left">
-                                    <div class="flex items-center">
-                                        <span class="font-medium">{{$appartement->appartement_etat}}</span>
+                                <td class="py-1 px-6 text-center">
+                                    <div class="font-bold">
+                                        {{$appartement->surface}}
                                     </div>
                                 </td>
-                                <td class="py-3 px-6 text-left">
-                                    <div class="flex items-center">
-                                        {{$appartement->appartement_situation}}
+                                <td class="py-1 px-6 text-center">
+                                    <div class="font-bold">
+                                        {{$appartement->nbr_chambre}}
                                     </div>
                                 </td>
-                                <td class="py-3 px-6 text-left">
-                                    <div class="flex items-center">
-                                        {{$appartement->appartement_etage}}
-                                    </div>
-                                </td>
-                                <td class="py-3 px-6 text-left">
-                                    <div class="flex items-center">
-                                        {{$appartement->appartements_en_etage}}
-                                    </div>
-                                </td>
-                                <td class="py-3 px-6 text-right text-pink-700 font-bold">
+                                <td class="py-1 px-6 text-right text-pink-700 font-bold">
                                     @money($appartement->prix_total) <span style="font-size: 8px" class="font-light">MAD</span>
                                 </td>
-                                <td class="py-3 text-right" style="width: 90px">
-                                    <div class="flex justify-end pt-2">
-                                        <div class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
+                                <td class="py-1 text-right" style="width: 90px">
+                                    <div class="flex justify-end pt-1">
+                                        <div class="pt-1 w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
                                             @include('amrani.pages.appartement.partials.btn-edit')
                                         </div>
-                                        <form action="{{route('appartement.destroy', $appartement->id)}}" method="POST">
+                                        <form class="pt-1 " action="{{route('appartement.destroy', $appartement->id)}}" method="POST">
                                             @csrf
                                             @method('DELETE')
                                             <button class="destroy_appartement w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
