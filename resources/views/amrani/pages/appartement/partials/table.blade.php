@@ -14,7 +14,7 @@
                         @endforeach
                     </select>
                 </div>
-                <a href="{{ route('appartement.create') }}" class="border px-4 py-1 rounded-lg bg-blue-400 hover:bg-gray-400 text-white text-sm"><i class="fas fa-user-plus"></i> Ajouter</a>
+                <a href="{{ route('appartement.create') }}" class="border px-4 py-1 rounded-lg bg-blue-400 hover:bg-gray-400 text-white text-sm"><i class="far fa-building"></i> Ajouter</a>
             </div>
             <div class="bg-white shadow-md rounded my-6">
                 <table class="min-w-max w-full table-auto">
