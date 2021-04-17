@@ -68,7 +68,7 @@ $(document).ready(function(){
     $('.reload').on('click', function(){
 
         var loader = `
-            <div class="absolute bottom-0 top-0 left-0 right-0 bg-red-100 bg-opacity-40">
+            <div class="loader absolute bottom-0 top-0 left-0 right-0 bg-red-100 bg-opacity-40">
                 <div class="w-24 mx-auto mt-24 text-center">
                     <i class="fas fa-sync fa-spin"></i>
                 </div>
@@ -90,6 +90,9 @@ $(document).ready(function(){
                     }else{
                         $('.images').append('<img class="border-2 bg-contain bg-center max-h-60 my-2 mr-4" src="' + response[i] + '">');
                     }
+                }
+                if(response.length==0){
+                    $('.loader').remove();
                 }
             }
         });
