@@ -19,7 +19,7 @@
             @endif
             <form class="m-0 w-full" action="{{route('appartement.store')}}" method="POST">
                 @csrf
-                @include('amrani.pages.common.upload')
+                @include('amrani.pages.common.upload', ['folder'=>'appartements/'.$code_appartement])
                 @include('amrani.pages.common.client')
 
                 <div class="w-full lg:w-4/6 mx-auto bg-white my-5 rounded border pb-4 shadow-sm">
@@ -29,7 +29,7 @@
 
                     <div class="flex items-center block gap-4 mb-4 mt-4">
                         <label class="w-1/5 text-right text-gray-500 text-sm" for="appartement_code">Code Appartement</label>
-                        <input readonly value="{{$code_appartement}}" class="form-input bg-green-100 font-bold" type="text" name="appartement_code" required>
+                        <input id="appartement_code" readonly value="{{$code_appartement}}" class="form-input bg-green-100 font-bold" type="text" name="appartement_code" required>
                     </div>
                     
                     <div class="flex items-center block gap-4 mb-4 flex-1">
