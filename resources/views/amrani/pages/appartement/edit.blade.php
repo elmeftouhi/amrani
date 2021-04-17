@@ -21,7 +21,7 @@
                 @csrf
                 @method('PUT')
 
-                <!-- @include('amrani.pages.common.upload') -->
+                @include('amrani.pages.common.upload', ['folder'=>'appartements/'.$appartement->appartement_code])
                 @include('amrani.pages.common.client', ['client'=>$appartement->client, 'intermediaire'=>$appartement->intermediaire])
 
                 <div class="w-full lg:w-4/6 mx-auto bg-white my-5 rounded border pb-4 shadow-sm">
