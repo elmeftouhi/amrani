@@ -40,7 +40,7 @@ class CreateAppartementsTable extends Migration
             $table->integer('prix_declaration')->default(0)->nullable();
             $table->integer('client_id');
             $table->integer('intermediaire_id');
-            $table->boolean('is_demande');
+            $table->integer('appartement_service_id');
             $table->timestamps();
             $table->softDeletes();
         });

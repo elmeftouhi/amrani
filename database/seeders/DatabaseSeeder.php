@@ -18,7 +18,8 @@ class DatabaseSeeder extends Seeder
             ClientStatusSeeder::class,
             ClientCategorySeeder::class, 
             IntermediaireStatusSeeder::class,
-            IntermediaireCategorySeeder::class
+            IntermediaireCategorySeeder::class,
+            AppartementServiceSeeder::class
         ]);
         \App\Models\Client::factory(414)->create();
         \App\Models\Intermediaire::factory(365)->create();

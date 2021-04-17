@@ -39,7 +39,7 @@ class Appartement extends Model
         'prix_declaration',
         'client_id',
         'intermediaire_id',
-        'is_demande',
+        'appartement_service_id',
         'created_at',
         'updated_at'
     ];
@@ -49,6 +49,9 @@ class Appartement extends Model
     }
     public function intermediaire(){
         return $this->belongsTo(Intermediaire::class);
+    }
+    public function service(){
+        return $this->belongsTo(AppartementService::class, 'appartement_service_id', 'id');
     }
 
 }

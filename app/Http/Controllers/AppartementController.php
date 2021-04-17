@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Appartement;
+use App\Models\AppartementService;
 use App\Models\Client;
 use App\Models\ClientCategory;
 use App\Models\ClientStatus;
@@ -19,7 +20,8 @@ class AppartementController extends Controller
     public function index()
     {
         return view('amrani.pages.appartement.index')->with([
-            'appartements'   =>  Appartement::all()
+            'appartements'   =>  Appartement::all(),
+            'services'      =>      AppartementService::all()
         ]);
     }
 
@@ -31,11 +33,12 @@ class AppartementController extends Controller
     public function create()  
     {   
         $client = new ClientController;
-        $lastID = 'APP' . str_pad( (Appartement::max('id') + 1) , 5, 0, STR_PAD_LEFT );
+        $lastID = 'APP' . (Appartement::max('id') + 1);
         return view('amrani.pages.appartement.create')->with([
             'code_client'           =>  $client->newCodeClient(),
             'client_categories'     =>  ClientCategory::all(),
             'client_statuses'       =>  ClientStatus::all(),
+            'services'              =>  AppartementService::all(),
             'facades'               =>  ['Rue', 'Pation', 'Place', 'Piscine', 'Sur Mer'],
             'etats'                 =>  ['Nouveau', 'Habite'],
             'types'                 =>  ['Appartement', 'Duplexe'],
@@ -54,7 +57,8 @@ class AppartementController extends Controller
     {
         $request->validate([
             'appartement_code'           => 'required|max:10',
-            'client_name'                => 'required|string|max:255'
+            'client_name'                => 'required|string|max:255',
+            'appartement_service_id'     => 'required|integer|min:1'
         ]);
 
         if($request->is_intermediaire){
@@ -91,7 +95,6 @@ class AppartementController extends Controller
 
         $request->merge([
             'appartements_en_etage' => $request->appartements_en_etage? $request->appartements_en_etage:0,
-            'is_demande' => $request->is_demande? true:false,
         ]);
         Appartement::create($request->all());
         return redirect()->route('appartement.index');
@@ -119,6 +122,7 @@ class AppartementController extends Controller
         return view('amrani.pages.appartement.edit')->with([
             'client_categories'     =>  ClientCategory::all(),
             'client_statuses'       =>  ClientStatus::all(),
+            'services'              =>  AppartementService::all(),
             'facades'               =>  ['Rue', 'Pation', 'Place', 'Piscine', 'Sur Mer'],
             'etats'                 =>  ['Nouveau', 'Habite'],
             'types'                 =>  ['Appartement', 'Duplexe'],

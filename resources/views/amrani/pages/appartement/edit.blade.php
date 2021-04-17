@@ -34,16 +34,15 @@
                         <input readonly value="{{$appartement->appartement_code}}" class="form-input bg-green-100 font-bold" type="text" name="appartement_code" required>
                     </div>
                     
-                    <div class="flex items-center block gap-4 mb-4">
-                        <label class="w-1/5 text-right text-gray-500 text-sm" for=""></label>
-                        <div class="relative w-3/5">
-                            @if($appartement->is_demande) 
-                                @include('components.ui.switch', ['title'=>'Cocher s\'il s\'agit d\'un Offre', 'name'=>'is_demande', 'checked'=>'checked'])
-                            @else
-                                @include('components.ui.switch', ['title'=>'Cocher s\'il s\'agit d\'un Offre', 'name'=>'is_demande', 'checked'=>''])
-                            @endif
-                        </div>
-                    </div>
+                    <div class="flex items-center block gap-4 mb-4 flex-1">
+                        <label class="w-1/5 text-right text-gray-500 text-sm" for="appartement_service_id">Services</label>
+                        <select class="form-input w-3/5" name="appartement_service_id">
+                            <option value="-1">-- Services --</option> 
+                            @foreach ($services as $service)
+                                <option @if($service->id == $appartement->appartement_service_id) selected @endif value="{{$service->id}}">{{$service->appartement_service}}</option>    
+                            @endforeach
+                        </select>
+                    </div>  
 
                     <div class="flex items-center block gap-4 mb-4 flex-1">
                         <label class="w-1/5 text-right text-gray-500 text-sm" for="appartement_etat">Etat</label>
