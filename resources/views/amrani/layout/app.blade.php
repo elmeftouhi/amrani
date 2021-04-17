@@ -15,10 +15,11 @@
         <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
         <!-- Styles -->
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
-
+        @yield('css')
         <!-- Scripts -->
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="{{ mix('js/app.js') }}" defer></script>
+        @yield('js')
     </head>
     <body class="" style="font-family: 'Nunito', sans-serif;">
         <div class="max-h-full h-full bg-gray-100 flex">

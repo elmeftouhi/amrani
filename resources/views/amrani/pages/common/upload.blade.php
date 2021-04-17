@@ -1,3 +1,8 @@
+@section('css') <link rel="stylesheet" href="{{ asset('css/magnific-popup.css') }}"> @endsection
+
+@section('js') <script src="{{ asset('js/magnific-popup-min.js') }}" defer></script> @endsection
+
+
 <div class="w-full lg:w-4/6 mx-auto bg-white my-5 rounded border shadow-sm">
     <div class="flex items-center justify-between bg-gray-50">
         @include('components.ui.title', ['title'=>'Upload Image'])
@@ -9,7 +14,7 @@
     <hr>
 
     <div class="bg-gray-300">
-        <div class="w-auto h-60 relative flex images overflow-x-auto px-2"></div>    
+        <div class="w-auto relative flex images overflow-x-auto px-2"></div>    
     </div>
 
 
@@ -85,10 +90,11 @@ $(document).ready(function(){
             method: 'POST',
             success: function(response){
                 for (let i = 0; i < response.length; i++) {
-                    if(i === 0){
-                        $('.images').html('<img class="border-2 bg-contain bg-center max-h-60 my-2 mr-4" src="' + response[i] + '">');
+                    if(i==0){
+                        $('.images').html('<a href="' + response[i] + '"><img class="border-2 bg-contain bg-center max-h-24 my-2 mr-4" src="' + response[i] + '"> </a>');
                     }else{
-                        $('.images').append('<img class="border-2 bg-contain bg-center max-h-60 my-2 mr-4" src="' + response[i] + '">');
+                        $('.images').append('<a href="' + response[i] + '"><img class="border-2 bg-contain bg-center max-h-24 my-2 mr-4" src="' + response[i] + '"> </a>');
+
                     }
                 }
                 if(response.length==0){
@@ -100,6 +106,18 @@ $(document).ready(function(){
 
     $('.reload').trigger('click');
 
+
+    $('.images').magnificPopup({
+        delegate: 'a', // child items selector, by clicking on it popup will open
+        type: 'image',
+        gallery: {
+            enabled: true,
+        },
+        zoom: {
+            enabled: true,
+        }
+        // other options
+    });
 });
 
 </script>
