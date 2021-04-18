@@ -19,9 +19,13 @@ class DatabaseSeeder extends Seeder
             ClientCategorySeeder::class, 
             IntermediaireStatusSeeder::class,
             IntermediaireCategorySeeder::class,
-            AppartementServiceSeeder::class
+            AppartementServiceSeeder::class,
+            CitySeeder::class,
+            CitySectorSeeder::class
         ]);
         \App\Models\Client::factory(414)->create();
         \App\Models\Intermediaire::factory(365)->create();
+        // $this->call(CityTableSeeder::class);
+        // $this->call(CitySectorTableSeeder::class);
     }
 }
