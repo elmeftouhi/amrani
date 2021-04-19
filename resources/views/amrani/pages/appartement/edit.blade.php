@@ -45,6 +45,11 @@
                     </div>  
 
                     <div class="flex items-center block gap-4 mb-4 flex-1">
+                        <label class="w-1/5 text-right text-gray-500 text-sm" for="appartement_service_id">Ville</label>
+                        @include('amrani.pages.common.city', ['cities'=>$cities, 'city_id'=>$appartement->city_id])
+                    </div> 
+
+                    <div class="flex items-center block gap-4 mb-4 flex-1">
                         <label class="w-1/5 text-right text-gray-500 text-sm" for="appartement_etat">Etat</label>
                         <select class="form-input w-3/5" name="appartement_etat">
                             <option value="-1">-- Etats --</option> 

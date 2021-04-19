@@ -1,11 +1,13 @@
 <?php
 
 use App\Http\Controllers\AppartementController;
+use App\Http\Controllers\CitySectorController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\IntermediaireController;
+use App\Models\CitySector;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
@@ -23,4 +25,6 @@ Route::post('file/upload', [FileUploadController::class, 'upload'])->name('file.
 Route::post('file/read', [FileUploadController::class, 'getFiles'])->name('file.read');
 
 Route::get('/user', [ UserController::class, 'index' ])->name('user.index');
+
+Route::get('/city/sectors/{id_city}', [CitySectorController::class, 'getByCity'])->name('sectors.list');
 

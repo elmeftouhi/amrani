@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Appartement;
 use App\Models\AppartementService;
+use App\Models\City;
 use App\Models\Client;
 use App\Models\ClientCategory;
 use App\Models\ClientStatus;
@@ -39,6 +40,7 @@ class AppartementController extends Controller
             'client_categories'     =>  ClientCategory::all(),
             'client_statuses'       =>  ClientStatus::all(),
             'services'              =>  AppartementService::all(),
+            'cities'                =>  City::all(),
             'facades'               =>  ['Rue', 'Pation', 'Place', 'Piscine', 'Sur Mer'],
             'etats'                 =>  ['Nouveau', 'Habite'],
             'types'                 =>  ['Appartement', 'Duplexe'],
@@ -95,6 +97,8 @@ class AppartementController extends Controller
 
         $request->merge([
             'appartements_en_etage' => $request->appartements_en_etage? $request->appartements_en_etage:0,
+            'city_id' => $request->city_id? $request->city_id:-1,
+            'city_sector_id' => $request->city_sector_id? $request->city_sector_id:-1,
         ]);
         Appartement::create($request->all());
         return redirect()->route('appartement.index');
@@ -123,6 +127,7 @@ class AppartementController extends Controller
             'client_categories'     =>  ClientCategory::all(),
             'client_statuses'       =>  ClientStatus::all(),
             'services'              =>  AppartementService::all(),
+            'cities'                =>  City::all(),
             'facades'               =>  ['Rue', 'Pation', 'Place', 'Piscine', 'Sur Mer'],
             'etats'                 =>  ['Nouveau', 'Habite'],
             'types'                 =>  ['Appartement', 'Duplexe'],

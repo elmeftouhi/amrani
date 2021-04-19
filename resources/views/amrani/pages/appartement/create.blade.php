@@ -40,7 +40,13 @@
                                 <option value="{{$service->id}}">{{$service->appartement_service}}</option>    
                             @endforeach
                         </select>
-                    </div>                    
+                    </div>  
+                                      
+                    <div class="flex items-center block gap-4 mb-4 flex-1">
+                        <label class="w-1/5 text-right text-gray-500 text-sm" for="appartement_service_id">Ville</label>
+                        @include('amrani.pages.common.city', ['cities'=>$cities])
+                    </div> 
+                    
 
                     <div class="flex items-center block gap-4 mb-4 flex-1">
                         <label class="w-1/5 text-right text-gray-500 text-sm" for="appartement_etat">Etat</label>

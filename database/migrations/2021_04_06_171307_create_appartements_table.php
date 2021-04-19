@@ -39,6 +39,8 @@ class CreateAppartementsTable extends Migration
             $table->integer('prix_total')->default(0)->nullable();
             $table->integer('prix_declaration')->default(0)->nullable();
             $table->integer('client_id');
+            $table->integer('city_id');
+            $table->integer('city_sector_id');
             $table->integer('intermediaire_id');
             $table->integer('appartement_service_id');
             $table->timestamps();

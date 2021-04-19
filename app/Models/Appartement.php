@@ -39,6 +39,8 @@ class Appartement extends Model
         'prix_declaration',
         'client_id',
         'intermediaire_id',
+        'city_id',
+        'city_sector_id',
         'appartement_service_id',
         'created_at',
         'updated_at'
