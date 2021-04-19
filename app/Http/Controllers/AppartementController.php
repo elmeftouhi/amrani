@@ -22,7 +22,8 @@ class AppartementController extends Controller
     {
         return view('amrani.pages.appartement.index')->with([
             'appartements'   =>  Appartement::all(),
-            'services'      =>      AppartementService::all()
+            'services'      =>      AppartementService::all(),
+            'cities'                =>  City::all(),
         ]);
     }
 

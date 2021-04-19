@@ -9,9 +9,14 @@
             @endif
         @endforeach
     </select>
-    <select class="form-input" id="city_sector_id" name="city_sector_id">
-        <option value="-1">--Sector</option>
-    </select>
+    <div class="relative w-48">
+        <select class="form-input w-full" id="city_sector_id" name="city_sector_id">
+            <option value="-1">--Sector</option>
+        </select>
+        <div class="loader absolute top-0 right-0 bottom-0 bg-gray-600 bg-opacity-10 z-10 w-full rounded-lg">
+            <i class="fas fa-sync fa-spin mt-2 ml-24"></i>
+        </div>
+    </div>
 </div>
 
 <script>
@@ -20,7 +25,7 @@
             var route = "{{ route('sectors.list', 69) }}";
             var city_id = $(this).val();
             route = route.replace(69, city_id);
-            console.log( route );
+            $('.loader').removeClass('hidden');
             $.get(
                 route ,
                 function(response){
@@ -41,7 +46,7 @@
                         }
                     }
                     clearInterval(timer);
-                    console.log('clear');
+                    $('.loader').addClass('hidden');
                 }
             )
         });

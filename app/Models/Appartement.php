@@ -55,5 +55,12 @@ class Appartement extends Model
     public function service(){
         return $this->belongsTo(AppartementService::class, 'appartement_service_id', 'id');
     }
+    public function city(){
+        return $this->belongsTo(City::class);
+    }
+
+    public function city_sector(){
+        return $this->belongsTo(CitySector::class);
+    }
 
 }

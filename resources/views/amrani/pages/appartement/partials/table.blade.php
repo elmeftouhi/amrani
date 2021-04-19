@@ -3,16 +3,17 @@
         <div class="w-full lg:w-5/6">
             <div class="flex items-center justify-between pt-6">
                 <div class="flex items-center gap-4">
-                    <div class="rounded-lg border overflow-hidden relative">
-                        <input type="text" class="border-0 text-sm w-64" placeholder="Chercher">
-                        <button class="absolute top-0 right-0 m-2 pt-1 text-sm text-gray-400"><i class="fas fa-search"></i></button>
+                    <div class="rounded-lg border border-gray-300 overflow-hidden relative p-0">
+                        <input type="text" class="input-form border-0 text-xs w-64 m-0 h-auto" placeholder="Chercher">
+                        <button class="absolute top-0 right-0 m-2 text-sm text-gray-400"><i class="fas fa-search"></i></button>
                     </div>
-                    <select class="border border-gray-200 py-2 text-sm px-2 pr-6 rounded-md" id="appartement_serivce_id">
+                    <select class="form-input" id="appartement_serivce_id">
                         <option value="-1">Services</option>
                         @foreach ($services as $service)
                         <option value="{{$service->id}}">{{$service->appartement_service}}</option>
                         @endforeach
                     </select>
+                    @include('amrani.pages.common.city', ['cities'=>$cities])
                 </div>
                 <a href="{{ route('appartement.create') }}" class="border px-4 py-1 rounded-lg bg-blue-400 hover:bg-gray-400 text-white text-sm"><i class="far fa-building"></i> Ajouter</a>
             </div>
@@ -23,6 +24,7 @@
                             <th class="py-3 px-6 text-left cursor-pointer">#CODE</th>
                             <th class="py-3 px-6 text-left cursor-pointer">Service</th>
                             <th class="py-3 px-6 text-left cursor-pointer">Situation</th>
+                            <th class="py-3 px-6 text-left cursor-pointer">Ville</th>
                             <th class="py-3 px-6 text-center cursor-pointer">Etage</th>
                             <th class="py-3 px-6 text-center cursor-pointer">Surface</th>
                             <th class="py-3 px-6 text-center cursor-pointer">Nbr. Chambre</th>
@@ -46,6 +48,13 @@
                                 <td class="py-1 px-6 text-left">
                                     <div class="flex items-center">
                                         <span class="font-medium">{{$appartement->appartement_situation}}</span>
+                                    </div>
+                                </td>
+                                <td class="py-1 px-6 text-left">
+                                    <div class="flex items-center">
+                                        <span class="font-medium">
+                                            {{$appartement->city->city_name_fr }} @isset($appartement->city_sector) -> {{$appartement->city_sector->city_sector_name_fr}} @endisset 
+                                       </span>
                                     </div>
                                 </td>
                                 <td class="py-1 px-6 text-center">
