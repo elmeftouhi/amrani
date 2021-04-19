@@ -2,9 +2,17 @@
     <div class="min-w-screen flex items-center justify-center font-sans overflow-hidden bg-gray-100">
         <div class="w-full lg:w-5/6">
             <div class="flex items-center justify-between pt-6">
-                <div class="rounded-lg border overflow-hidden relative">
-                    <input type="text" class="border-0 text-sm w-64" placeholder="Chercher">
-                    <button class="absolute top-0 right-0 m-2 pt-1 text-sm text-gray-400"><i class="fas fa-search"></i></button>
+                <div class="flex items-center gap-4">
+                    <div class="rounded-lg border border-gray-300 overflow-hidden relative p-0">
+                        <input type="text" class="input-form border-0 text-xs w-64 m-0 h-auto" placeholder="Chercher">
+                        <button class="absolute top-0 right-0 m-2 text-sm text-gray-400"><i class="fas fa-search"></i></button>
+                    </div>
+                    <select class="form-input w-40" id="appartement_serivce_id">
+                        <option value="-1">Categories</option>
+                        @foreach ($categories as $category)
+                        <option value="{{$category->id}}">{{$category->client_category}}</option>
+                        @endforeach
+                    </select>
                 </div>
                 <a href="{{ route('client.create') }}" class="border px-4 py-1 rounded-lg bg-blue-400 hover:bg-gray-400 text-white text-sm"><i class="fas fa-user-plus"></i> Ajouter</a>
             </div>
