@@ -124,9 +124,9 @@
                 <div class="w-6"><i class="fas fa-users"></i> </div>
                 Utilisateurs
            </a> 
-           <a href="{{ route('dashboard.index') }}" 
+           <a href="{{ route('params') }}" 
                 class="flex items-center block py-2 px-3 text-sm 
-                @if(Route::currentRouteNamed( 'setting.index' )) 
+                @if(Route::currentRouteNamed( 'params' )) 
                     bg-gray-600 rounded-r-full text-gray-100 pointer-events-none
                 @else 
                     hover:bg-gray-300 cursor-pointer hover:text-gray-800 text-gray-600 @endif "
