@@ -7,14 +7,11 @@ use App\Models\ClientCategory;
 use App\Models\ClientStatus;
 use App\Models\Intermediaire;
 use Illuminate\Http\Request;
+use PhpParser\Node\Stmt\TryCatch;
 
 class ClientController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index($is_intermediaire=0)
     {
         return view('amrani.pages.client.index')->with([
@@ -23,11 +20,6 @@ class ClientController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         return view('amrani.pages.client.create')->with([
@@ -37,12 +29,6 @@ class ClientController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -56,23 +42,11 @@ class ClientController extends Controller
         return redirect()->route('client.index');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Client  $client
-     * @return \Illuminate\Http\Response
-     */
     public function show(Client $client)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Client  $client
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Client $client)
     {
         return view('amrani.pages.client.edit')->with([
@@ -82,13 +56,7 @@ class ClientController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Client  $client
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(Request $request, Client $client)
     {
         $validated = $request->validate([
@@ -102,12 +70,7 @@ class ClientController extends Controller
         return redirect()->route('client.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Client  $client
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy(Client $client)
     {
         //
@@ -133,5 +96,36 @@ class ClientController extends Controller
             return Intermediaire::with('category', 'status')->where('intermediaire_name', 'like', '%'.$str.'%')->get()->toJson();
         else
             return Client::with('category', 'status')->where('client_name', 'like', '%'.$str.'%')->get()->toJson();
+    }
+
+    public function filter(Request $request){
+        try {
+            if($request->client_category_id && $request->req){
+                $clients = Client::with('category', 'status')->where('client_category_id', '=', $request->client_category_id)
+                                                            ->where('client_name', 'like', '%'.$request->req.'%')
+                                                            ->orderBy('client_name')
+                                                            ->get();
+            }elseif($request->client_category_id && !$request->req){
+                $clients = Client::with('category', 'status')->where('client_category_id', '=', $request->client_category_id)
+                                                            ->orderBy('client_name')
+                                                            ->get();
+            }elseif(!$request->client_category_id && $request->req){
+                $clients = Client::with('category', 'status')->where('client_name', 'like', '%'.$request->req.'%')
+                                                            ->orderBy('client_name')
+                                                            ->get();
+            }else{
+                $clients = Client::with('category', 'status')->orderBy('client_name')
+                                                            ->get();
+            }
+    
+            $trs = "";
+            foreach($clients as $client){
+                $trs .= view('amrani.pages.client.partials.tr', ['client'=>$client]);
+            }
+            return $trs;
+        } catch (\Throwable $th) {
+            return $th;
+        }
+
     }
 }

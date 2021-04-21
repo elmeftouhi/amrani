@@ -17,7 +17,8 @@ class IntermediaireController extends Controller
     public function index()
     {
         return view('amrani.pages.intermediaire.index')->with([
-            'intermediaires'   =>  Intermediaire::orderBy('intermediaire_name')->paginate(20)
+            'intermediaires'   =>  Intermediaire::orderBy('intermediaire_name')->paginate(20),
+            'categories'    =>  IntermediaireCategory::all()
         ]);
     }
 
@@ -124,5 +125,36 @@ class IntermediaireController extends Controller
     public function getDefaultIntermediaireStatus(){
         $cs_default = IntermediaireStatus::where('is_default', 1)->first();
         return $cs_default->id;
-    }    
+    }   
+    
+    public function filter(Request $request){
+        try {
+            if($request->intermediaire_category_id && $request->req){
+                $intermediaires = Intermediaire::with('category', 'status')->where('intermediaire_category_id', '=', $request->intermediaire_category_id)
+                                                            ->where('intermediaire_name', 'like', '%'.$request->req.'%')
+                                                            ->orderBy('intermediaire_name')
+                                                            ->paginate(20);
+            }elseif($request->intermediaire_category_id && !$request->req){
+                $intermediaires = Intermediaire::with('category', 'status')->where('intermediaire_category_id', '=', $request->intermediaire_category_id)
+                                                            ->orderBy('intermediaire_name')
+                                                            ->paginate(20);
+            }elseif(!$request->intermediaire_category_id && $request->req){
+                $intermediaires = Intermediaire::with('category', 'status')->where('intermediaire_name', 'like', '%'.$request->req.'%')
+                                                            ->orderBy('intermediaire_name')
+                                                            ->paginate(20);
+            }else{
+                $intermediaires = Intermediaire::with('category', 'status')->orderBy('intermediaire_name')
+                                                            ->paginate(20);
+            }
+    
+            $trs = "";
+            foreach($intermediaires as $intermediaire){
+                $trs .= view('amrani.pages.intermediaire.partials.tr', ['intermediaire'=>$intermediaire]);
+            }
+            return $trs;
+        } catch (\Throwable $th) {
+            return $th;
+        }
+
+    }
 }

@@ -16,8 +16,10 @@ Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
 
 Route::resource('client', ClientController::class);
 Route::post('client/search', [ClientController::class, 'search'])->name('client.search');
+Route::post('client/filter', [ClientController::class, 'filter'])->name('client.filter');
 
 Route::resource('intermediaire', IntermediaireController::class);
+Route::post('intermediaire/filter', [IntermediaireController::class, 'filter'])->name('intermediaire.filter');
 
 Route::resource('appartement', AppartementController::class);
 
