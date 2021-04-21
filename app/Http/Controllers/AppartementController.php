@@ -50,12 +50,7 @@ class AppartementController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
         $request->validate([
@@ -105,23 +100,11 @@ class AppartementController extends Controller
         return redirect()->route('appartement.index');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Appartement  $appartement
-     * @return \Illuminate\Http\Response
-     */
     public function show(Appartement $appartement)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Appartement  $appartement
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Appartement $appartement)
     {
         return view('amrani.pages.appartement.edit')->with([
@@ -137,13 +120,7 @@ class AppartementController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Appartement  $appartement
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(Request $request, Appartement $appartement)
     {
         $validated = $request->validate([
@@ -158,12 +135,7 @@ class AppartementController extends Controller
         return redirect()->route('appartement.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Appartement  $appartement
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy(Appartement $appartement)
     {
         $appartement->delete();

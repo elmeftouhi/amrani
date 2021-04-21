@@ -8,11 +8,48 @@ use Illuminate\Http\Request;
 
 class CitySectorController extends Controller
 {
+
     public function getByCity($id_city){
         $city = City::with('sectors')->find($id_city)->toArray();
         if($city){
             return $city['sectors'];
         }
         return [];
+    }
+
+    public function destroy(CitySector $sector)
+    {
+        try {
+            $sector->delete();
+
+            return response()->json([
+                'success' => 'Record deleted successfully!'
+            ]);
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
+    public function update(Request $request, CitySector $sector)
+    {
+        try {
+
+            $request->validate([
+                'city_sector_name_fr'                => 'required|string|max:255'
+            ]);
+            
+            if( $sector->update($request->all()) ){
+                return response()->json([
+                    'success' => 'Record updated successfully!'
+                ]);
+            }
+        
+        } catch (\Exception $e) {
+        
+            return $e->getMessage();
+        }
+
+
+
     }
 }

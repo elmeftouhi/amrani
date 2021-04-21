@@ -35,5 +35,10 @@ Route::get('/parameters', function(){
 Route::get('parameters/city/create', [CityController::class, 'create'])->name('city.create');
 
 Route::get('/city/sectors/{id_city}', [CitySectorController::class, 'getByCity'])->name('sectors.list');
+Route::delete('/city/destroy/{city}', [CityController::class, 'destroy'])->name('city.destroy');
+Route::put('/city/update/{city}', [CityController::class, 'update'])->name('city.update');
+Route::post('/city/create/', [CityController::class, 'create'])->name('city.create');
 
+Route::delete('/city/sector/destroy/{sector}', [CitySectorController::class, 'destroy'])->name('city.sector.destroy');
+Route::put('/city/sector/update/{sector}', [CitySectorController::class, 'update'])->name('city.sector.update');
 

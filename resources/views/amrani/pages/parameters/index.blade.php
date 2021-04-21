@@ -7,7 +7,7 @@
             <h1 class="font-bold text-xl">{{ __('Parametres') }} </h1>
         </div>
 
-        @include('amrani.pages.parameters.city', ['cities'=>$cities])
+        @include('amrani.pages.parameters.city.index', ['cities'=>$cities])
 
     </div>
 @endsection
