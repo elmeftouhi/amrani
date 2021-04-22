@@ -103,26 +103,33 @@ class ClientController extends Controller
             if($request->client_category_id && $request->req){
                 $clients = Client::with('category', 'status')->where('client_category_id', '=', $request->client_category_id)
                                                             ->where('client_name', 'like', '%'.$request->req.'%')
-                                                            ->orderBy('client_name')
-                                                            ->get();
+                                                            ->orderBy('client_name');
+
             }elseif($request->client_category_id && !$request->req){
                 $clients = Client::with('category', 'status')->where('client_category_id', '=', $request->client_category_id)
-                                                            ->orderBy('client_name')
-                                                            ->get();
+                                                            ->orderBy('client_name');
+
             }elseif(!$request->client_category_id && $request->req){
                 $clients = Client::with('category', 'status')->where('client_name', 'like', '%'.$request->req.'%')
-                                                            ->orderBy('client_name')
-                                                            ->get();
+                                                            ->orderBy('client_name');
             }else{
-                $clients = Client::with('category', 'status')->orderBy('client_name')
-                                                            ->get();
+                $clients = Client::with('category', 'status')->orderBy('client_name');
             }
     
+            $count = $clients->count();
+            $clients = $clients->offset(0)->limit(20)->get();
+
             $trs = "";
             foreach($clients as $client){
                 $trs .= view('amrani.pages.client.partials.tr', ['client'=>$client]);
             }
-            return $trs;
+
+            return response()->json([
+                'success'   => $trs,
+                'total'     =>  $clients->count() . ' / ' . $count
+            ]);
+
+            return $count.'tttt'.$trs;
         } catch (\Throwable $th) {
             return $th;
         }

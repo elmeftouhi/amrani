@@ -49,7 +49,31 @@ class CitySectorController extends Controller
             return $e->getMessage();
         }
 
+    }
 
+    public function create(Request $request)
+    {
+        try {
+
+            $request->validate([
+                'city_sector_name_fr'                => 'required|string|max:255',
+                'city_id'                => 'required|integer|min:1',
+            ]);
+
+            $request->merge([
+                'city_sector_status' => 1,
+            ]);
+
+            if( CitySector::create($request->all()) ){
+                return response()->json([
+                    'success' => 'Record created successfully!'
+                ]);
+            }
+        
+        } catch (\Exception $e) {
+        
+            return $e->getMessage();
+        }
 
     }
 }

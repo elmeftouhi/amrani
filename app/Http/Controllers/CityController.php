@@ -64,7 +64,5 @@ class CityController extends Controller
             return $e->getMessage();
         }
 
-
-
     }
 }

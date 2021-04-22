@@ -28,20 +28,22 @@
                             <button data-id="{{$city->id}}" class="p-2 destroy_city"><i class="far fa-trash-alt"></i></button>
                         </div>
                     </div>
-                    @foreach ($city->sectors as $sector)
-                        <div class="sector hidden flex items-center justify-between ml-4 text-xs mt-2 hover:bg-gray-50 rounded-lg px-2">
-                            <div class="flex items-center">
-                                <i class="fas fa-caret-right mr-2"></i>
-                                <input type="text" data-id="{{$sector->id}}" data-value="{{$sector->city_sector_name_fr}}" readonly class="input-sector form-control border-0 bg-transparent flex-1 p-0 text-xs" value="{{$sector->city_sector_name_fr}}">
-                                <i class="loader hidden text-gray-500 fas fa-sync fa-spin"></i>
+                    <div class="sector hidden">
+                        @include('amrani.pages.parameters.city_sector.create', ['city_id'=>$city->id])
+                        @foreach ($city->sectors as $sector)
+                            <div class="flex items-center justify-between ml-4 text-xs mt-2 hover:bg-gray-50 rounded-lg px-2">
+                                <div class="flex items-center">
+                                    <i class="fas fa-caret-right mr-2"></i>
+                                    <input type="text" data-id="{{$sector->id}}" data-value="{{$sector->city_sector_name_fr}}" readonly class="input-sector form-control border-0 bg-transparent flex-1 p-0 text-xs" value="{{$sector->city_sector_name_fr}}">
+                                    <i class="loader hidden text-gray-500 fas fa-sync fa-spin"></i>
+                                </div>
+                                <div class="flex">
+                                    <button class="p-2 edit_sector"><i class="far fa-edit"></i></button>
+                                    <button data-id="{{$sector->id}}" class="p-2 destroy_city_sector"><i class="far fa-trash-alt"></i></button>
+                                </div>
                             </div>
-                            <div class="flex">
-                                <button class="p-2 edit_sector"><i class="far fa-edit"></i></button>
-                                <button data-id="{{$sector->id}}" class="p-2 destroy_city_sector"><i class="far fa-trash-alt"></i></button>
-                            </div>
-                        </div>
-                    @endforeach
-
+                        @endforeach
+                    </div>
                 </div>
             @endforeach
         </div>
@@ -210,5 +212,35 @@
             });
         });
 
+        $('.sector_create').on('click', function(){
+            var that = $(this);
+            if(that.parent().parent().find('.sector_create_input').val() !== ""){
+
+                
+
+                var city = that.parent().parent().find('.sector_create_input').val();
+                var route = "{{ route('city.sector.create') }}";
+                var city_id = that.parent().parent().find('.sector_create_input').data('ville');
+                var data = {
+                    '_token'        :   $('meta[name="csrf-token"]').attr('content'),
+                    'city_sector_name_fr'  :   city,
+                    'city_id'       :   city_id
+                };
+                console.log(data);
+                that.parent().find('.loader').toggleClass('hidden');
+                $.ajax({
+                    url: route,
+                    data: data,
+                    type: 'POST',
+                    success: function(response){
+                        console.log(response)
+                        that.parent().find('.loader').toggleClass('hidden');
+                        $('.sector_create_input').val('');
+                    }
+                });                    
+            }else{
+                that.parent().parent().find('.sector_create_input').focus()
+            }
+        });
     })
 </script>

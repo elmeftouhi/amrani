@@ -43,4 +43,5 @@ Route::post('/city/create/', [CityController::class, 'create'])->name('city.crea
 
 Route::delete('/city/sector/destroy/{sector}', [CitySectorController::class, 'destroy'])->name('city.sector.destroy');
 Route::put('/city/sector/update/{sector}', [CitySectorController::class, 'update'])->name('city.sector.update');
+Route::post('/city/sector/create/', [CitySectorController::class, 'create'])->name('city.sector.create');
 

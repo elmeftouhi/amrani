@@ -44,7 +44,7 @@
                             <i class="fas fa-angle-right"></i>
                         </button>
                     </div>
-                    <div class="text-blue-400 text-xs">Total Items</div>
+                    <div class="text-blue-400 text-xs total_items">Total Items</div>
                 </div>
                 <div class="absolute hidden loader top-0 left-0 right-0 bottom-0 bg-gray-600 bg-opacity-30">
                     <div class="w-24 mt-24 mx-auto text-center text-2xl">
@@ -56,6 +56,26 @@
     </div>
 </div>
 <script>
+
+$(document).ready(function(){
+    $('.destroy_client').on('click', function(e){
+        e.preventDefault();
+        var that = $(this);
+        Swal.fire({
+            title: 'Supprimer?',
+            icon: 'warning',
+            showDenyButton: true,
+            showCancelButton: false,
+            confirmButtonText: `Supprimer`,
+            denyButtonText: `Annuler`,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                that.closest( "form" ).submit();
+            }
+        }
+        );
+    });
+
     $('#req').keyup(function(e){
         if(e.keyCode == 13){
             $('#client_category_id').trigger('change');
@@ -87,7 +107,8 @@
             data: data,
             type: 'POST',
             success: function(data){
-                $('table tbody').html(data);
+                $('table tbody').html(data.success);
+                $('.total_items').html('Total items ' + data.total)
                 $('.loader').toggleClass('hidden');
             },
             error: function(e){
@@ -97,4 +118,6 @@
         }); 
 
     });
+});
+    
 </script>
