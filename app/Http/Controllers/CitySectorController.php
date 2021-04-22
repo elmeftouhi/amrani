@@ -76,4 +76,15 @@ class CitySectorController extends Controller
         }
 
     }
+
+    public function lastSector(Request $request){
+        try {
+            $sector = CitySector::where('city_id', $request->city_id)->orderBy('id', 'desc')->first();
+
+            return view( 'amrani.pages.parameters.city_sector.item', ['sectors'=>[$sector]] );
+        } catch (\Throwable $th) {
+            return $th->getMessage();
+        }
+
+    }
 }

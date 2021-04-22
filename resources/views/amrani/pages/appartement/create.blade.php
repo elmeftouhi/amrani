@@ -96,66 +96,73 @@
                     </div>
                     <div class="flex items-center block gap-4 mb-4">
                         <label class="w-1/5 text-right text-gray-500 text-sm" for="appartements_en_etage">App. / Etage</label>
-                        <input value="" placeholder="0" class="form-input" type="text" name="appartements_en_etage">
+                        <input value="" placeholder="0" class="form-input" type="number" name="appartements_en_etage">
                     </div>
                     <div class="flex items-center block gap-4 mb-4">
                         <label class="w-1/5 text-right text-gray-500 text-sm" for="appartements_en_immeuble">App. / immeuble</label>
-                        <input value="" placeholder="0" class="form-input" type="text" name="appartements_en_immeuble">
+                        <input value="" placeholder="0" class="form-input" type="number" name="appartements_en_immeuble">
                     </div>
                     <div class="flex items-center block gap-4 mb-4">
                         <label class="w-1/5 text-right text-gray-500 text-sm" for="surface">Surface</label>
-                        <input value="" placeholder="0" class="form-input" type="text" name="surface">
+                        <input value="" placeholder="0" class="form-input" type="number" name="surface">
                     </div>
 
                     <div class="flex items-center block gap-4 mb-4">
                         <label class="w-1/5 text-right text-gray-500 text-sm" for="ascenseur">Ascenseur</label>
-                        <input value="" placeholder="0" class="form-input" type="text" name="ascenseur">
+                        <input value="" placeholder="0" class="form-input" type="number" name="ascenseur">
                     </div>
                     <div class="flex items-center block gap-4 mb-4">
                         <label class="w-1/5 text-right text-gray-500 text-sm" for="parking">Place Parking</label>
-                        <input value="" placeholder="0" class="form-input" type="text" name="parking">
+                        <input value="" placeholder="0" class="form-input" type="number" name="parking">
                     </div>
 
                     <div class="flex items-center block gap-4 mb-4">
                         <label class="w-1/5 text-right text-gray-500 text-sm" for="nbr_chambre">Nbr. Chambres</label>
-                        <input value="" placeholder="0" class="form-input" type="text" name="nbr_chambre">
+                        <input value="" placeholder="0" class="form-input" type="number" name="nbr_chambre">
                     </div>
 
                     <div class="flex items-center block gap-4 mb-4">
                         <label class="w-1/5 text-right text-gray-500 text-sm" for="nbr_salon">Nbr. Salons</label>
-                        <input value="" placeholder="0" class="form-input" type="text" name="nbr_salon">
+                        <input value="" placeholder="0" class="form-input" type="number" name="nbr_salon">
                     </div>
                     <div class="flex items-center block gap-4 mb-4">
                         <label class="w-1/5 text-right text-gray-500 text-sm" for="nbr_facade">Nbr. Facades</label>
-                        <input value="" placeholder="0" class="form-input" type="text" name="nbr_facade">
+                        <input value="" placeholder="0" class="form-input" type="number" name="nbr_facade">
                     </div>
 
                     <div class="flex items-center block gap-4 mb-4">
                         <label class="w-1/5 text-right text-gray-500 text-sm" for="nbr_patio">nbr. Patios</label>
-                        <input value="" placeholder="0" class="form-input" type="text" name="nbr_patio">
+                        <input value="" placeholder="0" class="form-input" type="number" name="nbr_patio">
                     </div>
 
                     <div class="flex items-center block gap-4 mb-4">
                         <label class="w-1/5 text-right text-gray-500 text-sm" for="nbr_toilette">Nbr. Toilettes</label>
-                        <input value="" placeholder="0" class="form-input" type="text" name="nbr_toilette">
+                        <input value="" placeholder="0" class="form-input" type="number" name="nbr_toilette">
                     </div>
 
                     <div class="flex items-center block gap-4 mb-4">
                         <label class="w-1/5 text-right text-gray-500 text-sm" for="nbr_cuisine">Nbr. Cuisines</label>
-                        <input value="" placeholder="0" class="form-input" type="text" name="nbr_cuisine">
+                        <input value="" placeholder="0" class="form-input" type="number" name="nbr_cuisine">
                     </div>
 
                     <div class="flex items-center block gap-4 mb-4">
                         <label class="w-1/5 text-right text-gray-500 text-sm" for="prix_metre">Prix / M</label>
-                        <input value="" placeholder="0" class="form-input bg-red-50" type="text" name="prix_metre">
+                        <input value="" placeholder="0" class="form-input bg-red-50" type="number" name="prix_metre">
                         <span class="text-xs text-gray-500">DH</span>
                     </div>
 
                     <div class="flex items-center block gap-4 mb-4">
                         <label class="w-1/5 text-right text-gray-500 text-sm" for="prix_total">Prix Total</label>
-                        <input value="" placeholder="0" class="form-input bg-blue-50" type="text" name="prix_total">
+                        <input value="" placeholder="0" class="form-input bg-blue-50" type="number" name="prix_total">
                         <span class="text-xs text-gray-500">DH</span>
                     </div>
+
+                    <div class="flex items-center block gap-4 mb-4">
+                        <label class="w-1/5 text-right text-gray-500 text-sm" for="prix_declaration">Prix Declare</label>
+                        <input value="" placeholder="0" class="form-input bg-blue-50" type="number" name="prix_declaration">
+                        <span class="text-xs text-gray-500">DH</span>
+                    </div>
+
                     <hr>
 
                     <div class="flex justify-center lg:justify-start items-center block gap-4 mt-4">

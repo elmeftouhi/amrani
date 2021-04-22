@@ -40,6 +40,7 @@
                     success: function(data){
                         that.parent().find('.loader').toggleClass('hidden');
                         $('.abort').trigger('click');
+                        location.reload();
                     }
                 });                    
             }

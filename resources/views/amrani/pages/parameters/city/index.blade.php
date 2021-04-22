@@ -13,38 +13,7 @@
 
 
             @foreach ($cities as $city)
-                <div class="border-l-4 border-blue-300 rounded-lg p-1 my-1 bg-white shadow text-xs">
-                    <div class="flex items-center justify-between bg-blue-50">
-                        <div class="flex items-center">
-                            <button class="border p-2 bg-gray-200 mr-2 show">
-                                <i class="fas fa-arrow-right"></i>
-                                <i class="fas fa-arrow-down hidden"></i>
-                            </button>
-                            <input type="text" data-id="{{$city->id}}" data-value="{{$city->city_name_fr}}" readonly class="input-city form-control border-0 bg-transparent flex-1 p-0 text-xs" value="{{$city->city_name_fr}}">
-                            <i class="loader hidden text-gray-500 fas fa-sync fa-spin"></i>
-                        </div>
-                        <div class="flex">
-                            <button class="p-2 edit"><i class="far fa-edit"></i></button>
-                            <button data-id="{{$city->id}}" class="p-2 destroy_city"><i class="far fa-trash-alt"></i></button>
-                        </div>
-                    </div>
-                    <div class="sector hidden">
-                        @include('amrani.pages.parameters.city_sector.create', ['city_id'=>$city->id])
-                        @foreach ($city->sectors as $sector)
-                            <div class="flex items-center justify-between ml-4 text-xs mt-2 hover:bg-gray-50 rounded-lg px-2">
-                                <div class="flex items-center">
-                                    <i class="fas fa-caret-right mr-2"></i>
-                                    <input type="text" data-id="{{$sector->id}}" data-value="{{$sector->city_sector_name_fr}}" readonly class="input-sector form-control border-0 bg-transparent flex-1 p-0 text-xs" value="{{$sector->city_sector_name_fr}}">
-                                    <i class="loader hidden text-gray-500 fas fa-sync fa-spin"></i>
-                                </div>
-                                <div class="flex">
-                                    <button class="p-2 edit_sector"><i class="far fa-edit"></i></button>
-                                    <button data-id="{{$sector->id}}" class="p-2 destroy_city_sector"><i class="far fa-trash-alt"></i></button>
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
+                @include('amrani.pages.parameters.city.item', ['city'=>$city])
             @endforeach
         </div>
     </div>
@@ -139,18 +108,18 @@
 
         /** Sectors **/
 
-        $('.edit_sector').on('click', function(){
+        $(document).on('click', '.edit_sector', function(){
             $(this).parent().parent().find('.input-sector').prop('readonly', false).select();
         });
 
-        $('.input-sector').on('focusout', function(){
+        $(document).on('focusout', '.input-sector', function(){
             if($(this).val() == ""){
                 $(this).val( $(this).data('value') );
             }
             $(this).prop('readonly', true)
         });
 
-        $('.input-sector').keyup(function(e){
+        $(document).on('keyup', '.input-sector', function(e){
             if(e.keyCode == 13)
             {
                 if($(this).val() == ""){
@@ -180,7 +149,7 @@
             }
         });
 
-        $('.destroy_city_sector').on('click', function(e){
+        $(document).on('click', '.destroy_city_sector', function(e){
             e.preventDefault();
             var that = $(this);
             Swal.fire({
@@ -215,9 +184,6 @@
         $('.sector_create').on('click', function(){
             var that = $(this);
             if(that.parent().parent().find('.sector_create_input').val() !== ""){
-
-                
-
                 var city = that.parent().parent().find('.sector_create_input').val();
                 var route = "{{ route('city.sector.create') }}";
                 var city_id = that.parent().parent().find('.sector_create_input').data('ville');
@@ -226,16 +192,30 @@
                     'city_sector_name_fr'  :   city,
                     'city_id'       :   city_id
                 };
-                console.log(data);
-                that.parent().find('.loader').toggleClass('hidden');
+                that.parent().find('.loader').removeClass('hidden');
                 $.ajax({
                     url: route,
                     data: data,
                     type: 'POST',
                     success: function(response){
                         console.log(response)
-                        that.parent().find('.loader').toggleClass('hidden');
+                        that.parent().find('.loader').addClass('hidden');
                         $('.sector_create_input').val('');
+
+                        route = "{{ route('city.sector.last') }}";
+                        data = {
+                            '_token'        :   $('meta[name="csrf-token"]').attr('content'),
+                            'city_id'       :   city_id
+                        };
+                        $.ajax({
+                            url: route,
+                            data: data,
+                            type: 'POST',
+                            success: function(response){
+                                that.parent().parent().parent().append(response)
+                            }
+                        }); 
+
                     }
                 });                    
             }else{

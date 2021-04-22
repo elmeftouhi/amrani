@@ -15,6 +15,6 @@ class City extends Model
     public $timestamps = false;
 
     public function sectors(){
-        return $this->hasMany(CitySector::class)->orderBy('city_sector_name_fr');;
+        return $this->hasMany(CitySector::class)->orderBy('city_sector_name_fr');
     }
 }
