@@ -1,8 +1,13 @@
 <div class="w-full lg:w-4/6 mx-auto bg-white my-5 rounded border shadow-sm">
     <div class="flex items-center justify-between bg-gray-50">
         @include('components.ui.title', ['title'=>'Client / Intermediaire'])
-        <div class="new_client btn p-2 mr-2 text-green-400 cursor-pointer hover:text-green-600"><i class="fas fa-user-plus"></i> Nouveau</div>
-        <div class="abort_new_client hidden btn p-2 mr-2 text-red-400 cursor-pointer hover:text-red-600"><i class="fas fa-ban"></i> Annuler</div>
+        <div class="flex items-center gap-6">
+            <div class="new_client btn p-2 mr-2 text-green-400 cursor-pointer hover:text-green-600"><i class="fas fa-user-plus"></i> Nouveau</div>
+            <div class="abort_new_client hidden btn p-2 mr-2 text-red-400 cursor-pointer hover:text-red-600"><i class="fas fa-ban"></i> Annuler</div>
+            <div class="collaps btn p-2 mr-2 text-green-400 cursor-pointer hover:text-green-600">
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </div>
     </div>
     
     <hr>

@@ -6,7 +6,14 @@
 <div class="w-full lg:w-4/6 mx-auto bg-white my-5 rounded border shadow-sm">
     <div class="flex items-center justify-between bg-gray-50">
         @include('components.ui.title', ['title'=>'Upload Image'])
-        <div class="new_image btn p-2 mr-2 text-green-400 cursor-pointer hover:text-green-600"><i class="fas fa-cloud-upload-alt"></i> Upload</div>
+        <div class="flex items-center gap-6">
+            <div class="new_image btn p-2 mr-2 text-green-400 cursor-pointer hover:text-green-600">
+                <i class="fas fa-cloud-upload-alt"></i> Upload
+            </div>
+            <div class="collaps btn p-2 mr-2 text-green-400 cursor-pointer hover:text-green-600">
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </div>
         <div class="reload hidden">reload</div>
         <input name="file" id="poster" type="file" class="hidden">
     </div>
