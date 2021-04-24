@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\City;
 use App\Models\Intermediaire;
 use App\Models\IntermediaireCategory;
 use App\Models\IntermediaireStatus;
@@ -32,6 +33,7 @@ class IntermediaireController extends Controller
         return view('amrani.pages.intermediaire.create')->with([
             'categories'    =>  IntermediaireCategory::all(),
             'statuses'      =>  IntermediaireStatus::all(),
+            'cities'        =>  City::all(),
             'code_intermediaire'   =>  $this->newCodeIntermediaire()
         ]);
     }
@@ -50,7 +52,10 @@ class IntermediaireController extends Controller
             'intermediaire_category_id'    => 'required',
             'intermediaire_status_id'      => 'required'
         ]);
-
+        $request->merge([
+            'intermediaire_city_id' =>  isset($request->city_id)? $request->city_id:0,
+            'intermediaire_city_sector_id' =>  isset($request->city_sector_id)? $request->city_sector_id:0
+        ]);
         Intermediaire::create($request->all());
         return redirect()->route('intermediaire.index');
     }
@@ -77,7 +82,8 @@ class IntermediaireController extends Controller
         return view('amrani.pages.intermediaire.edit')->with([
             'categories'    =>  IntermediaireCategory::all(),
             'statuses'      =>  IntermediaireStatus::all(),
-            'intermediaire'        =>  $intermediaire
+            'intermediaire'        =>  $intermediaire,
+            'cities'        =>  City::all(),
         ]);
     }
 
@@ -96,7 +102,10 @@ class IntermediaireController extends Controller
             'intermediaire_category_id'    => 'required',
             'intermediaire_status_id'      => 'required'
         ]);
-
+        $request->merge([
+            'intermediaire_city_id' =>  isset($request->city_id)? $request->city_id:0,
+            'intermediaire_city_sector_id' =>  isset($request->city_sector_id)? $request->city_sector_id:0
+        ]);
         $intermediaire->update($request->all());
         return redirect()->route('intermediaire.index');
     }

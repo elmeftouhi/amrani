@@ -18,7 +18,8 @@ class Intermediaire extends Model
         'intermediaire_name',
         'intermediaire_category_id',
         'intermediaire_status_id',
-        'intermediaire_city',
+        'intermediaire_city_id',
+        'intermediaire_city_sector_id',
         'intermediaire_telephone',
         'created_at',
         'updated_at'
@@ -31,5 +32,13 @@ class Intermediaire extends Model
     public function category()
     {
         return $this->HasOne(IntermediaireCategory::class,'id', 'intermediaire_category_id');
+    }
+
+    public function city(){
+        return $this->belongsTo(City::class,'intermediaire_city_id','id');
+    }
+
+    public function sector(){
+        return $this->belongsTo(CitySector::class,'intermediaire_city_sector_id','id');
     }
 }

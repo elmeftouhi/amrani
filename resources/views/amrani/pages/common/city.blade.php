@@ -1,5 +1,5 @@
 <div class="flex items-center gap-4">
-    <select class="form-input" id="city_id" name="city_id">
+    <select class="form-input w-48" id="city_id" name="city_id">
         <option value="-1">--Ville</option>
         @foreach ($cities as $city)
             @if (isset($city_id))

@@ -16,7 +16,7 @@
                 </div>
                 <a href="{{ route('intermediaire.create') }}" class="border px-4 py-1 rounded-lg bg-blue-400 hover:bg-gray-400 text-white text-sm"><i class="fas fa-user-plus"></i> Ajouter</a>
             </div>
-            <div class="bg-white shadow-md rounded my-6 relative">
+            <div class="bg-white shadow-md rounded my-6 relative overflow-auto">
                 <table class="min-w-max w-full table-auto">
                     <thead>
                         <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
@@ -65,7 +65,6 @@ $(document).ready(function(){
         }
         );
     });
-
 
     $('#req').keyup(function(e){
         if(e.keyCode == 13){

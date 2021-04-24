@@ -29,7 +29,7 @@ class IntermediaireFactory extends Factory
             'intermediaire_status_id'                  =>  $this->faker->numberBetween($min = 1, $max = 3),
             'intermediaire_name'                       =>  $this->faker->name,
             'intermediaire_telephone'                  =>  $this->faker->e164PhoneNumber,
-            'intermediaire_city'                       =>  $this->faker->city,
+            'intermediaire_city_id'                    =>  $this->faker->randomElement([21,23]),
             'created_at'                        =>  now(),
             'updated_at'                        =>  now()
         ];
