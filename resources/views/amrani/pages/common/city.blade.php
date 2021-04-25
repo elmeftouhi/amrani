@@ -22,33 +22,45 @@
 <script>
     $(document).ready(function(){
         $('#city_id').on('change', function(){
-            var route = "{{ route('sectors.list', 69) }}";
-            var city_id = $(this).val();
-            route = route.replace(69, city_id);
             $('.loader').removeClass('hidden');
-            $.get(
-                route ,
-                function(response){
+            if( $(this).val() == "-1" ){
+                $('#city_sector_id').find('option')
+                                        .remove()
+                                        .end()
+                                        .append('<option value="-1">--Sector</option>')
+                                        .val(-1);
+                $('.loader').addClass('hidden');
+            }else{
+                var route = "{{ route('sectors.list', 69) }}";
+                var city_id = $(this).val();
+                route = route.replace(69, city_id);
+                
+                $.get(
+                    route ,
+                    function(response){
 
-                    $('#city_sector_id').find('option')
-                                    .remove()
-                                    .end()
-                                    .append('<option value="-1">--Sector</option>')
-                                    .val(-1);
+                        $('#city_sector_id').find('option')
+                                        .remove()
+                                        .end()
+                                        .append('<option value="-1">--Sector</option>')
+                                        .val(-1);
 
-                    for (const key in response) {
-                        if (Object.hasOwnProperty.call(response, key)) {
-                            const element = response[key].city_sector_name_fr;
-                            $('#city_sector_id').find('option')
-                                    .end()
-                                    .append('<option value="'+response[key].id+'">'+response[key].city_sector_name_fr.trim()+'</option>');
-                            
+                        for (const key in response) {
+                            if (Object.hasOwnProperty.call(response, key)) {
+                                const element = response[key].city_sector_name_fr;
+                                $('#city_sector_id').find('option')
+                                        .end()
+                                        .append('<option value="'+response[key].id+'">'+response[key].city_sector_name_fr.trim()+'</option>');
+                                
+                            }
                         }
+                        clearInterval(timer);
+                        $('.loader').addClass('hidden');
                     }
-                    clearInterval(timer);
-                    $('.loader').addClass('hidden');
-                }
-            )
+                )
+            }
+           
+
         });
 
         let timer = setInterval(() => {

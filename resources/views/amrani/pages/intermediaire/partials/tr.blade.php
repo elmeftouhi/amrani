@@ -41,15 +41,12 @@
         @endif
 
     </td>
-    <td class="py-3 px-6 text-center">
-        <div class="flex item-center justify-center">
-            <div class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
-                @include('amrani.pages.intermediaire.partials.btn-show')
-            </div>
-            <div class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
+    <td class=" px-6 text-center">
+        <div class="flex item-center justify-end">
+            <div class="w-4 mr-2 pt-1 transform hover:text-purple-500 hover:scale-110">
                 @include('amrani.pages.intermediaire.partials.btn-edit')
             </div>
-            <form action="{{route('intermediaire.destroy', $intermediaire->id)}}" method="POST">
+            <form class=" pt-1" action="{{route('intermediaire.destroy', $intermediaire->id)}}" method="POST">
                 @csrf
                 @method('DELETE')
                 <button class="destroy_intermediaire w-4 mr-2 transform hover:text-purple-500 hover:scale-110">

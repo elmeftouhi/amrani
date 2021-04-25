@@ -13,6 +13,7 @@
                         <option value="{{$category->id}}">{{$category->intermediaire_category}}</option>
                         @endforeach
                     </select>
+                    @include('amrani.pages.common.city', ['cities'=>$cities])
                 </div>
                 <a href="{{ route('intermediaire.create') }}" class="border px-4 py-1 rounded-lg bg-blue-400 hover:bg-gray-400 text-white text-sm"><i class="fas fa-user-plus"></i> Ajouter</a>
             </div>
@@ -35,7 +36,7 @@
                         @endforeach
                     </tbody>
                 </table>
-                <div class="absolute hidden loader top-0 left-0 right-0 bottom-0 bg-gray-600 bg-opacity-30">
+                <div class="absolute hidden loader_ top-0 left-0 right-0 bottom-0 bg-gray-600 bg-opacity-30">
                     <div class="w-24 mt-24 mx-auto text-center text-2xl">
                         <i class="fas fa-sync fa-spin"></i>
                     </div>
@@ -48,7 +49,7 @@
 
 
 $(document).ready(function(){
-    $('.destroy_intermediaire').on('click', function(e){
+    $(document).on('click', '.destroy_intermediaire', function(e){
         e.preventDefault();
         var that = $(this);
         Swal.fire({
@@ -68,29 +69,29 @@ $(document).ready(function(){
 
     $('#req').keyup(function(e){
         if(e.keyCode == 13){
-            $('#intermediaire_category_id').trigger('change');
+            $('#req_submit').trigger('change');
         }
     });
 
     $('#req_submit').on('click', function(){
-        $('#intermediaire_category_id').trigger('change');
-    });
 
-    $('#intermediaire_category_id').on('change', function(){
-
-        var intermediaire_category_id = $(this).val();
         let data = {
                     '_token'                :   $('meta[name="csrf-token"]').attr('content'),
                     };
 
-        $('.loader').toggleClass('hidden');
+        $('.loader_').toggleClass('hidden');
         if($('#req').val() != ""){
             data.req = $('#req').val();
         }
-        if($(this).val() != "-1"){
-            data.intermediaire_category_id = intermediaire_category_id;
+        if($('#intermediaire_category_id').val() != "-1"){
+            data.intermediaire_category_id = $('#intermediaire_category_id').val();
         }
-
+        if($("#city_id").val() != "-1"){
+            data.intermediaire_city_id = $("#city_id").val();
+        }
+        if($("#city_sector_id").val() != "-1"){
+            data.intermediaire_city_sector_id = $("#city_sector_id").val();
+        }
 
         $.ajax({
             url: "{{route('intermediaire.filter')}}",
@@ -98,15 +99,15 @@ $(document).ready(function(){
             type: 'POST',
             success: function(data){
                 $('table tbody').html(data);
-                $('.loader').toggleClass('hidden');
+                $('.loader_').toggleClass('hidden');
             },
             error: function(e){
-                $('.loader').toggleClass('hidden');
+                $('.loader_').toggleClass('hidden');
                 console.log(e)
             }
-        }); 
-
+        });
     });
+
 
 });
 
