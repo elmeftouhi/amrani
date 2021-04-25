@@ -21,7 +21,10 @@
     </td>
     <td class="py-3 px-6 text-left">
         <div class="flex items-center">
-            {{$client->client_city}}
+            {{$client->city->city_name_fr}}
+            @isset($client->sector)
+                ->{{$client->sector->city_sector_name_fr}}
+            @endisset
         </div>
     </td>
     <td class="py-3 px-6 text-center">
@@ -38,12 +41,12 @@
         @endif
 
     </td>
-    <td class="py-3 px-6 text-center">
-        <div class="flex item-center justify-center">
-            <div class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
+    <td class=" px-6 text-right">
+        <div class="flex item-center justify-end">
+            <div class="w-4 mr-2 pt-1 transform hover:text-purple-500 hover:scale-110">
                 @include('amrani.pages.client.partials.btn-edit')
             </div>
-            <form action="{{route('client.destroy', $client->id)}}" method="POST">
+            <form class=" pt-1" action="{{route('client.destroy', $client->id)}}" method="POST">
                 @csrf
                 @method('DELETE')
                 <button class="destroy_client w-4 mr-2 transform hover:text-purple-500 hover:scale-110">

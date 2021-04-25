@@ -29,7 +29,7 @@ class ClientFactory extends Factory
             'client_status_id'                  =>  $this->faker->numberBetween($min = 1, $max = 3),
             'client_name'                       =>  $this->faker->name,
             'client_telephone'                  =>  $this->faker->e164PhoneNumber,
-            'client_city'                       =>  $this->faker->city,
+            'client_city_id'                    =>  $this->faker->randomElement([21,23]),
             'created_at'                        =>  now(),
             'updated_at'                        =>  now()
         ];

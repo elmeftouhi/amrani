@@ -89,7 +89,7 @@ class IntermediaireController extends Controller
     }
 
     public function newCodeIntermediaire(){
-        return 'INT' . str_pad( (Intermediaire::max('id') + 1) , 5, 0, STR_PAD_LEFT );
+        return 'INT' . (Intermediaire::max('id') + 1);
     }
 
     public function getDefaultIntermediaireCategory(){
@@ -106,8 +106,6 @@ class IntermediaireController extends Controller
         try {
 
             $intermediaires = Intermediaire::with('category', 'status');
-            
-            //DB::table('intermediaires')->join('intermediaire_categories as category', 'intermediaires.intermediaire_category_id', '=', 'category.id');
 
             if($request->req){
                 $intermediaires = $intermediaires->where('intermediaire_name', 'like', '%'.$request->req.'%');

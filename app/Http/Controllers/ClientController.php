@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\City;
 use App\Models\Client;
 use App\Models\ClientCategory;
 use App\Models\ClientStatus;
@@ -12,11 +13,12 @@ use PhpParser\Node\Stmt\TryCatch;
 class ClientController extends Controller
 {
 
-    public function index($is_intermediaire=0)
+    public function index()
     {
         return view('amrani.pages.client.index')->with([
             'clients'       =>  Client::orderBy('client_name')->paginate(20),
-            'categories'    =>  ClientCategory::all()
+            'categories'    =>  ClientCategory::all(),
+            'cities'        =>  City::all()
         ]);
     }
 
@@ -25,19 +27,23 @@ class ClientController extends Controller
         return view('amrani.pages.client.create')->with([
             'categories'    =>  ClientCategory::all(),
             'statuses'      =>  ClientStatus::all(),
+            'cities'        =>  City::all(),
             'code_client'   =>  $this->newCodeClient()
         ]);
     }
 
     public function store(Request $request)
     {
-        $validated = $request->validate([
+        $request->validate([
             'client_code'           => 'required|max:10',
             'client_name'           => 'required|max:255',
             'client_category_id'    => 'required',
             'client_status_id'      => 'required'
         ]);
-
+        $request->merge([
+            'client_city_id' =>  isset($request->city_id)? $request->city_id:0,
+            'client_city_sector_id' =>  isset($request->city_sector_id)? $request->city_sector_id:0
+        ]);
         Client::create($request->all());
         return redirect()->route('client.index');
     }
@@ -52,6 +58,7 @@ class ClientController extends Controller
         return view('amrani.pages.client.edit')->with([
             'categories'    =>  ClientCategory::all(),
             'statuses'      =>  ClientStatus::all(),
+            'cities'        =>  City::all(),
             'client'        =>  $client
         ]);
     }
@@ -59,13 +66,16 @@ class ClientController extends Controller
 
     public function update(Request $request, Client $client)
     {
-        $validated = $request->validate([
+        $request->validate([
             'client_code'           => 'required|max:10',
             'client_name'           => 'required|max:255',
             'client_category_id'    => 'required',
             'client_status_id'      => 'required'
         ]);
-
+        $request->merge([
+            'client_city_id' =>  isset($request->city_id)? $request->city_id:0,
+            'client_city_sector_id' =>  isset($request->city_sector_id)? $request->city_sector_id:0
+        ]);
         $client->update($request->all());
         return redirect()->route('client.index');
     }
@@ -73,11 +83,12 @@ class ClientController extends Controller
 
     public function destroy(Client $client)
     {
-        //
+        $client->delete();
+        return redirect()->route('client.index');
     }
 
     public function newCodeClient(){
-        return 'CL' . str_pad( (Client::max('id') + 1) , 5, 0, STR_PAD_LEFT );
+        return 'CL' . (Client::max('id') + 1);
     }
 
     public function getDefaultClientCategory(){
@@ -100,25 +111,28 @@ class ClientController extends Controller
 
     public function filter(Request $request){
         try {
-            if($request->client_category_id && $request->req){
-                $clients = Client::with('category', 'status')->where('client_category_id', '=', $request->client_category_id)
-                                                            ->where('client_name', 'like', '%'.$request->req.'%')
-                                                            ->orderBy('client_name');
 
-            }elseif($request->client_category_id && !$request->req){
-                $clients = Client::with('category', 'status')->where('client_category_id', '=', $request->client_category_id)
-                                                            ->orderBy('client_name');
 
-            }elseif(!$request->client_category_id && $request->req){
-                $clients = Client::with('category', 'status')->where('client_name', 'like', '%'.$request->req.'%')
-                                                            ->orderBy('client_name');
-            }else{
-                $clients = Client::with('category', 'status')->orderBy('client_name');
+            $clients = Client::with('category', 'status');
+
+            if($request->req){
+                $clients = $clients->where('client_name', 'like', '%'.$request->req.'%');
             }
-    
-            $count = $clients->count();
-            $clients = $clients->offset(0)->limit(20)->get();
 
+            if($request->client_category_id){
+                $clients = $clients->where('client_category_id', '=', $request->client_category_id);
+            }
+
+            if($request->client_city_id){
+                $clients = $clients->where('client_city_id', '=', $request->client_city_id);
+            }
+
+            if($request->client_city_sector_id){
+                $clients = $clients->where('client_city_sector_id', '=', $request->client_city_sector_id);
+            }
+            $count = $clients->count();
+            $clients = $clients->orderBy('client_name')->paginate(20);
+    
             $trs = "";
             foreach($clients as $client){
                 $trs .= view('amrani.pages.client.partials.tr', ['client'=>$client]);
@@ -129,7 +143,6 @@ class ClientController extends Controller
                 'total'     =>  $clients->count() . ' / ' . $count
             ]);
 
-            return $count.'tttt'.$trs;
         } catch (\Throwable $th) {
             return $th;
         }

@@ -13,6 +13,7 @@
                         <option value="{{$category->id}}">{{$category->client_category}}</option>
                         @endforeach
                     </select>
+                    @include('amrani.pages.common.city', ['cities'=>$cities])
                 </div>
                 <a href="{{ route('client.create') }}" class="border px-4 py-1 rounded-lg bg-blue-400 hover:bg-gray-400 text-white text-sm"><i class="fas fa-user-plus"></i> Ajouter</a>
             </div>
@@ -46,7 +47,7 @@
                     </div>
                     <div class="text-blue-400 text-xs total_items">Total Items</div>
                 </div>
-                <div class="absolute hidden loader top-0 left-0 right-0 bottom-0 bg-gray-600 bg-opacity-30">
+                <div class="absolute hidden loader_ top-0 left-0 right-0 bottom-0 bg-gray-600 bg-opacity-30">
                     <div class="w-24 mt-24 mx-auto text-center text-2xl">
                         <i class="fas fa-sync fa-spin"></i>
                     </div>
@@ -58,7 +59,8 @@
 <script>
 
 $(document).ready(function(){
-    $('.destroy_client').on('click', function(e){
+
+    $(document).on('click', '.destroy_client', function(e){
         e.preventDefault();
         var that = $(this);
         Swal.fire({
@@ -78,29 +80,29 @@ $(document).ready(function(){
 
     $('#req').keyup(function(e){
         if(e.keyCode == 13){
-            $('#client_category_id').trigger('change');
+            $('#req_submit').trigger('change');
         }
     });
 
     $('#req_submit').on('click', function(){
-        $('#client_category_id').trigger('change');
-    });
 
-    $('#client_category_id').on('change', function(){
-
-        var client_category_id = $(this).val();
         let data = {
                     '_token'                :   $('meta[name="csrf-token"]').attr('content'),
                     };
 
-        $('.loader').toggleClass('hidden');
+        $('.loader_').toggleClass('hidden');
         if($('#req').val() != ""){
             data.req = $('#req').val();
         }
-        if($(this).val() != "-1"){
-            data.client_category_id = client_category_id;
+        if($('#client_category_id').val() != "-1"){
+            data.client_category_id = $('#client_category_id').val();
         }
-
+        if($("#city_id").val() != "-1"){
+            data.client_city_id = $("#city_id").val();
+        }
+        if($("#city_sector_id").val() != "-1"){
+            data.client_city_sector_id = $("#city_sector_id").val();
+        }
 
         $.ajax({
             url: "{{route('client.filter')}}",
@@ -109,14 +111,13 @@ $(document).ready(function(){
             success: function(data){
                 $('table tbody').html(data.success);
                 $('.total_items').html('Total items ' + data.total)
-                $('.loader').toggleClass('hidden');
+                $('.loader_').toggleClass('hidden');
             },
             error: function(e){
-                $('.loader').toggleClass('hidden');
+                $('.loader_').toggleClass('hidden');
                 console.log(e)
             }
-        }); 
-
+        });
     });
 });
     

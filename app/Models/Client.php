@@ -18,6 +18,8 @@ class Client extends Model
         'client_name',
         'client_category_id',
         'client_status_id',
+        'client_city_id',
+        'client_city_sector_id',
         'client_city',
         'client_telephone',
         'created_at',
@@ -31,5 +33,13 @@ class Client extends Model
     public function category()
     {
         return $this->HasOne(ClientCategory::class,'id', 'client_category_id');
+    }
+
+    public function city(){
+        return $this->belongsTo(City::class,'client_city_id','id');
+    }
+
+    public function sector(){
+        return $this->belongsTo(CitySector::class,'client_city_sector_id','id');
     }
 }
