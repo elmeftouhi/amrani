@@ -27,6 +27,7 @@ Route::get('/dashboard/totals', [DashboardController::class, 'getTotals'])->name
 
 Route::post('file/upload', [FileUploadController::class, 'upload'])->name('file.upload');
 Route::post('file/read', [FileUploadController::class, 'getFiles'])->name('file.read');
+Route::post('file/destroy', [FileUploadController::class, 'destroy'])->name('file.destroy');
 
 Route::get('/user', [ UserController::class, 'index' ])->name('user.index');
 

@@ -1,8 +1,8 @@
 <div class="overflow-x-auto">
     <div class="min-w-screen flex items-center justify-center font-sans overflow-hidden bg-gray-100">
-        <div class="w-full lg:w-5/6">
-            <div class="flex items-center justify-between pt-6">
-                <div class="flex items-center gap-4">
+        <div class="w-full lg:w-5/6 overflow-auto">
+            <div class="flex items-center justify-between pt-6 gap-4">
+                <div class="flex items-center gap-1 lg:gap-4">
                     <div class="rounded-lg border border-gray-300 overflow-hidden relative p-0">
                         <input type="text" class="input-form border-0 text-xs w-64 m-0 h-auto" placeholder="Chercher">
                         <button class="absolute top-0 right-0 m-2 text-sm text-gray-400"><i class="fas fa-search"></i></button>
@@ -15,7 +15,9 @@
                     </select>
                     @include('amrani.pages.common.city', ['cities'=>$cities])
                 </div>
-                <a href="{{ route('appartement.create') }}" class="border px-4 py-1 rounded-lg bg-blue-400 hover:bg-gray-400 text-white text-sm"><i class="far fa-building"></i> Ajouter</a>
+                <a href="{{ route('appartement.create') }}" class="border px-4 py-2 rounded-lg bg-blue-400 hover:bg-gray-400 text-white text-sm">
+                    <i class="far fa-plus"></i> 
+                </a>
             </div>
             <div class="bg-white shadow-md rounded my-6">
                 <table class="min-w-max w-full table-auto">

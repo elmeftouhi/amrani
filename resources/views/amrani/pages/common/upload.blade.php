@@ -32,7 +32,7 @@
 
 $(document).ready(function(){
 
-    $('.destroy_image').on('click', function(e){
+    $(document).on('click', '.destroy_image', function(e){
         e.preventDefault();
         var that = $(this);
         Swal.fire({
@@ -44,6 +44,19 @@ $(document).ready(function(){
             denyButtonText: `Annuler`,
         }).then((result) => {
             if (result.isConfirmed) {
+                $.ajax({
+                    url:"{{ route('file.destroy') }}",
+                    data:{ 
+                        _token:     $('meta[name="csrf-token"]').attr('content'),
+                        folder:     "{{$folder}}",
+                        file:       that.data('file')
+                    },
+                    method: 'POST',
+                    success: function(response){
+                        console.log(response);
+                        that.parent().remove();
+                    }
+                });
                 
             }
         }
@@ -87,6 +100,7 @@ $(document).ready(function(){
             </div>
         `;
         $('.images').html(loader);
+        var image = '';
 
         $.ajax({
             url:"{{ route('file.read') }}",
@@ -97,10 +111,20 @@ $(document).ready(function(){
             method: 'POST',
             success: function(response){
                 for (let i = 0; i < response.length; i++) {
+                    var image = `
+                    <div class="relative">
+                        <a href="` + response[i] + `">
+                            <img class="border-2 bg-contain bg-center max-h-24 my-2 mr-4" src="` + response[i] + `"> 
+                        </a>
+                        <button data-file="` + response[i] + `" class="destroy_image absolute top-0 right-0 m-1 mr-2 bg-red-500 text-white rounded-full p-1 text-xs">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>`;
+
                     if(i==0){
-                        $('.images').html('<a href="' + response[i] + '"><img class="border-2 bg-contain bg-center max-h-24 my-2 mr-4" src="' + response[i] + '"> </a>');
+                        $('.images').html(image);
                     }else{
-                        $('.images').append('<a href="' + response[i] + '"><img class="border-2 bg-contain bg-center max-h-24 my-2 mr-4" src="' + response[i] + '"> </a>');
+                        $('.images').append(image);
 
                     }
                 }

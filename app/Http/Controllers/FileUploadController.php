@@ -28,4 +28,17 @@ class FileUploadController extends Controller
         }
         return $images;
     }
+
+    public function destroy(Request $request){
+        try {
+            $folder = $request->folder;
+            $file = basename($request->file);
+            if (Storage::disk('public')->exists($folder.'/'.$file)) {
+                Storage::disk('public')->delete($folder.'/'.$file);
+                return response()->json(['response'=>"success"]); 
+            }
+        } catch (\Throwable $th) {
+            return response()->json(['response'=>"error"]);
+         }
+    }
 }
