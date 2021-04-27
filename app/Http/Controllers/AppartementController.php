@@ -44,7 +44,7 @@ class AppartementController extends Controller
             'cities'                =>  City::all(),
             'facades'               =>  ['Rue', 'Pation', 'Place', 'Piscine', 'Sur Mer'],
             'etats'                 =>  ['Nouveau', 'Habite'],
-            'types'                 =>  ['Appartement', 'Duplexe'],
+            'types'                 =>  ['Appartement', 'Duplexe', 'Triplexe'],
             'situations'            =>  ['Titre', 'Milikia', 'Contrat', 'Miftah', 'Contrat Adlia'],
             'code_appartement'      =>  $lastID
         ]);

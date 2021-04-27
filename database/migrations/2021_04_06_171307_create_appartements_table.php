@@ -31,7 +31,7 @@ class CreateAppartementsTable extends Migration
             $table->integer('parking')->default(0)->nullable();
             $table->integer('nbr_chambre')->default(0)->nullable();
             $table->integer('nbr_salon')->default(0)->nullable();
-            $table->integer('nbr_facade')->default(0)->nullable();
+            $table->integer('nbr_balcon')->default(0)->nullable();
             $table->integer('nbr_patio')->default(0)->nullable();
             $table->integer('nbr_toilette')->default(0)->nullable();
             $table->integer('nbr_cuisine')->default(0)->nullable();

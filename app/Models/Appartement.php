@@ -30,7 +30,7 @@ class Appartement extends Model
         'parking',
         'nbr_chambre',
         'nbr_salon',
-        'nbr_facade',
+        'nbr_balcon',
         'nbr_patio',
         'nbr_toilette',
         'nbr_cuisine',

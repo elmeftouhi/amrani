@@ -126,9 +126,10 @@
                         <label class="w-1/5 text-right text-gray-500 text-sm" for="nbr_salon">Nbr. Salons</label>
                         <input value="{{$appartement->nbr_salon}}" placeholder="0" class="form-input" type="number" name="nbr_salon">
                     </div>
+
                     <div class="flex items-center block gap-4 mb-4">
-                        <label class="w-1/5 text-right text-gray-500 text-sm" for="nbr_facade">Nbr. Facades</label>
-                        <input value="{{$appartement->nbr_facade}}" placeholder="0" class="form-input" type="number" name="nbr_facade">
+                        <label class="w-1/5 text-right text-gray-500 text-sm" for="nbr_balcon">Nbr. Balcons</label>
+                        <input value="{{$appartement->nbr_balcon}}" placeholder="0" class="form-input" type="number" name="nbr_balcon">
                     </div>
 
                     <div class="flex items-center block gap-4 mb-4">
