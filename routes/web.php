@@ -8,6 +8,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\IntermediaireController;
+use App\Http\Controllers\TerrainController;
 use App\Models\City;
 use App\Models\CitySector;
 use Illuminate\Support\Facades\Route;
@@ -22,6 +23,8 @@ Route::resource('intermediaire', IntermediaireController::class);
 Route::post('intermediaire/filter', [IntermediaireController::class, 'filter'])->name('intermediaire.filter');
 
 Route::resource('appartement', AppartementController::class);
+
+Route::resource('terrain', TerrainController::class);
 
 Route::get('/dashboard/totals', [DashboardController::class, 'getTotals'])->name('dashboard.totals');
 

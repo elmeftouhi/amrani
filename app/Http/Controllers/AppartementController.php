@@ -13,11 +13,7 @@ use Illuminate\Http\Request;
 
 class AppartementController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         return view('amrani.pages.appartement.index')->with([
@@ -27,11 +23,6 @@ class AppartementController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()  
     {   
         $client = new ClientController;
@@ -120,10 +111,9 @@ class AppartementController extends Controller
         ]);
     }
 
-
     public function update(Request $request, Appartement $appartement)
     {
-        $validated = $request->validate([
+        $request->validate([
             'appartement_code'           => 'required|max:10',
             'client_name'                => 'required|string|max:255'
         ]);
@@ -134,7 +124,6 @@ class AppartementController extends Controller
         $appartement->update($request->all());
         return redirect()->route('appartement.index');
     }
-
 
     public function destroy(Appartement $appartement)
     {

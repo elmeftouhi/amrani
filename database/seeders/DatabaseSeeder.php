@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             IntermediaireStatusSeeder::class,
             IntermediaireCategorySeeder::class,
             AppartementServiceSeeder::class,
+            TerrainServiceSeeder::class,
             CitiesTableSeeder::class,
             CitySectorsTableSeeder::class
         ]);
