@@ -27,6 +27,7 @@ class CreateAppartementsTable extends Migration
             $table->integer('largeur_2')->default(0)->nullable();
             $table->integer('largeur_3')->default(0)->nullable();
             $table->string('surface')->nullable();
+            $table->string('facade_details')->nullable();
             $table->integer('ascenseur')->default(0)->nullable();
             $table->integer('parking')->default(0)->nullable();
             $table->integer('nbr_chambre')->default(0)->nullable();

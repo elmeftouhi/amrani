@@ -25,6 +25,7 @@ class Appartement extends Model
         'largeur_2',
         'largeur_3',
         'appartement_facade',
+        'facade_details',
         'surface',
         'ascenseur',
         'parking',
@@ -45,6 +46,8 @@ class Appartement extends Model
         'created_at',
         'updated_at'
     ];
+
+    public static $FACADES = ['Rue', 'Pation', 'Place', 'Piscine', 'Sur Mer', 'Vue Panoramique'];
 
     public function client(){
         return $this->belongsTo(Client::class);

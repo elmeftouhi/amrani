@@ -76,20 +76,27 @@
                         </select>
                     </div>
                     <div class="flex items-center block gap-4 mb-4 flex-1">
-                        <label class="w-1/5 text-right text-gray-500 text-sm" for="appartement_situation">Facades</label>
-                        <select class="facade form-input w-3/5" name="appartement_facade">
+                        <label class="w-1/5 text-right text-gray-500 text-sm" for="appartement_facade">Facades</label>
+                        <select class="form-input w-3/5" name="appartement_facade" id="appartement_facade">
                             <option value="-1">-- Facade --</option> 
                             @foreach ($facades as $facade)
                                 <option value="{{$facade}}">{{$facade}}</option>    
                             @endforeach
                         </select>
                     </div>
+
                     <div class="largeur hidden flex items-center block gap-4 mb-4">
                         <label class="w-1/5 text-right text-gray-500 text-sm" for="appartement_etage">Largeur</label>
                         <input value="" placeholder="0" class="form-input w-16 text-center" type="text" name="largeur_1">
                         <input value="" placeholder="0" class="form-input w-16 text-center" type="text" name="largeur_2">
                         <input value="" placeholder="0" class="form-input w-16 text-center" type="text" name="largeur_3">
                     </div> 
+
+                    <div class="facade hidden flex items-center block gap-4 mb-4">
+                        <label class="w-1/5 text-right text-gray-500 text-sm" for="facade_details">Details</label>
+                        <input value="" class="form-input w-3/5" type="text" name="facade_details">
+                    </div> 
+
                     <div class="flex items-center block gap-4 mb-4">
                         <label class="w-1/5 text-right text-gray-500 text-sm" for="appartement_etage">Etage</label>
                         <input value="" placeholder="0" class="form-input" type="text" name="appartement_etage">
@@ -179,11 +186,15 @@
 
 <script>
     $(document).ready(function(){
-        $('.facade').on('change', function(){
+        $('#appartement_facade').on('change', function(){
+
+            $('.largeur').addClass('hidden')
+            $('.facade').addClass('hidden');
+
             if($(this).val() == 'Rue'){
                 $('.largeur').removeClass('hidden');
-            }else{
-                $('.largeur').addClass('hidden')
+            }else if($(this).val() == 'Vue Panoramique'){
+                $('.facade').removeClass('hidden');
             }
         })
     });
