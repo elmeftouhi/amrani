@@ -9,7 +9,7 @@
                 @php
                    switch($log->subject_type){
                         case 'App\Models\Client':
-                            isset($log->subject->client_name)? echo $log->subject->client_name: 'deleted';
+                            echo isset($log->subject->client_name)?$log->subject->client_name: 'deleted';
                            break;
                        
                        default:
