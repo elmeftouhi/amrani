@@ -64,11 +64,6 @@
     </div>
 
     <div class="flex items-center block gap-4 mb-4">
-        <label class="w-1/5 text-right text-gray-500 text-sm" for="client_city">Ville</label>
-        <input disabled class="bg-gray-200 form-input w-3/5" type="text" id="client_city" name="client_city">
-    </div>
-
-    <div class="flex items-center block gap-4 mb-4">
         <label class="w-1/5 text-right text-gray-500 text-sm" for="client_telephone">Téléphone</label>
         <input disabled class="bg-gray-200 form-input" type="text" id="client_telephone" name="client_telephone">
     </div>

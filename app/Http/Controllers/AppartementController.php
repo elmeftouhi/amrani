@@ -44,6 +44,7 @@ class AppartementController extends Controller
 
     public function store(Request $request)
     {
+
         $request->validate([
             'appartement_code'           => 'required|max:10',
             'client_name'                => 'required|string|max:255',
@@ -51,12 +52,11 @@ class AppartementController extends Controller
         ]);
 
         if($request->is_intermediaire){
-            if(!$request->intermediaire_id){
+            if($request->intermediaire_id == 0){
                 $intermediaireTemp = new IntermediaireController;
                 $intermediaire = Intermediaire::create([
                     'intermediaire_name'            =>  $request->client_name,
                     'intermediaire_telephone'          =>  $request->client_telephone? $request->client_telephone: "",
-                    'intermediaire_city'          =>  $request->client_city? $request->client_city: "",
                     'intermediaire_code'           =>  $intermediaireTemp->newCodeIntermediaire(),
                     'intermediaire_category_id'    =>  $intermediaireTemp->getDefaultIntermediaireCategory(),
                     'intermediaire_status_id'    =>  $intermediaireTemp->getDefaultIntermediaireStatus()
@@ -66,12 +66,11 @@ class AppartementController extends Controller
                 ]);
             }  
         }else{
-            if(!$request->client_id){
+            if($request->client_id == 0){
                 $clientTemp = new ClientController;
                 $client = Client::create([
                     'client_name'            =>  $request->client_name,
                     'client_telephone'          =>  $request->client_telephone? $request->client_telephone: "",
-                    'client_city'          =>  $request->client_city? $request->client_city: "",
                     'client_code'           =>  $clientTemp->newCodeClient(),
                     'client_category_id'    =>  $clientTemp->getDefaultClientCategory(),
                     'client_status_id'    =>  $clientTemp->getDefaultClientStatus()

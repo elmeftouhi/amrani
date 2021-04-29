@@ -21,9 +21,11 @@
     </td>
     <td class="py-3 px-6 text-left">
         <div class="flex items-center">
-            {{$client->city->city_name_fr}}
-            @isset($client->sector)
-                ->{{$client->sector->city_sector_name_fr}}
+            @isset($client->city->city_name_fr)
+                {{$client->city->city_name_fr}}
+                @isset($client->sector)
+                    ->{{$client->sector->city_sector_name_fr}}
+                @endisset
             @endisset
         </div>
     </td>
