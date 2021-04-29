@@ -37,7 +37,7 @@ class AppartementController extends Controller
             'facades'               =>  Appartement::FACADES,
             'etats'                 =>  ['Nouveau', 'Habite'],
             'types'                 =>  ['Appartement', 'Duplexe', 'Triplexe'],
-            'situations'            =>  Appartement::FACADES,
+            'situations'            =>  Appartement::SITUATIONS,
             'code_appartement'      =>  $lastID
         ]);
     }
@@ -103,10 +103,10 @@ class AppartementController extends Controller
             'client_statuses'       =>  ClientStatus::all(),
             'services'              =>  AppartementService::all(),
             'cities'                =>  City::all(),
-            'facades'               =>  Appartement::$FACADES,
+            'facades'               =>  Appartement::FACADES,
             'etats'                 =>  ['Nouveau', 'Habite'],
             'types'                 =>  ['Appartement', 'Duplexe'],
-            'situations'            =>  ['Titre', 'Milikia', 'Contrat', 'Miftah', 'Contrat Adlia'],
+            'situations'            =>  Appartement::SITUATIONS,
             'appartement'        =>  $appartement
         ]);
     }
