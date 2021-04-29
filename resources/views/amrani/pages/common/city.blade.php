@@ -34,6 +34,10 @@
                 var route = "{{ route('sectors.list', 69) }}";
                 var city_id = $(this).val();
                 route = route.replace(69, city_id);
+                var city_sector_id = 0;
+                @isset($city_sector_id)
+                    city_sector_id = "{{$city_sector_id}}";
+                @endisset
                 
                 $.get(
                     route ,
@@ -48,9 +52,16 @@
                         for (const key in response) {
                             if (Object.hasOwnProperty.call(response, key)) {
                                 const element = response[key].city_sector_name_fr;
-                                $('#city_sector_id').find('option')
+                                if(response[key].id == city_sector_id){
+                                    $('#city_sector_id').find('option')
+                                        .end()
+                                        .append('<option selected value="'+response[key].id+'">'+response[key].city_sector_name_fr.trim()+'</option>');
+                                }else{
+                                    $('#city_sector_id').find('option')
                                         .end()
                                         .append('<option value="'+response[key].id+'">'+response[key].city_sector_name_fr.trim()+'</option>');
+                                }
+                                
                                 
                             }
                         }

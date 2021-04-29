@@ -65,7 +65,16 @@
 
     <div class="flex items-center block gap-4 mb-4">
         <label class="w-1/5 text-right text-gray-500 text-sm" for="client_telephone">Téléphone</label>
-        <input disabled class="bg-gray-200 form-input" type="text" id="client_telephone" name="client_telephone">
+
+        @if(isset($intermediaire))
+            <input value="{{$intermediaire->intermediaire_telephone}}" autocomplete="off" class="form-input" type="text" id="client_telephone" name="client_telephone" required>
+        @elseif(isset($client))
+            <input value="{{$client->client_telephone}}" autocomplete="off" class="form-input" type="text" id="client_telephone" name="client_telephone" required>
+        @else
+            <input value="" autocomplete="off" class="form-input" type="text" id="client_telephone" name="client_telephone" required>
+        @endif
+
+        
     </div>
 </div>
 
