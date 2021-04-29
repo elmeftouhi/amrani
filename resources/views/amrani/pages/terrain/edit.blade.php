@@ -1,11 +1,11 @@
 @extends('amrani.layout.app')
-@section('title') {{ __('Modifier un Appartement') }} @endsection
+@section('title') {{ __('Modifier un Terrain') }} @endsection
 
 @section('content')
 <div class="w-full h-full bg-gray-100">
     <div class="flex gap-4 items-center h-12 px-4 text-gray-600 bg-white">
         @include('components.ui.back')
-        <h1 class="font-bold text-xl">{{ __('Modifier un Appartement') }} </h1>
+        <h1 class="font-bold text-xl">{{ __('Modifier un Terrain') }} </h1>
     </div>
 
     <div class="overflow-x-auto">
@@ -17,151 +17,107 @@
                     @endforeach
                 </div>
             @endif
-            <form class="m-0" action="{{route('appartement.update', $appartement->id)}}" method="POST">
+            <form class="m-0" action="{{route('terrain.update', $terrain->id)}}" method="POST">
                 @csrf
                 @method('PUT')
 
-                @include('amrani.pages.common.upload', ['folder'=>'appartements/'.$appartement->appartement_code])
-                @include('amrani.pages.common.client', ['client'=>$appartement->client, 'intermediaire'=>$appartement->intermediaire])
+                @include('amrani.pages.common.upload', ['folder'=>'terrains/'.$terrain->terrain_code])
+                @include('amrani.pages.common.client', ['client'=>$terrain->client, 'intermediaire'=>$terrain->intermediaire])
 
                 <div class="w-full lg:w-4/6 mx-auto bg-white my-5 rounded border pb-4 shadow-sm">
 
-                    @include('components.ui.title', ['title'=>'Appartement / شقة'])
+                    @include('components.ui.title', ['title'=>'terrain / شقة'])
                     <hr>
 
                     <div class="flex items-center block gap-4 mb-4 mt-4">
-                        <label class="w-1/5 text-right text-gray-500 text-sm" for="appartement_code">Code Appartement</label>
-                        <input readonly value="{{$appartement->appartement_code}}" class="form-input bg-green-100 font-bold" type="text" name="appartement_code" required>
+                        <label class="w-1/5 text-right text-gray-500 text-sm" for="terrain_code">Code terrain</label>
+                        <input readonly value="{{$terrain->terrain_code}}" class="form-input bg-green-100 font-bold" type="text" name="terrain_code" required>
                     </div>
                     
                     <div class="flex items-center block gap-4 mb-4 flex-1">
-                        <label class="w-1/5 text-right text-gray-500 text-sm" for="appartement_service_id">Services</label>
-                        <select class="form-input w-3/5" name="appartement_service_id">
+                        <label class="w-1/5 text-right text-gray-500 text-sm" for="terrain_service_id">Services</label>
+                        <select class="form-input w-3/5" name="terrain_service_id">
                             <option value="-1">-- Services --</option> 
                             @foreach ($services as $service)
-                                <option @if($service->id == $appartement->appartement_service_id) selected @endif value="{{$service->id}}">{{$service->appartement_service}}</option>    
+                                <option @if($service->id == $terrain->terrain_service_id) selected @endif value="{{$service->id}}">{{$service->terrain_service}}</option>    
                             @endforeach
                         </select>
                     </div>  
 
                     <div class="flex items-center block gap-4 mb-4 flex-1">
-                        <label class="w-1/5 text-right text-gray-500 text-sm" for="appartement_service_id">Ville</label>
-                        @include('amrani.pages.common.city', ['cities'=>$cities, 'city_id'=>$appartement->city_id])
+                        <label class="w-1/5 text-right text-gray-500 text-sm" for="terrain_service_id">Ville</label>
+                        @include('amrani.pages.common.city', ['cities'=>$cities, 'city_id'=>$terrain->city_id])
                     </div> 
 
                     <div class="flex items-center block gap-4 mb-4 flex-1">
-                        <label class="w-1/5 text-right text-gray-500 text-sm" for="appartement_etat">Etat</label>
-                        <select class="form-input w-3/5" name="appartement_etat">
+                        <label class="w-1/5 text-right text-gray-500 text-sm" for="terrain_etat">Etat</label>
+                        <select class="form-input w-3/5" name="terrain_etat">
                             <option value="-1">-- Etats --</option> 
                             @foreach ($etats as $etat)
-                                <option @if($etat == $appartement->appartement_etat) selected @endif value="{{$etat}}">{{$etat}}</option>    
+                                <option @if($etat == $terrain->terrain_etat) selected @endif value="{{$etat}}">{{$etat}}</option>    
                             @endforeach
                         </select>
                     </div>
+
                     <div class="flex items-center block gap-4 mb-4 flex-1">
-                        <label class="w-1/5 text-right text-gray-500 text-sm" for="appartement_type">Type</label>
-                        <select class="form-input w-3/5" name="appartement_type">
-                            <option value="-1">-- Types --</option> 
-                            @foreach ($types as $type)
-                                <option @if($type == $appartement->appartement_type) selected @endif value="{{$type}}">{{$type}}</option>    
+                        <label class="w-1/5 text-right text-gray-500 text-sm" for="terrain_recule">Recules</label>
+                        <select class="form-input w-3/5" name="terrain_recule">
+                            <option value="-1">-- Recules --</option> 
+                            @foreach ($recules as $recule)
+                                <option @if($recule == $terrain->terrain_recule) selected @endif value="{{$recule}}">{{$recule}}</option>    
                             @endforeach
                         </select>
                     </div>
+
                     <div class="flex items-center block gap-4 mb-4 flex-1">
-                        <label class="w-1/5 text-right text-gray-500 text-sm" for="appartement_situation">Situation</label>
-                        <select class="form-input w-3/5" name="appartement_situation">
+                        <label class="w-1/5 text-right text-gray-500 text-sm" for="terrain_situation">Situation</label>
+                        <select class="form-input w-3/5" name="terrain_situation">
                             <option value="-1">-- Situation --</option> 
                             @foreach ($situations as $situation)
-                                <option @if($situation == $appartement->appartement_situation) selected @endif value="{{$situation}}">{{$situation}}</option>    
+                                <option @if($situation == $terrain->terrain_situation) selected @endif value="{{$situation}}">{{$situation}}</option>    
                             @endforeach
                         </select>
                     </div>
                     <div class="flex items-center block gap-4 mb-4 flex-1">
-                        <label class="w-1/5 text-right text-gray-500 text-sm" for="appartement_situation">Facades</label>
-                        <select class="facade form-input w-3/5" name="appartement_facade">
+                        <label class="w-1/5 text-right text-gray-500 text-sm" for="terrain_situation">Facades</label>
+                        <select class="facade form-input w-3/5" name="terrain_facade">
                             <option value="-1">-- Facade --</option> 
                             @foreach ($facades as $facade)
-                                <option @if($facade == $appartement->appartement_facade) selected @endif value="{{$facade}}">{{$facade}}</option>    
+                                <option @if($facade == $terrain->terrain_facade) selected @endif value="{{$facade}}">{{$facade}}</option>    
                             @endforeach
                         </select>
                     </div>
-                    <div class="largeur @if($appartement->appartement_facade != 'Rue') hidden @endif flex items-center block gap-4 mb-4">
-                        <label class="w-1/5 text-right text-gray-500 text-sm" for="appartement_etage">Largeur</label>
-                        <input value="{{$appartement->largeur_1}}" placeholder="0" class="form-input w-16 text-center" type="text" name="largeur_1">
-                        <input value="{{$appartement->largeur_2}}" placeholder="0" class="form-input w-16 text-center" type="text" name="largeur_2">
-                        <input value="{{$appartement->largeur_3}}" placeholder="0" class="form-input w-16 text-center" type="text" name="largeur_3">
+                    <div class="largeur @if($terrain->terrain_facade != 'Rue') hidden @endif flex items-center block gap-4 mb-4">
+                        <label class="w-1/5 text-right text-gray-500 text-sm" for="terrain_etage">Largeur</label>
+                        <input value="{{$terrain->largeur_1}}" placeholder="0" class="form-input w-16 text-center" type="text" name="largeur_1">
+                        <input value="{{$terrain->largeur_2}}" placeholder="0" class="form-input w-16 text-center" type="text" name="largeur_2">
+                        <input value="{{$terrain->largeur_3}}" placeholder="0" class="form-input w-16 text-center" type="text" name="largeur_3">
                     </div> 
                     <div class="flex items-center block gap-4 mb-4">
-                        <label class="w-1/5 text-right text-gray-500 text-sm" for="appartement_etage">Etage</label>
-                        <input value="{{$appartement->appartement_etage}}" placeholder="0" class="form-input" type="text" name="appartement_etage">
-                    </div>
-                    <div class="flex items-center block gap-4 mb-4">
-                        <label class="w-1/5 text-right text-gray-500 text-sm" for="appartements_en_etage">App. / Etage</label>
-                        <input value="{{$appartement->appartements_en_etage}}" placeholder="0" class="form-input" type="number" name="appartements_en_etage">
-                    </div>
-                    <div class="flex items-center block gap-4 mb-4">
-                        <label class="w-1/5 text-right text-gray-500 text-sm" for="appartements_en_immeuble">App. / immeuble</label>
-                        <input value="{{$appartement->appartements_en_immeuble}}" placeholder="0" class="form-input" type="number" name="appartements_en_immeuble">
-                    </div>
-                    <div class="flex items-center block gap-4 mb-4">
-                        <label class="w-1/5 text-right text-gray-500 text-sm" for="surface">Surface</label>
-                        <input value="{{$appartement->surface}}" placeholder="0" class="form-input" type="number" name="surface">
+                        <label class="w-1/5 text-right text-gray-500 text-sm" for="terrain_etage">Nbr. Etage</label>
+                        <input value="{{$terrain->terrain_etage}}" placeholder="0" class="form-input" type="text" name="terrain_etage">
                     </div>
 
                     <div class="flex items-center block gap-4 mb-4">
-                        <label class="w-1/5 text-right text-gray-500 text-sm" for="ascenseur">Ascenseur</label>
-                        <input value="{{$appartement->ascenseur}}" placeholder="0" class="form-input" type="number" name="ascenseur">
-                    </div>
-                    <div class="flex items-center block gap-4 mb-4">
-                        <label class="w-1/5 text-right text-gray-500 text-sm" for="parking">Place Parking</label>
-                        <input value="{{$appartement->parking}}" placeholder="0" class="form-input" type="number" name="parking">
-                    </div>
-
-                    <div class="flex items-center block gap-4 mb-4">
-                        <label class="w-1/5 text-right text-gray-500 text-sm" for="nbr_chambre">Nbr. Chambres</label>
-                        <input value="{{$appartement->nbr_chambre}}" placeholder="0" class="form-input" type="number" name="nbr_chambre">
-                    </div>
-
-                    <div class="flex items-center block gap-4 mb-4">
-                        <label class="w-1/5 text-right text-gray-500 text-sm" for="nbr_salon">Nbr. Salons</label>
-                        <input value="{{$appartement->nbr_salon}}" placeholder="0" class="form-input" type="number" name="nbr_salon">
-                    </div>
-
-                    <div class="flex items-center block gap-4 mb-4">
-                        <label class="w-1/5 text-right text-gray-500 text-sm" for="nbr_balcon">Nbr. Balcons</label>
-                        <input value="{{$appartement->nbr_balcon}}" placeholder="0" class="form-input" type="number" name="nbr_balcon">
-                    </div>
-
-                    <div class="flex items-center block gap-4 mb-4">
-                        <label class="w-1/5 text-right text-gray-500 text-sm" for="nbr_patio">nbr. Patios</label>
-                        <input value="{{$appartement->nbr_patio}}" placeholder="0" class="form-input" type="number" name="nbr_patio">
-                    </div>
-
-                    <div class="flex items-center block gap-4 mb-4">
-                        <label class="w-1/5 text-right text-gray-500 text-sm" for="nbr_toilette">Nbr. Toilettes</label>
-                        <input value="{{$appartement->nbr_toilette}}" placeholder="0" class="form-input" type="number" name="nbr_toilette">
-                    </div>
-
-                    <div class="flex items-center block gap-4 mb-4">
-                        <label class="w-1/5 text-right text-gray-500 text-sm" for="nbr_cuisine">Nbr. Cuisines</label>
-                        <input value="{{$appartement->nbr_cuisine}}" placeholder="0" class="form-input" type="number" name="nbr_cuisine">
+                        <label class="w-1/5 text-right text-gray-500 text-sm" for="terrain_garage_hauteur">H. Garage</label>
+                        <input value="{{$terrain->terrain_garage_hauteur}}" placeholder="0" class="form-input" type="text" name="terrain_garage_hauteur">
                     </div>
 
                     <div class="flex items-center block gap-4 mb-4">
                         <label class="w-1/5 text-right text-gray-500 text-sm" for="prix_metre">Prix / M</label>
-                        <input value="{{$appartement->prix_metre}}" placeholder="0" class="form-input bg-red-50" type="number" name="prix_metre">
+                        <input value="{{$terrain->prix_metre}}" placeholder="0" class="form-input bg-red-50" type="number" name="prix_metre">
                         <span class="text-xs text-gray-500">DH</span>
                     </div>
 
                     <div class="flex items-center block gap-4 mb-4">
                         <label class="w-1/5 text-right text-gray-500 text-sm" for="prix_total">Prix Total</label>
-                        <input value="{{$appartement->prix_total}}" placeholder="0" class="form-input bg-blue-50" type="number" name="prix_total">
+                        <input value="{{$terrain->prix_total}}" placeholder="0" class="form-input bg-blue-50" type="number" name="prix_total">
                         <span class="text-xs text-gray-500">DH</span>
                     </div>
 
                     <div class="flex items-center block gap-4 mb-4">
                         <label class="w-1/5 text-right text-gray-500 text-sm" for="prix_declaration">Prix Declare</label>
-                        <input value="{{$appartement->prix_declaration}}"placeholder="0" class="form-input bg-blue-50" type="number" name="prix_declaration">
+                        <input value="{{$terrain->prix_declaration}}"placeholder="0" class="form-input bg-blue-50" type="number" name="prix_declaration">
                         <span class="text-xs text-gray-500">DH</span>
                     </div>
 

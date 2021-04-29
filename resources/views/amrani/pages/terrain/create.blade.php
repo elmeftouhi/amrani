@@ -37,7 +37,7 @@
                         <select class="form-input w-3/5" name="terrain_service_id">
                             <option value="-1">-- Services --</option> 
                             @foreach ($services as $service)
-                                <option value="{{$service->id}}">{{$service->service_service}}</option>    
+                                <option value="{{$service->id}}">{{$service->terrain_service}}</option>    
                             @endforeach
                         </select>
                     </div>  
@@ -59,7 +59,7 @@
                     </div>
                     <div class="flex items-center block gap-4 mb-4 flex-1">
                         <label class="w-1/5 text-right text-gray-500 text-sm" for="terrain_recule">Recule</label>
-                        <select class="form-input w-3/5" name="terrain_type">
+                        <select class="form-input w-3/5" name="terrain_recule">
                             <option value="-1">-- Recule --</option> 
                             @foreach ($recules as $recule)
                                 <option value="{{$recule}}">{{$recule}}</option>    
@@ -90,6 +90,21 @@
                         <input value="" placeholder="0" class="form-input w-16 text-center" type="text" name="largeur_2">
                         <input value="" placeholder="0" class="form-input w-16 text-center" type="text" name="largeur_3">
                     </div> 
+
+                    <div class="flex items-center block gap-4 mb-4">
+                        <label class="w-1/5 text-right text-gray-500 text-sm" for="surface">Surface</label>
+                        <input value="" placeholder="0" class="form-input" type="number" name="surface">
+                    </div>
+
+                    <div class="flex items-center block gap-4 mb-4">
+                        <label class="w-1/5 text-right text-gray-500 text-sm" for="terrain_etage">Nbr. Etage</label>
+                        <input value="" placeholder="0" class="form-input" type="text" name="terrain_etage">
+                    </div>
+
+                    <div class="flex items-center block gap-4 mb-4">
+                        <label class="w-1/5 text-right text-gray-500 text-sm" for="terrain_garage_hauteur">H. Garage</label>
+                        <input value="" placeholder="0" class="form-input" type="text" name="terrain_garage_hauteur">
+                    </div>
 
                     <div class="flex items-center block gap-4 mb-4">
                         <label class="w-1/5 text-right text-gray-500 text-sm" for="prix_metre">Prix / M</label>

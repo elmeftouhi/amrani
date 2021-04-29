@@ -27,6 +27,7 @@ class Appartement extends Model
         'appartement_facade',
         'facade_details',
         'surface',
+        'description',
         'ascenseur',
         'parking',
         'nbr_chambre',
