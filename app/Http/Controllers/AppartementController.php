@@ -20,7 +20,7 @@ class AppartementController extends Controller
             'appartements'      =>  Appartement::all(),
             'services'          =>  AppartementService::all(),
             'cities'            =>  City::all(),
-            'situations'        =>  Appartement::FACADES,
+            'situations'        =>  Appartement::SITUATIONS,
         ]);
     }
 
