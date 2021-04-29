@@ -94,7 +94,7 @@
 
     $('#req').keyup(function(e){
         if(e.keyCode == 13){
-            $('#req_submit').trigger('change');
+            $('#req_submit').trigger('click');
         }
     });
 
@@ -127,7 +127,6 @@
             data: data,
             type: 'POST',
             success: function(data){
-                console.log(data);
                 $('table tbody').html(data.success);
                 $('.total_items').html('Total items ' + data.total)
                 $('.loader_').toggleClass('hidden');

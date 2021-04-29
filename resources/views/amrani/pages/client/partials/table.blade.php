@@ -80,7 +80,7 @@ $(document).ready(function(){
 
     $('#req').keyup(function(e){
         if(e.keyCode == 13){
-            $('#req_submit').trigger('change');
+            $('#req_submit').trigger('click');
         }
     });
 
