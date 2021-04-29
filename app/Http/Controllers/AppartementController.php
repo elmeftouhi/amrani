@@ -17,9 +17,10 @@ class AppartementController extends Controller
     public function index()
     {
         return view('amrani.pages.appartement.index')->with([
-            'appartements'   =>  Appartement::all(),
-            'services'      =>      AppartementService::all(),
-            'cities'                =>  City::all(),
+            'appartements'      =>  Appartement::all(),
+            'services'          =>  AppartementService::all(),
+            'cities'            =>  City::all(),
+            'situations'        =>  Appartement::FACADES,
         ]);
     }
 
@@ -33,10 +34,10 @@ class AppartementController extends Controller
             'client_statuses'       =>  ClientStatus::all(),
             'services'              =>  AppartementService::all(),
             'cities'                =>  City::all(),
-            'facades'               =>  Appartement::$FACADES,
+            'facades'               =>  Appartement::FACADES,
             'etats'                 =>  ['Nouveau', 'Habite'],
             'types'                 =>  ['Appartement', 'Duplexe', 'Triplexe'],
-            'situations'            =>  ['Titre', 'Milikia', 'Contrat', 'Miftah', 'Contrat Adlia'],
+            'situations'            =>  Appartement::FACADES,
             'code_appartement'      =>  $lastID
         ]);
     }
@@ -129,4 +130,50 @@ class AppartementController extends Controller
         $appartement->delete();
         return redirect()->route('appartement.index');
     }
+
+    public function filter(Request $request){
+        try {
+
+
+            $appartements = Appartement::with('service', 'city');
+
+            if($request->req){
+                $appartements = $appartements->where('appartement_code', 'like', '%'.$request->req.'%');
+            }
+
+            if($request->appartement_service_id){
+                $appartements = $appartements->where('appartement_service_id', '=', $request->appartement_service_id);
+            }
+
+            if($request->appartement_situation){
+                $appartements = $appartements->where('appartement_situation', '=', $request->appartement_situation);
+            }
+
+            if($request->client_city_id){
+                $appartements = $appartements->where('client_city_id', '=', $request->client_city_id);
+            }
+
+            if($request->client_city_sector_id){
+                $appartements = $appartements->where('client_city_sector_id', '=', $request->client_city_sector_id);
+            }
+            $count = $appartements->count();
+            $appartements = $appartements->orderBy('appartement_code')->paginate(20);
+    
+            $trs = "";
+            foreach($appartements as $appartement){
+                $trs .= view('amrani.pages.appartement.partials.tr', ['appartement'=>$appartement]);
+            }
+
+            return response()->json([
+                'success'   => $trs,
+                'total'     =>  $appartements->count() . ' / ' . $count
+            ]);
+
+        } catch (\Throwable $th) {
+            return $th;
+        }
+
+    }
+
+
 }

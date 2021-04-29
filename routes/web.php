@@ -23,6 +23,7 @@ Route::resource('intermediaire', IntermediaireController::class);
 Route::post('intermediaire/filter', [IntermediaireController::class, 'filter'])->name('intermediaire.filter');
 
 Route::resource('appartement', AppartementController::class);
+Route::post('appartement/filter', [AppartementController::class, 'filter'])->name('appartement.filter');
 
 Route::resource('terrain', TerrainController::class);
 
