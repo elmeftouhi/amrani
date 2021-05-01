@@ -31,7 +31,7 @@
                         <!-- Header -->
                         @include('amrani.layout.header')
                         <!-- Content -->
-                        <div class="flex-1 bg-red-100 overflow-y-auto">
+                        <div class="flex-1 bg-red-100 overflow-y-auto main-content">
                             @yield('content')  
                         </div>
                                               

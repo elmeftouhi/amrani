@@ -157,7 +157,10 @@ class AppartementController extends Controller
                 $appartements = $appartements->where('client_city_sector_id', '=', $request->client_city_sector_id);
             }
             $count = $appartements->count();
-            $appartements = $appartements->orderBy('appartement_code')->paginate(20);
+            $page = isset($request->paginator->page)? $request->paginator->page*$request->paginator->pp: 0;
+            $pp = isset($request->paginator->pp)? $request->paginator->pp: 10;
+
+            $appartements = $appartements->orderBy('appartement_code')->offset($page)->limit($pp)->get(); 
     
             $trs = "";
             foreach($appartements as $appartement){

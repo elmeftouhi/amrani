@@ -1,4 +1,4 @@
-<div class="overflow-x-auto">
+<div class="overflow-x-auto main-content">
     <div class="min-w-screen flex items-center justify-center font-sans overflow-hidden bg-gray-100">
         <div class="w-full lg:w-5/6">
             <div class="flex items-center justify-between pt-6">
@@ -118,6 +118,12 @@ $(document).ready(function(){
                 console.log(e)
             }
         });
+    });
+
+    $('.main-content').scroll(function() {
+        if($('.main-content').scrollTop() + $('.main-content').height() == $(document).height()) {
+            alert("bottom!");
+        }
     });
 });
     

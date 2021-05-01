@@ -46,7 +46,10 @@
                         @endforeach
                     </tbody>
                 </table>
-
+                <div class="paginator">
+                    <div class="pp">10</div>
+                    <div class="page">1</div>
+                </div>
                 <div class="flex items-center gap-8 pb-4">
                     <div class="flex py-2 px-2 gap-1">
                         <button class="hover:bg-gray-400 active:bg-gray-500 py-2 px-5 bg-gray-300 rounded-md text-gray-600 border">
@@ -136,6 +139,52 @@
                 console.log(e)
             }
         });
+    });
+
+    $('.main-content').scroll(function() {
+        if($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight) {
+            var navigator = {
+                'pp'        :       $(this).find('.pp').html(),
+                'page'      :       $(this).find('.page').html(),
+            }
+            let data = {
+                    '_token'                :   $('meta[name="csrf-token"]').attr('content'),
+                    };
+
+            $('.loader_').toggleClass('hidden');
+            if($('#req').val() != ""){
+                data.req = $('#req').val();
+            }
+            if($('#appartement_service_id').val() != "-1"){
+                data.appartement_service_id = $('#appartement_service_id').val();
+            }
+            if($('#appartement_situation').val() != "-1"){
+                data.appartement_situation = $('#appartement_situation').val();
+            }
+            
+            if($("#city_id").val() != "-1"){
+                data.city_id = $("#city_id").val();
+            }
+            if($("#city_sector_id").val() != "-1"){
+                data.city_sector_id = $("#city_sector_id").val();
+            }
+            data.paginator = navigator;
+            $.ajax({
+                url: "{{route('appartement.filter')}}",
+                data: data,
+                type: 'POST',
+                success: function(data){
+                    $('table tbody').append(data.success);
+                    $('.total_items').html('Total items ' + data.total)
+                    $('.loader_').toggleClass('hidden');
+                },
+                error: function(e){
+                    $('.loader_').toggleClass('hidden');
+                    console.log(e)
+                }
+            });
+
+        }
     });
     
 </script>
