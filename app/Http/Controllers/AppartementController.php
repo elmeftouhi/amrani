@@ -17,7 +17,7 @@ class AppartementController extends Controller
     public function index()
     {
         return view('amrani.pages.appartement.index')->with([
-            'appartements'      =>  Appartement::all(),
+            'appartements'      =>  Appartement::orderBy('created_at')->offset(0)->limit(20)->get(),
             'services'          =>  AppartementService::all(),
             'cities'            =>  City::all(),
             'situations'        =>  Appartement::SITUATIONS,
@@ -156,12 +156,14 @@ class AppartementController extends Controller
             if($request->client_city_sector_id){
                 $appartements = $appartements->where('client_city_sector_id', '=', $request->client_city_sector_id);
             }
-            $count = $appartements->count();
-            $page = isset($request->paginator->page)? $request->paginator->page*$request->paginator->pp: 0;
-            $pp = isset($request->paginator->pp)? $request->paginator->pp: 10;
 
-            $appartements = $appartements->orderBy('appartement_code')->offset($page)->limit($pp)->get(); 
-    
+            $count = $appartements->count();
+
+            $page = isset($request->paginator['page'])? $request->paginator['page']*$request->paginator['pp']: 0;
+            $pp = isset($request->paginator['pp'])? $request->paginator['pp']: 20;
+
+            $appartements = $appartements->orderBy('created_at')->offset($page)->limit($pp)->get(); 
+            //return $appartements->count() . ' - ' . $count . ' / ' . $page;
             $trs = "";
             foreach($appartements as $appartement){
                 $trs .= view('amrani.pages.appartement.partials.tr', ['appartement'=>$appartement]);

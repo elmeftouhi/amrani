@@ -5,7 +5,7 @@
             @if (isset($city_id))
                 <option @if($city->id == $city_id) selected @endif value="{{$city->id}}">{{$city->city_name_fr}}</option>  
             @else
-                <option @if($city->is_default) selected @endif value="{{$city->id}}">{{$city->city_name_fr}}</option>               
+                <option value="{{$city->id}}">{{$city->city_name_fr}}</option>               
             @endif
         @endforeach
     </select>
@@ -21,6 +21,7 @@
 
 <script>
     $(document).ready(function(){
+        
         $('#city_id').on('change', function(){
             $('.loader').removeClass('hidden');
             if( $(this).val() == "-1" ){

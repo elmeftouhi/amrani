@@ -25,7 +25,7 @@
                     <i class="far fa-plus"></i> 
                 </a>
             </div>
-            <div class="bg-white shadow-md rounded my-6 relative overflow-auto">
+            <div class="bg-white shadow-md rounded my-6 pb-6 relative overflow-auto">
                 <table class="min-w-max w-full table-auto">
                     <thead>
                         <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
@@ -46,20 +46,16 @@
                         @endforeach
                     </tbody>
                 </table>
-                <div class="paginator">
-                    <div class="pp">10</div>
+
+                <div class="paginator hidden">
+                    <div class="pp">20</div>
                     <div class="page">1</div>
                 </div>
-                <div class="flex items-center gap-8 pb-4">
-                    <div class="flex py-2 px-2 gap-1">
-                        <button class="hover:bg-gray-400 active:bg-gray-500 py-2 px-5 bg-gray-300 rounded-md text-gray-600 border">
-                            <i class="fas fa-angle-left"></i>
-                        </button>
-                        <button class="hover:bg-gray-400 active:bg-gray-500 py-2 px-5 bg-gray-300 rounded-md text-gray-600 border">
-                            <i class="fas fa-angle-right"></i>
-                        </button>
+
+                <div class="infinit_loader hidden">
+                    <div class="w-24 mx-auto text-center text-xl text-gray-400 pt-4">
+                        <i class="fas fa-sync fa-spin"></i>
                     </div>
-                    <div class="text-blue-400 text-xs total_items">Total Items</div>
                 </div>
 
                 <div class="absolute hidden loader_ top-0 left-0 right-0 bottom-0 bg-gray-600 bg-opacity-30">
@@ -67,6 +63,7 @@
                         <i class="fas fa-sync fa-spin"></i>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
@@ -102,7 +99,12 @@
     });
 
     $('#req_submit').on('click', function(){
-
+        var navigator = {
+            'pp'        :       20,
+            'page'      :       0,
+        };
+        $('.pp').html(20);
+        $('.page').html(1);
         let data = {
                     '_token'                :   $('meta[name="csrf-token"]').attr('content'),
                     };
@@ -124,7 +126,7 @@
         if($("#city_sector_id").val() != "-1"){
             data.city_sector_id = $("#city_sector_id").val();
         }
-
+        data.paginator = navigator;
         $.ajax({
             url: "{{route('appartement.filter')}}",
             data: data,
@@ -133,6 +135,7 @@
                 $('table tbody').html(data.success);
                 $('.total_items').html('Total items ' + data.total)
                 $('.loader_').toggleClass('hidden');
+                $('.main-content').removeClass('endScroll');
             },
             error: function(e){
                 $('.loader_').toggleClass('hidden');
@@ -142,7 +145,7 @@
     });
 
     $('.main-content').scroll(function() {
-        if($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight) {
+        if($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight && !$(this).hasClass('endScroll') && $('.infinit_loader').hasClass('hidden') ) {
             var navigator = {
                 'pp'        :       $(this).find('.pp').html(),
                 'page'      :       $(this).find('.page').html(),
@@ -151,7 +154,7 @@
                     '_token'                :   $('meta[name="csrf-token"]').attr('content'),
                     };
 
-            $('.loader_').toggleClass('hidden');
+            $('.infinit_loader').toggleClass('hidden');
             if($('#req').val() != ""){
                 data.req = $('#req').val();
             }
@@ -174,12 +177,18 @@
                 data: data,
                 type: 'POST',
                 success: function(data){
-                    $('table tbody').append(data.success);
-                    $('.total_items').html('Total items ' + data.total)
-                    $('.loader_').toggleClass('hidden');
+                    if( data.success == ''){
+                        $('.main-content').addClass('endScroll');
+                    }else{
+                        $('.page').html( parseInt($('.page').html()) + 1 );
+                        $('table tbody').append(data.success);                        
+                    }
+                    
+                    $('.infinit_loader').toggleClass('hidden');
+
                 },
                 error: function(e){
-                    $('.loader_').toggleClass('hidden');
+                    $('.infinit_loader').toggleClass('hidden');
                     console.log(e)
                 }
             });
