@@ -134,7 +134,6 @@ class AppartementController extends Controller
     public function filter(Request $request){
         try {
 
-
             $appartements = Appartement::with('service', 'city');
 
             if($request->req){
@@ -163,10 +162,10 @@ class AppartementController extends Controller
             $pp = isset($request->paginator['pp'])? $request->paginator['pp']: 20;
 
             $appartements = $appartements->orderBy('created_at')->offset($page)->limit($pp)->get(); 
-            //return $appartements->count() . ' - ' . $count . ' / ' . $page;
+
             $trs = "";
-            foreach($appartements as $appartement){
-                $trs .= view('amrani.pages.appartement.partials.tr', ['appartement'=>$appartement]);
+            foreach($appartements as $index=>$appartement){
+                $trs .= view('amrani.pages.appartement.partials.tr', ['appartement'=>$appartement, 'index'=>$page+$index]);
             }
 
             return response()->json([

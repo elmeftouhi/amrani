@@ -123,13 +123,22 @@ class IntermediaireController extends Controller
                 $intermediaires = $intermediaires->where('intermediaire_city_sector_id', '=', $request->intermediaire_city_sector_id);
             }
 
-            $intermediaires = $intermediaires->orderBy('intermediaire_name')->paginate(20);
-    
+            $count = $intermediaires->count();
+
+            $page = isset($request->paginator['page'])? $request->paginator['page']*$request->paginator['pp']: 0;
+            $pp = isset($request->paginator['pp'])? $request->paginator['pp']: 20;
+
+            $intermediaires = $intermediaires->orderBy('intermediaire_name')->offset($page)->limit($pp)->get(); 
+
             $trs = "";
-            foreach($intermediaires as $intermediaire){
-                $trs .= view('amrani.pages.intermediaire.partials.tr', ['intermediaire'=>$intermediaire]);
+            foreach($intermediaires as $index=>$intermediaire){
+                $trs .= view('amrani.pages.intermediaire.partials.tr', ['intermediaire'=>$intermediaire, 'index'=>$page+$index]);
             }
-            return $trs;
+
+            return response()->json([
+                'success'   => $trs,
+                'total'     =>  $intermediaires->count() . ' / ' . $count
+            ]);
         } catch (\Throwable $th) {
             return $th;
         }

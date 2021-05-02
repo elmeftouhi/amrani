@@ -112,7 +112,6 @@ class ClientController extends Controller
     public function filter(Request $request){
         try {
 
-
             $clients = Client::with('category', 'status');
 
             if($request->req){
@@ -130,12 +129,17 @@ class ClientController extends Controller
             if($request->client_city_sector_id){
                 $clients = $clients->where('client_city_sector_id', '=', $request->client_city_sector_id);
             }
+
             $count = $clients->count();
-            $clients = $clients->orderBy('client_name')->paginate(20);
-    
+
+            $page = isset($request->paginator['page'])? $request->paginator['page']*$request->paginator['pp']: 0;
+            $pp = isset($request->paginator['pp'])? $request->paginator['pp']: 20;
+
+            $clients = $clients->orderBy('client_name')->offset($page)->limit($pp)->get(); 
+
             $trs = "";
-            foreach($clients as $client){
-                $trs .= view('amrani.pages.client.partials.tr', ['client'=>$client]);
+            foreach($clients as $index=>$client){
+                $trs .= view('amrani.pages.client.partials.tr', ['client'=>$client, 'index'=>$page+$index]);
             }
 
             return response()->json([

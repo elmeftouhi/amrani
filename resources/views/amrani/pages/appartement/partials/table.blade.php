@@ -179,16 +179,15 @@
                 success: function(data){
                     if( data.success == ''){
                         $('.main-content').addClass('endScroll');
+                        $('.infinit_loader').addClass('hidden');
                     }else{
                         $('.page').html( parseInt($('.page').html()) + 1 );
-                        $('table tbody').append(data.success);                        
+                        $('table tbody').append(data.success);      
+                        $('.infinit_loader').addClass('hidden');                  
                     }
-                    
-                    $('.infinit_loader').toggleClass('hidden');
-
                 },
                 error: function(e){
-                    $('.infinit_loader').toggleClass('hidden');
+                    $('.infinit_loader').addClass('hidden');
                     console.log(e)
                 }
             });
