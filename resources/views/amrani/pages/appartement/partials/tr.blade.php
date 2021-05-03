@@ -22,7 +22,9 @@
     <td class="py-1 px-6 text-left">
         <div class="flex items-center">
             <span class="font-medium">
-                {{$appartement->city->city_name_fr }} @isset($appartement->city_sector) -> {{$appartement->city_sector->city_sector_name_fr}} @endisset 
+                @isset($appartement->city)
+                    {{$appartement->city->city_name_fr }} @isset($appartement->city_sector) -> {{$appartement->city_sector->city_sector_name_fr}} @endisset 
+                @endisset
            </span>
         </div>
     </td>
