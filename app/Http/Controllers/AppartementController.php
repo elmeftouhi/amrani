@@ -148,12 +148,12 @@ class AppartementController extends Controller
                 $appartements = $appartements->where('appartement_situation', '=', $request->appartement_situation);
             }
 
-            if($request->client_city_id){
-                $appartements = $appartements->where('client_city_id', '=', $request->client_city_id);
+            if($request->city_id){
+                $appartements = $appartements->where('city_id', '=', $request->city_id);
             }
 
-            if($request->client_city_sector_id){
-                $appartements = $appartements->where('client_city_sector_id', '=', $request->client_city_sector_id);
+            if($request->city_sector_id){
+                $appartements = $appartements->where('city_sector_id', '=', $request->city_sector_id);
             }
 
             $count = $appartements->count();
