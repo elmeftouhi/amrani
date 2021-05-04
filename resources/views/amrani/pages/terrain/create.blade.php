@@ -57,14 +57,19 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="flex items-center block gap-4 mb-4 flex-1">
+                    <div class="flex items-top block gap-4 mb-4 flex-1">
                         <label class="w-1/5 text-right text-gray-500 text-sm" for="terrain_recule">Recule</label>
-                        <select class="form-input w-3/5" name="terrain_recule">
-                            <option value="-1">-- Recule --</option> 
+                        <div class="w-3/5 grid grid-cols-2 gap-4">
                             @foreach ($recules as $recule)
-                                <option value="{{$recule}}">{{$recule}}</option>    
+
+                                <label class="flex items-center space-x-3">
+                                    <input type="checkbox" name="terrain_recule[]" value="{{$recule}}" class="form-tick appearance-none h-6 w-6 border border-gray-300 rounded-md checked:bg-blue-600 checked:border-transparent focus:outline-none">
+                                    <span class="text-gray-900 font-medium">{{$recule}}</span>
+                                </label>
+    
                             @endforeach
-                        </select>
+
+                        </div>
                     </div>
                     <div class="flex items-center block gap-4 mb-4 flex-1">
                         <label class="w-1/5 text-right text-gray-500 text-sm" for="terrain_situation">Situation</label>

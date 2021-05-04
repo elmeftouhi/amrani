@@ -83,7 +83,10 @@ class ClientController extends Controller
 
     public function destroy(Client $client)
     {
-        $client->delete();
+
+        if($client->appartements->count() == 0)
+            $client->delete();
+            
         return redirect()->route('client.index');
     }
 

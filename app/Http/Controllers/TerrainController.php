@@ -20,7 +20,8 @@ class TerrainController extends Controller
         return view('amrani.pages.terrain.index')->with([
             'terrains'          =>  Terrain::all(),
             'services'          =>  TerrainService::all(),
-            'cities'            =>  City::all()
+            'cities'            =>  City::all(),
+            'situations'        =>  Terrain::SITUATIONS,
         ]);
     }
 
@@ -36,7 +37,7 @@ class TerrainController extends Controller
             'cities'                =>  City::all(),
             'facades'               =>  Terrain::$FACADES,
             'etats'                 =>  Terrain::$ETATS,
-            'situations'            =>  Terrain::$SITUATIONS,
+            'situations'            =>  Terrain::SITUATIONS,
             'recules'               =>  Terrain::$RECULES,
             'terrain_code'          =>  $lastID
         ]);
@@ -50,13 +51,14 @@ class TerrainController extends Controller
             'terrain_service_id'     => 'required|integer|min:1'
         ]);
 
+        //dd(json_encode($request->terrain_recule));
+
         if($request->is_intermediaire){
             if(!$request->intermediaire_id){
                 $intermediaireTemp = new IntermediaireController;
                 $intermediaire = Intermediaire::create([
                     'intermediaire_name'            =>  $request->client_name,
                     'intermediaire_telephone'          =>  $request->client_telephone? $request->client_telephone: "",
-                    'intermediaire_city'          =>  $request->client_city? $request->client_city: "",
                     'intermediaire_code'           =>  $intermediaireTemp->newCodeIntermediaire(),
                     'intermediaire_category_id'    =>  $intermediaireTemp->getDefaultIntermediaireCategory(),
                     'intermediaire_status_id'    =>  $intermediaireTemp->getDefaultIntermediaireStatus()
@@ -71,18 +73,20 @@ class TerrainController extends Controller
                 $client = Client::create([
                     'client_name'            =>  $request->client_name,
                     'client_telephone'          =>  $request->client_telephone? $request->client_telephone: "",
-                    'client_city'          =>  $request->client_city? $request->client_city: "",
                     'client_code'           =>  $clientTemp->newCodeClient(),
                     'client_category_id'    =>  $clientTemp->getDefaultClientCategory(),
                     'client_status_id'    =>  $clientTemp->getDefaultClientStatus()
                 ]);
                 $request->merge([
+                    'city_id' => $request->city_id? $request->city_id:-1,
+                    'city_sector_id' => $request->city_sector_id? $request->city_sector_id:-1,
                     'client_id' =>  $client->id
                 ]);
             }            
         }
 
         $request->merge([
+            'terrain_recule'    =>  isset($request->terrain_recule)? json_encode($request->terrain_recule): '',
             'city_id' => $request->city_id? $request->city_id:-1,
             'city_sector_id' => $request->city_sector_id? $request->city_sector_id:-1,
         ]);
@@ -104,7 +108,7 @@ class TerrainController extends Controller
             'cities'                =>  City::all(),
             'facades'               =>  Terrain::$FACADES,
             'etats'                 =>  Terrain::$ETATS,
-            'situations'            =>  Terrain::$SITUATIONS,
+            'situations'            =>  Terrain::SITUATIONS,
             'recules'               =>  Terrain::$RECULES,
             'terrain'           =>  $terrain
         ]);
@@ -113,19 +117,69 @@ class TerrainController extends Controller
     public function update(Request $request, Terrain $terrain)
     {
         $request->validate([
-            'appartement_code'           => 'required|max:10',
+            'terrain_code'           => 'required|max:10',
             'client_name'                => 'required|string|max:255'
         ]);
         $request->merge([
-            'appartements_en_etage' => $request->appartements_en_etage? $request->appartements_en_etage:0,
+            'terrain_recule'    =>  isset($request->terrain_recule)? json_encode($request->terrain_recule): '',
+            'terrains_en_etage' => $request->terrains_en_etage? $request->terrains_en_etage:0,
             'is_demande' => $request->is_demande? true:false,
         ]);
         $terrain->update($request->all());
         return redirect()->route('terrain.index');
+
     }
 
     public function destroy(Terrain $terrain)
     {
         //
+    }
+
+    public function filter(Request $request){
+        try {
+
+            $terrains = Terrain::with('service', 'city');
+
+            if($request->req){
+                $terrains = $terrains->where('terrain_code', 'like', '%'.$request->req.'%');
+            }
+
+            if($request->terrain_service_id){
+                $terrains = $terrains->where('terrain_service_id', '=', $request->terrain_service_id);
+            }
+
+            if($request->terrain_situation){
+                $terrains = $terrains->where('terrain_situation', '=', $request->terrain_situation);
+            }
+
+            if($request->city_id){
+                $terrains = $terrains->where('city_id', '=', $request->city_id);
+            }
+
+            if($request->city_sector_id){
+                $terrains = $terrains->where('city_sector_id', '=', $request->city_sector_id);
+            }
+
+            $count = $terrains->count();
+
+            $page = isset($request->paginator['page'])? $request->paginator['page']*$request->paginator['pp']: 0;
+            $pp = isset($request->paginator['pp'])? $request->paginator['pp']: 20;
+
+            $terrains = $terrains->orderBy('created_at')->offset($page)->limit($pp)->get(); 
+
+            $trs = "";
+            foreach($terrains as $index=>$terrain){
+                $trs .= view('amrani.pages.terrain.partials.tr', ['terrain'=>$terrain, 'index'=>$page+$index]);
+            }
+
+            return response()->json([
+                'success'   => $trs,
+                'total'     =>  $terrains->count() . ' / ' . $count
+            ]);
+
+        } catch (\Throwable $th) {
+            return $th;
+        }
+
     }
 }

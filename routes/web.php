@@ -26,6 +26,7 @@ Route::resource('appartement', AppartementController::class);
 Route::post('appartement/filter', [AppartementController::class, 'filter'])->name('appartement.filter');
 
 Route::resource('terrain', TerrainController::class);
+Route::post('terrain/filter', [TerrainController::class, 'filter'])->name('terrain.filter');
 
 Route::get('/dashboard/totals', [DashboardController::class, 'getTotals'])->name('dashboard.totals');
 

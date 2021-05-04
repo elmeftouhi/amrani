@@ -45,9 +45,9 @@
                     </div>  
 
                     <div class="flex items-center block gap-4 mb-4 flex-1">
-                        <label class="w-1/5 text-right text-gray-500 text-sm" for="terrain_service_id">Ville</label>
-                        @include('amrani.pages.common.city', ['cities'=>$cities, 'city_id'=>$terrain->city_id])
-                    </div> 
+                        <label class="w-1/5 text-right text-gray-500 text-sm" for="city_id">Ville</label>
+                        @include('amrani.pages.common.city', ['cities'=>$cities, 'city_id'=>$terrain->city_id, 'city_sector_id'=>$terrain->city_sector_id])
+                    </div>
 
                     <div class="flex items-center block gap-4 mb-4 flex-1">
                         <label class="w-1/5 text-right text-gray-500 text-sm" for="terrain_etat">Etat</label>
@@ -59,14 +59,21 @@
                         </select>
                     </div>
 
-                    <div class="flex items-center block gap-4 mb-4 flex-1">
-                        <label class="w-1/5 text-right text-gray-500 text-sm" for="terrain_recule">Recules</label>
-                        <select class="form-input w-3/5" name="terrain_recule">
-                            <option value="-1">-- Recules --</option> 
+                    <div class="flex items-top block gap-4 mb-4 flex-1">
+                        <label class="w-1/5 text-right text-gray-500 text-sm" for="terrain_recule">Recule</label>
+                        <div class="w-3/5 grid grid-cols-2 gap-4">
                             @foreach ($recules as $recule)
-                                <option @if($recule == $terrain->terrain_recule) selected @endif value="{{$recule}}">{{$recule}}</option>    
+                                <label class="flex items-center space-x-3">
+                                    @if (in_array($recule, json_decode($terrain->terrain_recule)))
+                                        <input type="checkbox" checked name="terrain_recule[]" value="{{$recule}}" class="form-tick appearance-none h-6 w-6 border border-gray-300 rounded-md checked:bg-blue-600 checked:border-transparent focus:outline-none">
+                                        <span class="text-gray-900 font-medium">{{$recule}}</span>  
+                                    @else
+                                        <input type="checkbox" name="terrain_recule[]" value="{{$recule}}" class="form-tick appearance-none h-6 w-6 border border-gray-300 rounded-md checked:bg-blue-600 checked:border-transparent focus:outline-none">
+                                        <span class="text-gray-900 font-medium">{{$recule}}</span>   
+                                    @endif
+                                </label>
                             @endforeach
-                        </select>
+                        </div>
                     </div>
 
                     <div class="flex items-center block gap-4 mb-4 flex-1">
@@ -93,6 +100,12 @@
                         <input value="{{$terrain->largeur_2}}" placeholder="0" class="form-input w-16 text-center" type="text" name="largeur_2">
                         <input value="{{$terrain->largeur_3}}" placeholder="0" class="form-input w-16 text-center" type="text" name="largeur_3">
                     </div> 
+
+                    <div class="flex items-center block gap-4 mb-4">
+                        <label class="w-1/5 text-right text-gray-500 text-sm" for="surface">Surface</label>
+                        <input value="{{$terrain->surface}}" placeholder="0" class="form-input" type="number" name="surface">
+                    </div>
+
                     <div class="flex items-center block gap-4 mb-4">
                         <label class="w-1/5 text-right text-gray-500 text-sm" for="terrain_etage">Nbr. Etage</label>
                         <input value="{{$terrain->terrain_etage}}" placeholder="0" class="form-input" type="text" name="terrain_etage">

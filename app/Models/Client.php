@@ -42,4 +42,8 @@ class Client extends Model
     public function sector(){
         return $this->belongsTo(CitySector::class,'client_city_sector_id','id');
     }
+
+    public function appartements(){
+        return $this->hasMany(Appartement::class);
+    }
 }
