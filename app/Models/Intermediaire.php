@@ -21,6 +21,7 @@ class Intermediaire extends Model
         'intermediaire_city_id',
         'intermediaire_city_sector_id',
         'intermediaire_telephone',
+        'contacts',
         'created_at',
         'updated_at'
     ];

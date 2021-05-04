@@ -34,15 +34,28 @@ class ClientController extends Controller
 
     public function store(Request $request)
     {
+        
+
         $request->validate([
             'client_code'           => 'required|max:10',
             'client_name'           => 'required|max:255',
             'client_category_id'    => 'required',
             'client_status_id'      => 'required'
         ]);
+        $contacts = [];
+        foreach($request->client_contact_name as $k=>$contact){
+            if($contact){
+                $contacts[] = [
+                    "name"          =>  $contact,
+                    "telephone"     =>  isset($request->client_contact_telephone[$k])? $request->client_contact_telephone[$k]:''
+                ];               
+            }
+
+        }
         $request->merge([
             'client_city_id' =>  isset($request->city_id)? $request->city_id:0,
-            'client_city_sector_id' =>  isset($request->city_sector_id)? $request->city_sector_id:0
+            'client_city_sector_id' =>  isset($request->city_sector_id)? $request->city_sector_id:0,
+            'contacts'      =>  json_encode($contacts)
         ]);
         Client::create($request->all());
         return redirect()->route('client.index');
@@ -72,9 +85,20 @@ class ClientController extends Controller
             'client_category_id'    => 'required',
             'client_status_id'      => 'required'
         ]);
+        $contacts = [];
+        foreach($request->client_contact_name as $k=>$contact){
+            if($contact){
+                $contacts[] = [
+                    "name"          =>  $contact,
+                    "telephone"     =>  isset($request->client_contact_telephone[$k])? $request->client_contact_telephone[$k]:''
+                ];               
+            }
+
+        }
         $request->merge([
             'client_city_id' =>  isset($request->city_id)? $request->city_id:0,
-            'client_city_sector_id' =>  isset($request->city_sector_id)? $request->city_sector_id:0
+            'client_city_sector_id' =>  isset($request->city_sector_id)? $request->city_sector_id:0,
+            'contacts'      =>  json_encode($contacts)
         ]);
         $client->update($request->all());
         return redirect()->route('client.index');

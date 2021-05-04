@@ -22,6 +22,7 @@ class CreateIntermediairesTable extends Migration
             $table->string('intermediaire_telephone');
             $table->integer('intermediaire_city_id')->nullable()->default(0);
             $table->integer('intermediaire_city_sector_id')->nullable()->default(0);
+            $table->string('contacts')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

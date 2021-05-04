@@ -22,6 +22,7 @@ class Client extends Model
         'client_city_sector_id',
         'client_city',
         'client_telephone',
+        'contacts',
         'created_at',
         'updated_at'
     ];

@@ -52,6 +52,28 @@
                             <input value="{{$intermediaire->intermediaire_telephone}}" class="form-input" type="text" id="intermediaire_telephone" name="intermediaire_telephone" required>
                         </div>
 
+                        <div class="flex items-top block gap-4 mb-4">
+                            <label class="w-1/5 text-right text-gray-500 text-sm pt-1" for="client_contacts">Contacts</label>
+                            <div class="contacts w-3/5 ">
+                                @foreach ( json_decode($intermediaire->contacts) as $contact)
+                                    <div class="flex gap-1 lg:gap-4 mb-4">
+                                        <input value="{{$contact->name}}" class="form-input flex-1" type="text" name="client_contact_name[]">
+                                        <input value="{{$contact->telephone}}" class="form-input flex-1" type="text" name="client_contact_telephone[]">
+                                        <div class=" w-12 ">
+                                            <button class="hidden w-full px-1 rounded border py-2 rounded-lg bg-blue-400 hover:bg-gray-400 text-white text-sm"><i class="fas fa-user-plus"></i></button>
+                                        </div>                                        
+                                    </div>
+                                @endforeach
+                                <div class="flex gap-1 lg:gap-4 mb-4">
+                                    <input value="" class="form-input flex-1" type="text" name="client_contact_name[]">
+                                    <input value="" class="form-input flex-1" type="text" name="client_contact_telephone[]">
+                                    <div class=" w-12 ">
+                                        <button class="add_contact w-full px-1 rounded border py-2 rounded-lg bg-blue-400 hover:bg-gray-400 text-white text-sm"><i class="fas fa-user-plus"></i></button>
+                                    </div>                                        
+                                </div>
+                            </div>
+                        </div>
+
                         <hr>
 
                         <div class="flex justify-center lg:justify-start items-center block gap-4 mt-4">
@@ -63,6 +85,23 @@
                 </div>
             </div>
         </div>
-
     </div>
+    <script>
+        $(document).ready(function(){
+            $(document).on('click', '.add_contact', function(e){
+                e.preventDefault();
+                $(this).remove();
+                var content = `
+                <div class="flex gap-1 lg:gap-4 mb-4">
+                    <input class="form-input flex-1" type="text" name="client_contact_name[]">
+                    <input class="form-input flex-1" type="text" name="client_contact_telephone[]">
+                    <div class=" w-12 ">
+                        <button class="add_contact w-full py-2 rounded border px-1 rounded-lg bg-blue-400 hover:bg-gray-400 text-white text-sm"><i class="fas fa-user-plus"></i></button>
+                    </div>
+                </div>
+                `;
+                $('.contacts').append(content);
+            });
+        });
+    </script>
 @endsection

@@ -23,6 +23,7 @@ class CreateClientsTable extends Migration
             $table->integer('client_city_id')->nullable()->default(0);
             $table->integer('client_city_sector_id')->nullable()->default(0);
             $table->boolean('is_intermediaire')->default(0);
+            $table->string('contacts')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

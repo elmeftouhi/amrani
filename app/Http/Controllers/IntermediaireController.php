@@ -43,9 +43,20 @@ class IntermediaireController extends Controller
             'intermediaire_category_id'    => 'required',
             'intermediaire_status_id'      => 'required'
         ]);
+        $contacts = [];
+        foreach($request->client_contact_name as $k=>$contact){
+            if($contact){
+                $contacts[] = [
+                    "name"          =>  $contact,
+                    "telephone"     =>  isset($request->client_contact_telephone[$k])? $request->client_contact_telephone[$k]:''
+                ];               
+            }
+
+        }
         $request->merge([
             'intermediaire_city_id' =>  isset($request->city_id)? $request->city_id:0,
-            'intermediaire_city_sector_id' =>  isset($request->city_sector_id)? $request->city_sector_id:0
+            'intermediaire_city_sector_id' =>  isset($request->city_sector_id)? $request->city_sector_id:0,
+            'contacts'      =>  json_encode($contacts)
         ]);
         Intermediaire::create($request->all());
         return redirect()->route('intermediaire.index');
@@ -74,9 +85,20 @@ class IntermediaireController extends Controller
             'intermediaire_category_id'    => 'required',
             'intermediaire_status_id'      => 'required'
         ]);
+        $contacts = [];
+        foreach($request->client_contact_name as $k=>$contact){
+            if($contact){
+                $contacts[] = [
+                    "name"          =>  $contact,
+                    "telephone"     =>  isset($request->client_contact_telephone[$k])? $request->client_contact_telephone[$k]:''
+                ];               
+            }
+
+        }
         $request->merge([
             'intermediaire_city_id' =>  isset($request->city_id)? $request->city_id:0,
-            'intermediaire_city_sector_id' =>  isset($request->city_sector_id)? $request->city_sector_id:0
+            'intermediaire_city_sector_id' =>  isset($request->city_sector_id)? $request->city_sector_id:0,
+            'contacts'      =>  json_encode($contacts)
         ]);
         $intermediaire->update($request->all());
         return redirect()->route('intermediaire.index');
