@@ -8,9 +8,9 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\IntermediaireController;
+use App\Http\Controllers\LocalCommercialController;
 use App\Http\Controllers\TerrainController;
 use App\Models\City;
-use App\Models\CitySector;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
@@ -27,6 +27,9 @@ Route::post('appartement/filter', [AppartementController::class, 'filter'])->nam
 
 Route::resource('terrain', TerrainController::class);
 Route::post('terrain/filter', [TerrainController::class, 'filter'])->name('terrain.filter');
+
+Route::resource('lc', LocalCommercialController::class);
+Route::post('lc/filter', [LocalCommercialController::class, 'filter'])->name('lc.filter');
 
 Route::get('/dashboard/totals', [DashboardController::class, 'getTotals'])->name('dashboard.totals');
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Appartement;
 use App\Models\Client;
 use App\Models\Intermediaire;
+use App\Models\LocalCommercial;
 use App\Models\Terrain;
 use Spatie\Activitylog\Models\Activity;
 
@@ -22,7 +23,8 @@ class DashboardController extends Controller
             'total_clients'          =>   Client::count(),
             'total_intermediaires'   =>   Intermediaire::count(),
             'total_appartements'     =>   Appartement::count(),
-            'total_terrains'         =>   Terrain::count()
+            'total_terrains'         =>   Terrain::count(),
+            'total_lcs'              =>   LocalCommercial::count()
         ];
         return $totals;
     }

@@ -82,15 +82,18 @@
                     <div class="w-6"><i class="fas fa-home"></i> </div>
                      Maison <small class="ml-2 text-xs font-bold">(12)</small>
                 </a>
-                <a href="{{ route('dashboard.index') }}" 
+                <a href="{{ route('lc.index') }}" 
                     class="flex items-center block py-2 px-3 text-sm 
-                    @if(Route::currentRouteNamed( 'commercial.index' )) 
+                    @if(Route::currentRouteNamed( 'lc.index' )) 
                         bg-gray-600 rounded-r-full text-gray-100 pointer-events-none
                     @else 
                         hover:bg-gray-300 cursor-pointer hover:text-gray-800 text-gray-600 @endif "
                 >                                 
                     <div class="w-6"><i class="fas fa-warehouse"></i> </div>
-                     Local Commercial <small class="ml-2 text-xs font-bold">(5)</small>
+                     Local Commercial
+                     <small class="ml-2 text-xs font-bold total_lcs">
+                        <i class="fas fa-sync fa-spin"></i>
+                     </small>
                 </a>
                 <a href="{{ route('dashboard.index') }}" 
                     class="flex items-center block py-2 px-3 text-sm 
@@ -149,6 +152,7 @@
                 $('.total_intermediaires').html('(' + r.total_intermediaires + ')');
                 $('.total_appartements').html('(' + r.total_appartements + ')');
                 $('.total_terrains').html('(' + r.total_terrains + ')');
+                $('.total_lcs').html('(' + r.total_lcs + ')');
             }
         );
     });
