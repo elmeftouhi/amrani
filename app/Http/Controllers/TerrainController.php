@@ -132,7 +132,8 @@ class TerrainController extends Controller
 
     public function destroy(Terrain $terrain)
     {
-        //
+        $terrain->delete();
+        return redirect()->route('terrain.index');
     }
 
     public function filter(Request $request){

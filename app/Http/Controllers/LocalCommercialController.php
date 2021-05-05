@@ -135,8 +135,9 @@ class LocalCommercialController extends Controller
         return redirect()->route('lc.index');
     }
 
-    public function destroy(LocalCommercial $localCommercial)
+    public function destroy(LocalCommercial $lc)
     {
-        //
+        $lc->delete();
+        return redirect()->route('lc.index');
     }
 }
