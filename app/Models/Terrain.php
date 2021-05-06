@@ -18,6 +18,7 @@ class Terrain extends Model
         'terrain_etat',
         'terrain_facade',
         'terrain_situation',
+        'description',
         'surface',
         'terrain_etage',
         'terrain_recule',

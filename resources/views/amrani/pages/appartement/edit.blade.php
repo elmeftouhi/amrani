@@ -53,6 +53,7 @@
                         <label class="w-1/5 text-right text-gray-500 text-sm" for="description">Description</label>
                         <input value="{{$appartement->description}}" class="form-input w-3/5" type="text" name="description">
                     </div>
+                    
                     <div class="flex items-center block gap-4 mb-4 flex-1">
                         <label class="w-1/5 text-right text-gray-500 text-sm" for="appartement_etat">Etat</label>
                         <select class="form-input w-3/5" name="appartement_etat">

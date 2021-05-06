@@ -47,6 +47,10 @@
                         @include('amrani.pages.common.city', ['cities'=>$cities])
                     </div> 
                     
+                    <div class="flex items-center block gap-4 mb-4">
+                        <label class="w-1/5 text-right text-gray-500 text-sm" for="description">Description</label>
+                        <input value="" class="form-input w-3/5" type="text" name="description">
+                    </div>
 
                     <div class="flex items-center block gap-4 mb-4 flex-1">
                         <label class="w-1/5 text-right text-gray-500 text-sm" for="terrain_etat">Etat</label>

@@ -31,7 +31,6 @@ class CreateLocalCommercialsTable extends Migration
 
             $table->string('description')->nullable();
             $table->integer('hauteur')->default(0)->nullable();
-
             $table->integer('prix_metre')->default(0)->nullable();
             $table->integer('prix_total')->default(0)->nullable();
             $table->integer('prix_declaration')->default(0)->nullable();
