@@ -25,6 +25,8 @@ class DatabaseSeeder extends Seeder
             CitySectorsTableSeeder::class,
             LocalCommercialSeeder::class,
             AppartementServiceSeeder::class,
+            MaisonServiceSeeder::class,
+
         ]);
         \App\Models\Client::factory(414)->create();
         \App\Models\Intermediaire::factory(365)->create();

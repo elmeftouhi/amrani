@@ -6,6 +6,7 @@ use App\Models\Appartement;
 use App\Models\Client;
 use App\Models\Intermediaire;
 use App\Models\LocalCommercial;
+use App\Models\Maison;
 use App\Models\Terrain;
 use Spatie\Activitylog\Models\Activity;
 
@@ -24,7 +25,8 @@ class DashboardController extends Controller
             'total_intermediaires'   =>   Intermediaire::count(),
             'total_appartements'     =>   Appartement::count(),
             'total_terrains'         =>   Terrain::count(),
-            'total_lcs'              =>   LocalCommercial::count()
+            'total_lcs'              =>   LocalCommercial::count(),
+            'total_maisons'          =>   Maison::count()
         ];
         return $totals;
     }

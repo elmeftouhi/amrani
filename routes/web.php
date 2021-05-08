@@ -9,8 +9,10 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\IntermediaireController;
 use App\Http\Controllers\LocalCommercialController;
+use App\Http\Controllers\MaisonController;
 use App\Http\Controllers\TerrainController;
 use App\Models\City;
+use App\Models\Maison;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
@@ -30,6 +32,9 @@ Route::post('terrain/filter', [TerrainController::class, 'filter'])->name('terra
 
 Route::resource('lc', LocalCommercialController::class);
 Route::post('lc/filter', [LocalCommercialController::class, 'filter'])->name('lc.filter');
+
+Route::resource('maison', MaisonController::class);
+Route::post('maison/filter', [MaisonController::class, 'filter'])->name('maison.filter');
 
 Route::get('/dashboard/totals', [DashboardController::class, 'getTotals'])->name('dashboard.totals');
 

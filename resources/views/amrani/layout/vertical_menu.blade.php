@@ -72,7 +72,7 @@
                         <i class="fas fa-sync fa-spin"></i>
                     </small>
                 </a>
-                <a href="{{ route('dashboard.index') }}" 
+                <a href="{{ route('maison.index') }}" 
                     class="flex items-center block py-2 px-3 text-sm 
                     @if(Route::currentRouteNamed( 'maison.index' )) 
                         bg-gray-600 rounded-r-full text-gray-100 pointer-events-none
@@ -80,7 +80,10 @@
                         hover:bg-gray-300 cursor-pointer hover:text-gray-800 text-gray-600 @endif "
                 >                                
                     <div class="w-6"><i class="fas fa-home"></i> </div>
-                     Maison <small class="ml-2 text-xs font-bold">(12)</small>
+                     Maison 
+                     <small class="ml-2 text-xs font-bold total_maisons">
+                        <i class="fas fa-sync fa-spin"></i>
+                    </small>
                 </a>
                 <a href="{{ route('lc.index') }}" 
                     class="flex items-center block py-2 px-3 text-sm 
@@ -153,6 +156,7 @@
                 $('.total_appartements').html('(' + r.total_appartements + ')');
                 $('.total_terrains').html('(' + r.total_terrains + ')');
                 $('.total_lcs').html('(' + r.total_lcs + ')');
+                $('.total_maisons').html('(' + r.total_maisons + ')');
             }
         );
     });
