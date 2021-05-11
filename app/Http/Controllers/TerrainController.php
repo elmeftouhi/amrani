@@ -50,7 +50,16 @@ class TerrainController extends Controller
             'client_name'                => 'required|string|max:255',
             'terrain_service_id'     => 'required|integer|min:1'
         ]);
+        $contacts = [];
+        foreach($request->client_contact_name as $k=>$contact){
+            if($contact){
+                $contacts[] = [
+                    "name"          =>  $contact,
+                    "telephone"     =>  isset($request->client_contact_telephone[$k])? $request->client_contact_telephone[$k]:''
+                ];               
+            }
 
+        }
         //dd(json_encode($request->terrain_recule));
 
         if($request->is_intermediaire){
@@ -61,7 +70,8 @@ class TerrainController extends Controller
                     'intermediaire_telephone'          =>  $request->client_telephone? $request->client_telephone: "",
                     'intermediaire_code'           =>  $intermediaireTemp->newCodeIntermediaire(),
                     'intermediaire_category_id'    =>  $intermediaireTemp->getDefaultIntermediaireCategory(),
-                    'intermediaire_status_id'    =>  $intermediaireTemp->getDefaultIntermediaireStatus()
+                    'intermediaire_status_id'    =>  $intermediaireTemp->getDefaultIntermediaireStatus(),
+                    'contacts'      =>  json_encode($contacts)
                 ]);
                 $request->merge([
                     'intermediaire_id' =>  $intermediaire->id
@@ -75,7 +85,8 @@ class TerrainController extends Controller
                     'client_telephone'          =>  $request->client_telephone? $request->client_telephone: "",
                     'client_code'           =>  $clientTemp->newCodeClient(),
                     'client_category_id'    =>  $clientTemp->getDefaultClientCategory(),
-                    'client_status_id'    =>  $clientTemp->getDefaultClientStatus()
+                    'client_status_id'    =>  $clientTemp->getDefaultClientStatus(),
+                    'contacts'      =>  json_encode($contacts)
                 ]);
                 $request->merge([
                     'city_id' => $request->city_id? $request->city_id:-1,
