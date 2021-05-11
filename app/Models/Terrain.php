@@ -35,7 +35,7 @@ class Terrain extends Model
         'updated_at'
     ];
 
-    public static $ETATS = ['Lotissement', 'Quartier', 'Zone Villa', 'Agricole'];
+    public static $ETATS = ['Lotissement', 'Quartier', 'Zone Villa', 'Agricole', 'Stockage', 'Industrie'];
     public static $FACADES = ['Rue', 'Place', 'Piscine', 'Sur Mer'];
     const SITUATIONS = ['Titré', 'Milkia', 'Contrat', 'Contrat Adlia'];
     public static $RECULES = ['Garage', 'RDC', 'Sous Sol', 'Mezzanine'];

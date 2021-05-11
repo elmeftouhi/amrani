@@ -26,6 +26,8 @@ class DatabaseSeeder extends Seeder
             LocalCommercialSeeder::class,
             AppartementServiceSeeder::class,
             MaisonServiceSeeder::class,
+            VillaServiceSeeder::class,
+            FermaServiceSeeder::class,
 
         ]);
         \App\Models\Client::factory(414)->create();

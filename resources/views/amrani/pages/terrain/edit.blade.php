@@ -69,13 +69,19 @@
                         <div class="w-3/5 grid grid-cols-2 gap-4">
                             @foreach ($recules as $recule)
                                 <label class="flex items-center space-x-3">
-                                    @if (in_array($recule, json_decode($terrain->terrain_recule)))
-                                        <input type="checkbox" checked name="terrain_recule[]" value="{{$recule}}" class="form-tick appearance-none h-6 w-6 border border-gray-300 rounded-md checked:bg-blue-600 checked:border-transparent focus:outline-none">
-                                        <span class="text-gray-900 font-medium">{{$recule}}</span>  
+                                    @if (isset($terrain->terrain_recule) && $terrain->terrain_recule !=="" )
+                                        @if (in_array($recule, json_decode($terrain->terrain_recule)))
+                                            <input type="checkbox" checked name="terrain_recule[]" value="{{$recule}}" class="form-tick appearance-none h-6 w-6 border border-gray-300 rounded-md checked:bg-blue-600 checked:border-transparent focus:outline-none">
+                                            <span class="text-gray-900 font-medium">{{$recule}}</span>
+                                        @else
+                                            <input type="checkbox" name="terrain_recule[]" value="{{$recule}}" class="form-tick appearance-none h-6 w-6 border border-gray-300 rounded-md checked:bg-blue-600 checked:border-transparent focus:outline-none">
+                                            <span class="text-gray-900 font-medium">{{$recule}}</span>   
+                                        @endif
                                     @else
                                         <input type="checkbox" name="terrain_recule[]" value="{{$recule}}" class="form-tick appearance-none h-6 w-6 border border-gray-300 rounded-md checked:bg-blue-600 checked:border-transparent focus:outline-none">
-                                        <span class="text-gray-900 font-medium">{{$recule}}</span>   
+                                        <span class="text-gray-900 font-medium">{{$recule}}</span>
                                     @endif
+
                                 </label>
                             @endforeach
                         </div>

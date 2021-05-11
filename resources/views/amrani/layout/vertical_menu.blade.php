@@ -98,7 +98,7 @@
                         <i class="fas fa-sync fa-spin"></i>
                      </small>
                 </a>
-                <a href="{{ route('dashboard.index') }}" 
+                <a href="{{ route('villa.index') }}" 
                     class="flex items-center block py-2 px-3 text-sm 
                     @if(Route::currentRouteNamed( 'villa.index' )) 
                         bg-gray-600 rounded-r-full text-gray-100 pointer-events-none
@@ -106,17 +106,23 @@
                         hover:bg-gray-300 cursor-pointer hover:text-gray-800 text-gray-600 @endif "
                 >                                
                     <div class="w-6"><i class="fas fa-home"></i> </div>
-                     Villas <small class="ml-2 text-xs font-bold">(2)</small>
+                     Villas 
+                     <small class="ml-2 text-xs font-bold total_villas">
+                        <i class="fas fa-sync fa-spin"></i>
+                     </small>
                 </a>
-                <a href="{{ route('dashboard.index') }}" 
+                <a href="{{ route('ferma.index') }}" 
                     class="flex items-center block py-2 px-3 text-sm 
-                    @if(Route::currentRouteNamed( 'ferme.index' )) 
+                    @if(Route::currentRouteNamed( 'ferma.index' )) 
                         bg-gray-600 rounded-r-full text-gray-100 pointer-events-none
                     @else 
                         hover:bg-gray-300 cursor-pointer hover:text-gray-800 text-gray-600 @endif "
                 >                               
                     <div class="w-6"><i class="fas fa-horse-head"></i> </div>
-                     Fermes <small class="ml-2 text-xs font-bold">(1)</small>
+                     Fermes 
+                     <small class="ml-2 text-xs font-bold total_fermas">
+                        <i class="fas fa-sync fa-spin"></i>
+                    </small>
                 </a>
             </li>
         </ul>
@@ -157,6 +163,8 @@
                 $('.total_terrains').html('(' + r.total_terrains + ')');
                 $('.total_lcs').html('(' + r.total_lcs + ')');
                 $('.total_maisons').html('(' + r.total_maisons + ')');
+                $('.total_villas').html('(' + r.total_villas + ')');
+                $('.total_fermas').html('(' + r.total_fermas + ')');
             }
         );
     });

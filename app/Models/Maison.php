@@ -42,7 +42,7 @@ class Maison extends Model
     public const ETATS = ['Nouveau', 'Déjà Utilisé'];
     public const FACADES = ['Rue', 'Kisaria', 'Place', 'Souk'];
     public const SITUATIONS = ['Titre', 'Milikia', 'Contrat', 'Miftah', 'Contrat Adlia'];
-    public const DETAILS = ['Soudda', 'Sous Sol', 'Sous Sol 2', 'Garage'];
+    public const DETAILS = ['Soudda', 'Sous Sol', 'Garage', 'Mezzanine'];
 
     public function client(){
         return $this->belongsTo(Client::class);

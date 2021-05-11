@@ -7,53 +7,57 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Activitylog\Traits\LogsActivity;
 
-class LocalCommercial extends Model
+class Villa extends Model
 {
     use HasFactory;
     use SoftDeletes;
     use LogsActivity;
 
     protected $fillable = [
-        'lc_code',
-        'lc_etat',
-        'lc_projets',
-        'lc_facade',
-        'lc_situation',
-        'lc_localisation',
-        'lc_details',
+        'villa_code',
+        'villa_facade', // array
+        'villa_situation', // array
+        'villa_etat', // array
+        'villa_surface_total',
+        'villa_surface_batie',
+        'nbr_garage',
+        'surface_jardin',
+        'surface_patio',
+        'nbr_etages',
+        'villa_details', // array
         'largeur_1',
         'largeur_2',
         'largeur_3',
-        'surface',
+        'activite',
         'description',
-        'hauteur',
         'prix_metre',
         'prix_total',
         'prix_declaration',
         'client_id',
-        'intermediaire_id',
         'city_id',
         'city_sector_id',
-        'lc_service_id',
+        'intermediaire_id',
+        'villa_service_id',
         'created_at',
         'updated_at'
     ];
     public const ETATS = ['Nouveau', 'Déjà Utilisé'];
-    public const PROJETS = ['Café', 'Restaurant', 'Club Sportif', 'Coiffure', 'Commerce', 'Vente de Vêtements', 'Autre'];
-    public const FACADES = ['Rue', 'Kisaria', 'Place', 'Souk'];
+    public const FACADES = ['Rue', 'Derb', 'Place', 'Piscine', 'Mer'];
     public const SITUATIONS = ['Titre', 'Milikia', 'Contrat', 'Miftah', 'Contrat Adlia'];
-    public const LOCALISATIONS = ['Immeuble', 'Maison', 'Indépendant'];
-    public const DETAILS = ['Soudda', 'Sous Sol', 'Toilette', 'Eau', 'Electricité', 'Pateo'];
+    public const DETAILS = ['Piscine', 'Sous Sol'];
 
     public function client(){
         return $this->belongsTo(Client::class);
     }
+    
     public function intermediaire(){
         return $this->belongsTo(Intermediaire::class);
     }
+
     public function service(){
-        return $this->belongsTo(LocalCommercialService::class, 'lc_service_id', 'id');
+        return $this->belongsTo(VillaService::class, 'villa_service_id', 'id');
     }
+
     public function city(){
         return $this->belongsTo(City::class);
     }
@@ -61,6 +65,4 @@ class LocalCommercial extends Model
     public function city_sector(){
         return $this->belongsTo(CitySector::class);
     }
-
-
 }
