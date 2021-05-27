@@ -45,6 +45,8 @@ Route::resource('ferma', FermaController::class);
 Route::post('ferma/filter', [FermaController::class, 'filter'])->name('ferma.filter');
 
 Route::get('/dashboard/totals', [DashboardController::class, 'getTotals'])->name('dashboard.totals');
+Route::get('/dashboard/cityCounter', [DashboardController::class, 'cityCounter'])->name('dashboard.cityCounter');
+Route::get('/dashboard/topTenCitySectors', [DashboardController::class, 'topTenCitySectors'])->name('dashboard.topTenCitySectors');
 
 Route::post('file/upload', [FileUploadController::class, 'upload'])->name('file.upload');
 Route::post('file/read', [FileUploadController::class, 'getFiles'])->name('file.read');

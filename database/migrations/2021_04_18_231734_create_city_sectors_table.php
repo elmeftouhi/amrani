@@ -17,6 +17,7 @@ class CreateCitySectorsTable extends Migration
             $table->id();
             $table->integer('city_id');
             $table->string('city_sector_name_fr');
+            $table->integer('counter')->default(0);
             $table->boolean('city_sector_status')->default(1);
         });
     }

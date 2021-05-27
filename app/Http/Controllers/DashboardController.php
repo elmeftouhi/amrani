@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Appartement;
+use App\Models\CitySector;
 use App\Models\Client;
 use App\Models\Ferma;
 use App\Models\Intermediaire;
@@ -33,5 +34,62 @@ class DashboardController extends Controller
             'total_fermas'           =>   Ferma::count()
         ];
         return $totals;
+    }
+
+    public function topTenCitySectors(){
+        return CitySector::orderBy('counter', 'desc')->take(10)->get(['city_sector_name_fr', 'counter']);
+    }
+
+
+    public function cityCounter(){
+        foreach(Appartement::all() as $appartement){
+            if($appartement->city_sector_id !== -1){
+                $city_sector = CitySector::find($appartement->city_sector_id);
+                $city_sector->counter++;
+                $city_sector->save();
+            }
+        }
+
+        foreach(Terrain::all() as $terrain){
+            if($terrain->city_sector_id !== -1){
+                $city_sector = CitySector::find($terrain->city_sector_id);
+                $city_sector->counter++;
+                $city_sector->save();
+            }
+        }
+
+        foreach(Maison::all() as $maison){
+            if($maison->city_sector_id !== -1){
+                $city_sector = CitySector::find($maison->city_sector_id);
+                $city_sector->counter++;
+                $city_sector->save();
+            }
+        }
+
+        foreach(LocalCommercial::all() as $lc){
+            if($lc->city_sector_id !== -1){
+                $city_sector = CitySector::find($lc->city_sector_id);
+                $city_sector->counter++;
+                $city_sector->save();
+            }
+        }
+
+        foreach(Villa::all() as $villa){
+            if($villa->city_sector_id !== -1){
+                $city_sector = CitySector::find($villa->city_sector_id);
+                $city_sector->counter++;
+                $city_sector->save();
+            }
+        }
+
+        foreach(Ferma::all() as $ferma){
+            if($ferma->city_sector_id !== -1){
+                $city_sector = CitySector::find($ferma->city_sector_id);
+                $city_sector->counter++;
+                $city_sector->save();
+            }
+        }
+
+        return 'success';
     }
 }
