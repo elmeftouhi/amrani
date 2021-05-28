@@ -70,3 +70,6 @@ Route::put('/city/sector/update/{sector}', [CitySectorController::class, 'update
 Route::post('/city/sector/create/', [CitySectorController::class, 'create'])->name('city.sector.create');
 Route::post('/city/sector/get/last/', [CitySectorController::class, 'lastSector'])->name('city.sector.last');
 
+Route::get('/log', [DashboardController::class, 'activity'])->name('activity.log');
+
+

@@ -24,6 +24,6 @@
         </div>                        
     @endforeach
     <div class="text-center">
-        <a href="" class="text-blue-400 pt-4 px-4 block text-sm">Voir Tous</a>
+        <a href="{{ route('activity.log') }}" class="text-blue-400 pt-4 px-4 block text-sm">Voir Tous</a>
     </div>
 </div>

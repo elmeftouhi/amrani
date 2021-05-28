@@ -22,6 +22,25 @@ class DashboardController extends Controller
         ]);
     }
 
+    public function activity()
+    {
+        $actions = [
+            'created'   =>  '<i class="fas fa-plus text-green-400 text-xl"></i> Ajouter',
+            'updated'   =>  '<i class="fas fa-plus text-blue-400 text-xl"></i> Modification',
+            'deleted'   =>  '<i class="fas fa-minus-circle text-red-700 text-xl"></i> Supprimer',
+        ];
+        $colors = [
+            'created'   =>  'bg-green-50',
+            'updated'   =>  'bg-blue-50',
+            'deleted'   =>  'bg-red-50',
+        ];
+        return view('amrani.pages.activity.log')->with([
+            'activities'    =>  Activity::orderBy('created_at', 'desc')->get(),
+            'actions'       =>  $actions,
+            'colors'       =>  $colors
+        ]);
+    }
+
     public function getTotals(){
         $totals = [
             'total_clients'          =>   Client::count(),
