@@ -1,7 +1,7 @@
-<tr class="border-b border-gray-200 {{ $colors[ $log->description ] }} hover:bg-gray-100">
+<tr class="border-b border-gray-200 {{ isset($colors[ $log->description ])? $colors[ $log->description ]: '' }} hover:bg-gray-100">
     <td class="py-1 px-6 text-left">
         <div class="flex items-center">
-            <span class="font-medium">{!! $actions[ $log->description ] !!}</span>
+            <span class="font-medium">{!! isset($actions[ $log->description ])? $actions[ $log->description ]: '' !!}</span>
         </div>
     </td>
     <td class="py-1 px-6 text-left">
