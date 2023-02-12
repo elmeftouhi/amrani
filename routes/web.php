@@ -19,7 +19,9 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/symblink', function () {
-    Artisan::call('storage:link');
+    $target = '/home/amranixi/repositories/storage/app/public';
+    $shortcut = '/home/amranixi/app.amrani.ma/storage';
+    symlink($target, $shortcut);
 });
 
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
