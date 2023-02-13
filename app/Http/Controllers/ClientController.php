@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\City;
 use App\Models\Client;
 use App\Models\ClientCategory;
+use App\Models\ClientType;
 use App\Models\ClientStatus;
 use App\Models\Intermediaire;
 use Illuminate\Http\Request;
@@ -26,6 +27,7 @@ class ClientController extends Controller
     {
         return view('amrani.pages.client.create')->with([
             'categories'    =>  ClientCategory::all(),
+            'types'         =>  ClientType::all(),
             'statuses'      =>  ClientStatus::all(),
             'cities'        =>  City::all(),
             'code_client'   =>  $this->newCodeClient()
@@ -40,6 +42,7 @@ class ClientController extends Controller
             'client_code'           => 'required|max:10',
             'client_name'           => 'required|max:255',
             'client_category_id'    => 'required',
+            'client_type_id'        => 'required',
             'client_status_id'      => 'required'
         ]);
         $contacts = [];
@@ -55,7 +58,8 @@ class ClientController extends Controller
         $request->merge([
             'client_city_id' =>  isset($request->city_id)? $request->city_id:0,
             'client_city_sector_id' =>  isset($request->city_sector_id)? $request->city_sector_id:0,
-            'contacts'      =>  json_encode($contacts)
+            'contacts'      =>  json_encode($contacts),
+            'is_new'        =>  isset($request->is_new)? 1: 0
         ]);
         Client::create($request->all());
         return redirect()->route('client.index');
@@ -70,6 +74,7 @@ class ClientController extends Controller
     {
         return view('amrani.pages.client.edit')->with([
             'categories'    =>  ClientCategory::all(),
+            'types'         =>  ClientType::all(),
             'statuses'      =>  ClientStatus::all(),
             'cities'        =>  City::all(),
             'client'        =>  $client

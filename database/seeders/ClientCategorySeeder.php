@@ -21,23 +21,23 @@ class ClientCategorySeeder extends Seeder
                 'is_default'    =>  1
             ],
             [
-                'client_category'   => 'Amis',
+                'client_category'   => 'Facebook',
                 'is_default'    =>  0
             ],
             [
-                'client_category'   => 'Famille',
+                'client_category'   => 'Instagram',
                 'is_default'    =>  0
             ],
             [
-                'client_category'   => 'Promoteur',
+                'client_category'   => 'Google',
                 'is_default'    =>  0
             ],
             [
-                'client_category'   => 'Etranger',
+                'client_category'   => 'Publicité',
                 'is_default'    =>  0
             ],
             [
-                'client_category'   => 'Marocains',
+                'client_category'   => 'Autres',
                 'is_default'    =>  0
             ]
         ]);

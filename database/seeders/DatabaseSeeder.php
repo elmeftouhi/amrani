@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             ClientStatusSeeder::class,
             ClientCategorySeeder::class, 
+            ClientTypeSeeder::class, 
             IntermediaireStatusSeeder::class,
             IntermediaireCategorySeeder::class,
             AppartementServiceSeeder::class,
