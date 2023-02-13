@@ -10,7 +10,7 @@
 
         <div class="overflow-x-auto">
             <div class="min-w-screen flex items-center justify-center font-sans overflow-hidden bg-gray-100">
-                <div class="w-full lg:w-4/6 bg-white my-5 py-5 rounded border">
+                <div class="w-full lg:w-4/6 bg-white my-5 py-12 rounded border">
                     <form class="m-0" action="{{route('client.store')}}" method="POST">
                         @csrf
                         <div class="flex items-center block gap-4 mb-4">
@@ -66,7 +66,7 @@
                             <label class="w-1/5 text-right text-gray-500 text-sm pt-1" for="client_telephone">Téléphone</label>
                             <div class="w-3/5 ">
                                 <div class="flex gap-1 lg:gap-4 mb-4">
-                                    <input class="form-input flex-1" type="text" name="client_telephone">
+                                    <input class="form-input flex-1" type="text" name="client_telephone" required>
                                     <input class="form-input flex-1" type="text" name="client_telephone_2">
                                     <div class=" w-12 ">
                                         <button class="hidden  w-full py-2 rounded border px-1 rounded-lg bg-blue-400 hover:bg-gray-400 text-white text-sm"><i class="fas fa-user-plus"></i></button>
@@ -86,6 +86,20 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+
+                        <div class="flex items-center block gap-4 mb-4">
+                            <label class="w-1/5 text-right text-gray-500 text-sm" for="client_source_id">Client Source</label>
+                            <select class="form-input w-3/5" id="client_source_id" name="client_source_id" required>
+                            @foreach ($sources as $source)
+                                <option value="{{$source->id}}" @if ($source->is_default) selected @endif>{{$source->client_source}}</option>
+                            @endforeach
+                            </select>
+                        </div>
+
+                        <div class="flex items-center block gap-4 mb-8">
+                            <label class="w-1/5 text-right text-gray-500 text-sm" for="source_reference">Reference</label>
+                            <input class="form-input w-3/5" type="text" id="source_reference" name="source_reference">
                         </div>
 
                         <hr>

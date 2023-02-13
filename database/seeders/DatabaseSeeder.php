@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             ClientStatusSeeder::class,
             ClientCategorySeeder::class, 
             ClientTypeSeeder::class, 
+            ClientSourceSeeder::class, 
             IntermediaireStatusSeeder::class,
             IntermediaireCategorySeeder::class,
             AppartementServiceSeeder::class,

@@ -18,6 +18,7 @@ class Client extends Model
         'client_name',
         'client_category_id',
         'client_type_id',
+        'client_source_id',
         'client_status_id',
         'client_city_id',
         'client_city_sector_id',
@@ -25,6 +26,7 @@ class Client extends Model
         'is_new',
         'client_telephone',
         'client_telephone_2',
+        'source_reference',
         'contacts',
         'created_at',
         'updated_at'

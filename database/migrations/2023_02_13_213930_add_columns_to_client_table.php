@@ -16,7 +16,7 @@ class AddColumnsToClientTable extends Migration
         Schema::table('clients', function (Blueprint $table) {
             $table->boolean('is_new')->default(0);
             $table->integer('client_type_id')->nullable()->default(0);
-            $table->string('source')->nullable();
+            $table->integer('client_source_id')->nullable()->default(0);
             $table->string('source_reference')->nullable();
             $table->string('client_telephone_2')->nullable();
         });
@@ -30,7 +30,7 @@ class AddColumnsToClientTable extends Migration
     public function down()
     {
         Schema::table('clients', function (Blueprint $table) {
-            $table->dropColumn('is_new', 'client_type_id', 'source', 'source_reference');
+            $table->dropColumn('is_new', 'client_type_id', 'client_source_id', 'source_reference', 'client_telephone_2');
         });
     }
 }

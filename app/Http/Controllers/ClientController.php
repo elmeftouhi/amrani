@@ -6,6 +6,7 @@ use App\Models\City;
 use App\Models\Client;
 use App\Models\ClientCategory;
 use App\Models\ClientType;
+use App\Models\ClientSource;
 use App\Models\ClientStatus;
 use App\Models\Intermediaire;
 use Illuminate\Http\Request;
@@ -28,6 +29,7 @@ class ClientController extends Controller
         return view('amrani.pages.client.create')->with([
             'categories'    =>  ClientCategory::all(),
             'types'         =>  ClientType::all(),
+            'sources'       =>  ClientSource::all(),
             'statuses'      =>  ClientStatus::all(),
             'cities'        =>  City::all(),
             'code_client'   =>  $this->newCodeClient()
@@ -75,6 +77,7 @@ class ClientController extends Controller
         return view('amrani.pages.client.edit')->with([
             'categories'    =>  ClientCategory::all(),
             'types'         =>  ClientType::all(),
+            'sources'       =>  ClientSource::all(),
             'statuses'      =>  ClientStatus::all(),
             'cities'        =>  City::all(),
             'client'        =>  $client

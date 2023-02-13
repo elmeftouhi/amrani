@@ -104,6 +104,20 @@
                             </div>
                         </div>
 
+                        <div class="flex items-center block gap-4 mb-4">
+                            <label class="w-1/5 text-right text-gray-500 text-sm" for="client_source_id">Client Source</label>
+                            <select class="form-input w-3/5" id="client_source_id" name="client_source_id" required>
+                                @foreach ($sources as $source)
+                                    <option value="{{$source->id}}" @if ($source->id == $client->client_source_id) selected @endif>{{$source->client_source}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="flex items-center block gap-4 mb-8">
+                            <label class="w-1/5 text-right text-gray-500 text-sm" for="source_reference">Reference</label>
+                            <input value="{{$client->source_reference}}" class="form-input w-3/5" type="text" id="source_reference" name="source_reference">
+                        </div>
+
                         <hr>
 
                         <div class="flex justify-center lg:justify-start items-center block gap-4 mt-4">
