@@ -17,5 +17,11 @@
             $(this).toggleClass('bg-gray-600 text-gray-100')
             $('.vertical_menu').toggleClass('hidden', 1000);
         })
+
+        $('.collaps').on('click', function(){
+            $(this).find('i').toggleClass('hidden')
+            $(this).parent().parent().parent().find('.collaps_this').toggleClass('hidden')
+            //alert('collapse')
+        })
     });
 </script>

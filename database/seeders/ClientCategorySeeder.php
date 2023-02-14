@@ -31,6 +31,13 @@ class ClientCategorySeeder extends Seeder
             [
                 'client_category'   => 'Google',
                 'is_default'    =>  0
+            ],            [
+                'client_category'   => 'TikTok',
+                'is_default'    =>  0
+            ],
+            [
+                'client_category'   => 'Site Web',
+                'is_default'    =>  0
             ],
             [
                 'client_category'   => 'Publicité',

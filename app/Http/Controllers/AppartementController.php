@@ -7,6 +7,8 @@ use App\Models\AppartementService;
 use App\Models\City;
 use App\Models\Client;
 use App\Models\ClientCategory;
+use App\Models\ClientType;
+use App\Models\ClientSource;
 use App\Models\ClientStatus;
 use App\Models\Intermediaire;
 use Illuminate\Http\Request;
@@ -31,6 +33,8 @@ class AppartementController extends Controller
         return view('amrani.pages.appartement.create')->with([
             'code_client'           =>  $client->newCodeClient(),
             'client_categories'     =>  ClientCategory::all(),
+            'client_types'          =>  ClientType::all(),
+            'client_sources'          =>  ClientSource::all(),
             'client_statuses'       =>  ClientStatus::all(),
             'services'              =>  AppartementService::all(),
             'cities'                =>  City::all(),
@@ -84,8 +88,11 @@ class AppartementController extends Controller
                 $client = Client::create([
                     'client_name'            =>  $request->client_name,
                     'client_telephone'          =>  $request->client_telephone? $request->client_telephone: "",
+                    'client_telephone_2'          =>  $request->client_telephone_2? $request->client_telephone_2: "",
                     'client_code'           =>  $clientTemp->newCodeClient(),
-                    'client_category_id'    =>  $clientTemp->getDefaultClientCategory(),
+                    'client_category_id'    =>  $request->client_category_id? $request->client_category_id:  $clientTemp->getDefaultClientCategory(),
+                    'client_type_id'        =>  $request->client_type_id? $request->client_type_id:  0,
+                    'client_source_id'      =>  $request->client_source_id? $request->client_source_id:  0,
                     'client_status_id'    =>  $clientTemp->getDefaultClientStatus(),
                     'contacts'      =>  json_encode($contacts)
                 ]);
@@ -114,6 +121,8 @@ class AppartementController extends Controller
         return view('amrani.pages.appartement.edit')->with([
             'client_categories'     =>  ClientCategory::all(),
             'client_statuses'       =>  ClientStatus::all(),
+            'client_types'          =>  ClientType::all(),
+            'client_sources'          =>  ClientSource::all(),
             'services'              =>  AppartementService::all(),
             'cities'                =>  City::all(),
             'facades'               =>  Appartement::FACADES,

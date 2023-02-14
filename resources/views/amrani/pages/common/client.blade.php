@@ -6,112 +6,142 @@
             <div class="abort_new_client hidden btn p-2 mr-2 text-red-400 cursor-pointer hover:text-red-600"><i class="fas fa-ban"></i> Annuler</div>
             <div class="collaps btn p-2 mr-2 text-green-400 cursor-pointer hover:text-green-600">
                 <i class="fas fa-chevron-down"></i>
+                <i class="hidden fas fa-chevron-up"></i>
             </div>
         </div>
     </div>
     
     <hr>
     
-    <div class="flex items-center block gap-4 mb-4 mt-4">
-        <label class="w-1/5 text-right text-gray-500 text-sm" for=""></label>
-        <div class="relative w-3/5">
-            @if(isset($intermediaire))
-               @include('components.ui.switch', ['title'=>'Intermediaire / وسيط', 'name'=>'is_intermediaire', 'checked'=>'checked']) 
-            @else
-               @include('components.ui.switch', ['title'=>'Intermediaire / وسيط', 'name'=>'is_intermediaire', 'checked'=>'']) 
-            @endif
-        </div>
-    </div>
-
-
-    <div class="flex items-center block gap-4 mb-4 ">
-        <label class="w-1/5 text-right text-gray-500 text-sm" for="client_name">Nom Client</label>
-        <div class="relative w-3/5">
-            @if(isset($intermediaire))
-                <input value="{{$intermediaire->intermediaire_name}}" autocomplete="off" class="form-input w-full form-input-search" type="text" id="client_name" name="client_name" required>
-            @elseif(isset($client))
-                <input value="{{$client->client_name}}" autocomplete="off" class="form-input w-full form-input-search" type="text" id="client_name" name="client_name" required>
-            @else
-                <input value="" autocomplete="off" class="form-input w-full form-input-search" type="text" id="client_name" name="client_name" required>
-            @endif
-            <span class="absolute top-0 right-0 p-2 mr-2 text-gray-400 cursor-pointer hover:text-gray-600"><i class="fas fa-search"></i></span>
-            <div class="form-input-search-result hidden absolute top-0 left-0 z-10 bg-blue-50 border w-full max-h-48 py-2 px-2 mt-8 overflow-y-auto shadow-lg">
-            </div>                            
-        </div>
-
-    </div>
-    <input type="hidden" id="client_id" @if(isset($client)) value="{{$client->id}}" @else value="0" @endif name="client_id">
-    <input type="hidden" id="intermediaire_id" @if(isset($intermediaire)) value="{{$intermediaire->id}}" @else value="0" @endif name="intermediaire_id">
-    <div class="flex items-center block gap-4 mb-4">
-        <label class="w-1/5 text-right text-gray-500 text-sm" for="client_category_id">Category</label>
-        <select disabled class="bg-gray-200 form-input w-3/5" id="client_category_id" name="client_category_id">
-            @isset($intermediaire)
-                
-            @endisset
-        @foreach ($client_categories as $category)
-            <option value="{{$category->id}}" @if ($category->is_default) data-default="1" selected @endif>{{$category->client_category}}</option>
-        @endforeach
-        </select>
-    </div>
-
-    <div class="flex items-center block gap-4 mb-4">
-        <label class="w-1/5 text-right text-gray-500 text-sm" for="client_status_id">Status du client</label>
-        <select disabled class="bg-gray-200 form-input w-3/5" id="client_status_id" name="client_status_id">
-        @foreach ($client_statuses as $status)
-            <option value="{{$status->id}}" @if ($status->is_default) data-default="1" selected @endif>{{$status->client_status}}</option>
-        @endforeach
-        </select>
-    </div>
-
-    <div class="flex items-center block gap-4 mb-4">
-        <label class="w-1/5 text-right text-gray-500 text-sm" for="client_telephone">Téléphone</label>
-
-        @if(isset($intermediaire))
-            <input value="{{$intermediaire->intermediaire_telephone}}" autocomplete="off" class="form-input" type="text" id="client_telephone" name="client_telephone" required>
-        @elseif(isset($client))
-            <input value="{{$client->client_telephone}}" autocomplete="off" class="form-input" type="text" id="client_telephone" name="client_telephone" required>
-        @else
-            <input value="" autocomplete="off" class="form-input" type="text" id="client_telephone" name="client_telephone" required>
-        @endif
-
-        
-    </div>
-
-    <div class="flex items-top block gap-4 mb-4">
-        <label class="w-1/5 text-right text-gray-500 text-sm pt-1" for="client_contacts">Contacts</label>
-        <div class="contacts w-3/5 ">
-            @isset($client->contacts)
-                @foreach ( json_decode($client->contacts) as $contact)
-                    <div class="flex gap-1 lg:gap-4 mb-4">
-                        <input value="{{$contact->name}}" class="form-input flex-1" type="text" name="client_contact_name[]">
-                        <input value="{{$contact->telephone}}" class="form-input flex-1" type="text" name="client_contact_telephone[]">
-                        <div class=" w-12 ">
-                            <button class="hidden w-full px-1 rounded border py-2 rounded-lg bg-blue-400 hover:bg-gray-400 text-white text-sm"><i class="fas fa-user-plus"></i></button>
-                        </div>                                        
-                    </div>
-                @endforeach
-            @endisset
-            @isset($intermediaire->contacts)
-                @foreach ( json_decode($intermediaire->contacts) as $contact)
-                    <div class="flex gap-1 lg:gap-4 mb-4">
-                        <input value="{{$contact->name}}" class="form-input flex-1" type="text" name="client_contact_name[]">
-                        <input value="{{$contact->telephone}}" class="form-input flex-1" type="text" name="client_contact_telephone[]">
-                        <div class=" w-12 ">
-                            <button class="hidden w-full px-1 rounded border py-2 rounded-lg bg-blue-400 hover:bg-gray-400 text-white text-sm"><i class="fas fa-user-plus"></i></button>
-                        </div>                                        
-                    </div>
-                @endforeach
-            @endisset
-            <div class="flex gap-1 lg:gap-4 mb-4">
-                <input value="" class="form-input flex-1" type="text" name="client_contact_name[]">
-                <input value="" class="form-input flex-1" type="text" name="client_contact_telephone[]">
-                <div class=" w-12 ">
-                    <button class="add_contact w-full px-1 rounded border py-2 rounded-lg bg-blue-400 hover:bg-gray-400 text-white text-sm"><i class="fas fa-user-plus"></i></button>
-                </div>                                        
+    <div class="collaps_this">
+        <div class="flex items-center block gap-4 mb-4 mt-4">
+            <label class="w-1/5 text-right text-gray-500 text-sm" for=""></label>
+            <div class="relative w-3/5">
+                @if(isset($intermediaire))
+                @include('components.ui.switch', ['title'=>'Intermediaire / وسيط', 'name'=>'is_intermediaire', 'checked'=>'checked']) 
+                @else
+                @include('components.ui.switch', ['title'=>'Intermediaire / وسيط', 'name'=>'is_intermediaire', 'checked'=>'']) 
+                @endif
             </div>
         </div>
-    </div>
 
+        <div class="flex items-center block gap-4 mb-4 ">
+            <label class="w-1/5 text-right text-gray-500 text-sm" for="client_name">Nom Client</label>
+            <div class="relative w-3/5">
+                @if(isset($intermediaire))
+                    <input value="{{$intermediaire->intermediaire_name}}" autocomplete="off" class="form-input w-full form-input-search" type="text" id="client_name" name="client_name" required>
+                @elseif(isset($client))
+                    <input value="{{$client->client_name}}" autocomplete="off" class="form-input w-full form-input-search" type="text" id="client_name" name="client_name" required>
+                @else
+                    <input value="" autocomplete="off" class="form-input w-full form-input-search" type="text" id="client_name" name="client_name" required>
+                @endif
+                <span class="absolute top-0 right-0 p-2 mr-2 text-gray-400 cursor-pointer hover:text-gray-600"><i class="fas fa-search"></i></span>
+                <div class="form-input-search-result hidden absolute top-0 left-0 z-10 bg-blue-50 border w-full max-h-48 py-2 px-2 mt-8 overflow-y-auto shadow-lg">
+                </div>                            
+            </div>
+
+        </div>
+        <input type="hidden" id="client_id" @if(isset($client)) value="{{$client->id}}" @else value="0" @endif name="client_id">
+        <input type="hidden" id="intermediaire_id" @if(isset($intermediaire)) value="{{$intermediaire->id}}" @else value="0" @endif name="intermediaire_id">
+
+        <div class="flex items-center block gap-4 mb-4">
+            <label class="w-1/5 text-right text-gray-500 text-sm" for="client_type_id">Type Client</label>
+            <select disabled class="bg-gray-200 form-input w-3/5" id="client_type_id" name="client_type_id">
+                @foreach ($client_types as $type)
+                    <option value="{{$type->id}}" @if ($type->is_default) data-default="1" selected @endif>{{$type->client_type}}</option>
+                @endforeach
+            </select>
+        </div>
+
+        <div class="flex items-center block gap-4 mb-4">
+            <label class="w-1/5 text-right text-gray-500 text-sm" for="client_category_id">Category</label>
+            <select disabled class="bg-gray-200 form-input w-3/5" id="client_category_id" name="client_category_id">
+                @isset($intermediaire)
+                    
+                @endisset
+            @foreach ($client_categories as $category)
+                <option value="{{$category->id}}" @if ($category->is_default) data-default="1" selected @endif>{{$category->client_category}}</option>
+            @endforeach
+            </select>
+        </div>
+
+        <div class="flex items-center block gap-4 mb-4">
+            <label class="w-1/5 text-right text-gray-500 text-sm" for="client_status_id">Status du client</label>
+            <select disabled class="bg-gray-200 form-input w-3/5" id="client_status_id" name="client_status_id">
+            @foreach ($client_statuses as $status)
+                <option value="{{$status->id}}" @if ($status->is_default) data-default="1" selected @endif>{{$status->client_status}}</option>
+            @endforeach
+            </select>
+        </div>
+
+        <div class="flex items-center block gap-4 mb-4">
+            <label class="w-1/5 text-right text-gray-500 text-sm" for="client_telephone">Téléphone</label>
+
+            @if(isset($intermediaire))
+                <input value="{{$intermediaire->intermediaire_telephone}}" autocomplete="off" class="form-input" type="text" id="client_telephone" name="client_telephone" required>
+            @elseif(isset($client))
+                <input value="{{$client->client_telephone}}" autocomplete="off" class="form-input" type="text" id="client_telephone" name="client_telephone" required>
+                <input value="{{$client->client_telephone_2}}" autocomplete="off" class="form-input" type="text" id="client_telephone_2" name="client_telephone_2" >
+            @else
+                <input value="" autocomplete="off" class="form-input" type="text" id="client_telephone" name="client_telephone" required>
+                <input value="" autocomplete="off" class="form-input" type="text" id="client_telephone_2" name="client_telephone_2">
+            @endif
+
+            
+        </div>
+
+        <div class="flex items-top block gap-4 mb-4">
+            <label class="w-1/5 text-right text-gray-500 text-sm pt-1" for="client_contacts">Contacts</label>
+            <div class="contacts w-3/5 ">
+                @isset($client->contacts)
+                    @foreach ( json_decode($client->contacts) as $contact)
+                        <div class="flex gap-1 lg:gap-4 mb-4">
+                            <input value="{{$contact->name}}" class="form-input flex-1" type="text" name="client_contact_name[]">
+                            <input value="{{$contact->telephone}}" class="form-input flex-1" type="text" name="client_contact_telephone[]">
+                            <div class=" w-12 ">
+                                <button class="hidden w-full px-1 rounded border py-2 rounded-lg bg-blue-400 hover:bg-gray-400 text-white text-sm"><i class="fas fa-user-plus"></i></button>
+                            </div>                                        
+                        </div>
+                    @endforeach
+                @endisset
+                @isset($intermediaire->contacts)
+                    @foreach ( json_decode($intermediaire->contacts) as $contact)
+                        <div class="flex gap-1 lg:gap-4 mb-4">
+                            <input value="{{$contact->name}}" class="form-input flex-1" type="text" name="client_contact_name[]">
+                            <input value="{{$contact->telephone}}" class="form-input flex-1" type="text" name="client_contact_telephone[]">
+                            <div class=" w-12 ">
+                                <button class="hidden w-full px-1 rounded border py-2 rounded-lg bg-blue-400 hover:bg-gray-400 text-white text-sm"><i class="fas fa-user-plus"></i></button>
+                            </div>                                        
+                        </div>
+                    @endforeach
+                @endisset
+                <div class="flex gap-1 lg:gap-4 mb-4">
+                    <input value="" class="form-input flex-1" type="text" name="client_contact_name[]">
+                    <input value="" class="form-input flex-1" type="text" name="client_contact_telephone[]">
+                    <div class=" w-12 ">
+                        <button class="add_contact w-full px-1 rounded border py-2 rounded-lg bg-blue-400 hover:bg-gray-400 text-white text-sm"><i class="fas fa-user-plus"></i></button>
+                    </div>                                        
+                </div>
+            </div>
+        </div>
+
+
+        <div class="flex items-center block gap-4 mb-4">
+            <label class="w-1/5 text-right text-gray-500 text-sm" for="client_source_id">Client Source</label>
+            <select class="form-input w-3/5" id="client_source_id" name="client_source_id" required>
+            @foreach ($client_sources as $source)
+                <option value="{{$source->id}}" @if ($source->is_default) selected @endif>{{$source->client_source}}</option>
+            @endforeach
+            </select>
+        </div>
+
+        <div class="flex items-center block gap-4 mb-8">
+            <label class="w-1/5 text-right text-gray-500 text-sm" for="source_reference">Reference</label>
+            <input class="form-input w-3/5" type="text" id="source_reference" name="source_reference">
+        </div>
+
+
+    </div>
 
 </div>
 
@@ -226,12 +256,19 @@
                 }
             });
 
+            $('#client_type_id > option').each(function(){
+                if($(this).hasAttr('data-default')) {
+                    $('#client_type_id').val($(this).val()).prop("disabled", true).addClass('bg-gray-200');
+                }
+            });
+
             $('#client_status_id > option').each(function(){
                 if($(this).hasAttr('data-default')) {
                     $('#client_status_id').val($(this).val()).prop("disabled", true).addClass('bg-gray-200');
                 }
             });
             $('#client_telephone').val('').prop("disabled", true).addClass('bg-gray-200');
+            $('#client_telephone_2').val('').prop("disabled", true).addClass('bg-gray-200');
             $('#client_city').val('').prop("disabled", true).addClass('bg-gray-200');
             $("#client_id").val(0);
             $("#intermediaire_id").val(0);
@@ -251,13 +288,18 @@
                     $('#client_category_id').val($(this).val()).prop("disabled", false).removeClass('bg-gray-200');
                 }
             });
-
+            $('#client_type_id > option').each(function(){
+                if($(this).hasAttr('data-default')) {
+                    $('#client_type_id').val($(this).val()).prop("disabled", false).removeClass('bg-gray-200');
+                }
+            });
             $('#client_status_id > option').each(function(){
                 if($(this).hasAttr('data-default')) {
                     $('#client_status_id').val($(this).val()).prop("disabled", false).removeClass('bg-gray-200');
                 }
             });
             $('#client_telephone').val('').prop("disabled", false).removeClass('bg-gray-200');
+            $('#client_telephone_2').val('').prop("disabled", false).removeClass('bg-gray-200');
             $('#client_city').val('').prop("disabled", false).removeClass('bg-gray-200');
             $("#client_id").val(0);
             $("#intermediaire_id").val(0);
