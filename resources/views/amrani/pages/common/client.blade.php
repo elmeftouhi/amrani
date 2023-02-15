@@ -18,12 +18,27 @@
             <label class="w-1/5 text-right text-gray-500 text-sm" for=""></label>
             <div class="relative w-3/5">
                 @if(isset($intermediaire))
-                @include('components.ui.switch', ['title'=>'Intermediaire / وسيط', 'name'=>'is_intermediaire', 'checked'=>'checked']) 
+                    @include('components.ui.switch', ['title'=>'Intermediaire / وسيط', 'name'=>'is_intermediaire', 'checked'=>'checked']) 
                 @else
-                @include('components.ui.switch', ['title'=>'Intermediaire / وسيط', 'name'=>'is_intermediaire', 'checked'=>'']) 
+                    @include('components.ui.switch', ['title'=>'Intermediaire / وسيط', 'name'=>'is_intermediaire', 'checked'=>'']) 
                 @endif
             </div>
         </div>
+
+        @if(isset($client))
+
+            <div class="flex items-center block gap-4 mb-4 mt-4">
+                <label class="w-1/5 text-right text-gray-500 text-sm" for=""></label>
+                <div class="relative w-3/5">
+                    @if ($client->is_new)
+                        @include('components.ui.switch', ['title'=>'زبون قديم', 'name'=>'is_new', 'checked'=>'checked'])
+                    @else
+                        @include('components.ui.switch', ['title'=>'زبون قديم', 'name'=>'is_new', 'checked'=>''])
+                    @endif  
+                         
+                </div>
+            </div>
+        @endif
 
         <div class="flex items-center block gap-4 mb-4 ">
             <label class="w-1/5 text-right text-gray-500 text-sm" for="client_name">Nom Client</label>
@@ -48,7 +63,11 @@
             <label class="w-1/5 text-right text-gray-500 text-sm" for="client_type_id">Type Client</label>
             <select disabled class="bg-gray-200 form-input w-3/5" id="client_type_id" name="client_type_id">
                 @foreach ($client_types as $type)
-                    <option value="{{$type->id}}" @if ($type->is_default) data-default="1" selected @endif>{{$type->client_type}}</option>
+                    @if (isset($client))
+                        <option value="{{$type->id}}" @if ($type->id == $client->client_type_id) selected @endif>{{$type->client_type}}</option>
+                    @else
+                        <option value="{{$type->id}}" @if ($type->is_default) data-default="1" selected @endif>{{$type->client_type}}</option>                        
+                    @endif
                 @endforeach
             </select>
         </div>
@@ -56,21 +75,26 @@
         <div class="flex items-center block gap-4 mb-4">
             <label class="w-1/5 text-right text-gray-500 text-sm" for="client_category_id">Category</label>
             <select disabled class="bg-gray-200 form-input w-3/5" id="client_category_id" name="client_category_id">
-                @isset($intermediaire)
-                    
-                @endisset
-            @foreach ($client_categories as $category)
-                <option value="{{$category->id}}" @if ($category->is_default) data-default="1" selected @endif>{{$category->client_category}}</option>
-            @endforeach
+                @foreach ($client_categories as $category)
+                    @if (isset($client))
+                        <option value="{{$category->id}}" @if ($category->id == $client->client_category_id) selected @endif>{{$category->client_category}}</option>
+                    @else
+                        <option value="{{$category->id}}" @if ($category->is_default) data-default="1" selected @endif>{{$category->client_category}}</option>                     
+                    @endif
+                @endforeach
             </select>
         </div>
 
         <div class="flex items-center block gap-4 mb-4">
             <label class="w-1/5 text-right text-gray-500 text-sm" for="client_status_id">Status du client</label>
             <select disabled class="bg-gray-200 form-input w-3/5" id="client_status_id" name="client_status_id">
-            @foreach ($client_statuses as $status)
-                <option value="{{$status->id}}" @if ($status->is_default) data-default="1" selected @endif>{{$status->client_status}}</option>
-            @endforeach
+                @foreach ($client_statuses as $status)
+                    @if (isset($client))
+                        <option value="{{$status->id}}" @if ($status->id == $client->client_status_id) selected @endif>{{$status->client_status}}</option>
+                    @else
+                        <option value="{{$status->id}}" @if ($status->is_default) data-default="1" selected @endif>{{$status->client_status}}</option>                     
+                    @endif
+                @endforeach
             </select>
         </div>
 
@@ -129,15 +153,19 @@
         <div class="flex items-center block gap-4 mb-4">
             <label class="w-1/5 text-right text-gray-500 text-sm" for="client_source_id">Client Source</label>
             <select class="form-input w-3/5" id="client_source_id" name="client_source_id" required>
-            @foreach ($client_sources as $source)
-                <option value="{{$source->id}}" @if ($source->is_default) selected @endif>{{$source->client_source}}</option>
-            @endforeach
+                @foreach ($client_sources as $source)
+                    @if (isset($client))
+                        <option value="{{$source->id}}" @if ($source->id == $client->client_source_id) selected @endif>{{$source->client_source}}</option>
+                    @else
+                        <option value="{{$source->id}}" @if ($source->is_default) data-default="1" selected @endif>{{$source->client_source}}</option>                     
+                    @endif
+                @endforeach
             </select>
         </div>
 
         <div class="flex items-center block gap-4 mb-8">
-            <label class="w-1/5 text-right text-gray-500 text-sm" for="source_reference">Reference</label>
-            <input class="form-input w-3/5" type="text" id="source_reference" name="source_reference">
+            <label class="w-1/5 text-right text-gray-500 text-sm" for="client_source_reference">Reference</label>
+            <input value="@if(isset($client)) {{$client->source_reference}}  @endif" class="form-input w-3/5" type="text" id="client_source_reference" name="client_source_reference">
         </div>
 
 

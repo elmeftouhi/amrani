@@ -93,6 +93,7 @@ class AppartementController extends Controller
                     'client_category_id'    =>  $request->client_category_id? $request->client_category_id:  $clientTemp->getDefaultClientCategory(),
                     'client_type_id'        =>  $request->client_type_id? $request->client_type_id:  0,
                     'client_source_id'      =>  $request->client_source_id? $request->client_source_id:  0,
+                    'source_reference'      =>  $request->client_source_reference? $request->client_source_reference:  "",
                     'client_status_id'    =>  $clientTemp->getDefaultClientStatus(),
                     'contacts'      =>  json_encode($contacts)
                 ]);

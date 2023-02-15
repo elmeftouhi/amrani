@@ -13,7 +13,16 @@
 </div>
 <script>
     $(document).ready(function(){
+        if(sessionStorage.getItem("show_vertical_menu")){
+            $('.vertical_menu').addClass('hidden') 
+        }
+
         $('.toggle_vertical_navbar').on('click', function(){
+            if($('.vertical_menu').hasClass('hidden') ){
+                sessionStorage.removeItem("show_vertical_menu");
+            }else{
+                sessionStorage.setItem("show_vertical_menu", "1");
+            }
             $(this).toggleClass('bg-gray-600 text-gray-100')
             $('.vertical_menu').toggleClass('hidden', 1000);
         })
@@ -21,7 +30,6 @@
         $('.collaps').on('click', function(){
             $(this).find('i').toggleClass('hidden')
             $(this).parent().parent().parent().find('.collaps_this').toggleClass('hidden')
-            //alert('collapse')
         })
     });
 </script>

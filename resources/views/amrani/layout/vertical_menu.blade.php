@@ -2,7 +2,7 @@
     <div class="">
         <div class="flex items-center border-b border-gray-300 px-4 h-14 mb-2">
             <!-- http://adminmart.com/src/assets/images/logo-icon.png -->
-            <img class="w-8 mr-2" src="{{Storage::url("images/logo.png")}}" alt="">
+            <img class="w-8 mr-2" src="https://png.pngtree.com/png-vector/20221108/ourmid/pngtree-property-logo-png-image_6430110.png" alt="">
             <div class="text-gray-100 text-lg text-gray-800">
                 <span class="font-bold text-sm">Agence</span> 
                 <span class="text-sm">Amrani</span>

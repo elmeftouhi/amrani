@@ -106,7 +106,8 @@ class ClientController extends Controller
         $request->merge([
             'client_city_id' =>  isset($request->city_id)? $request->city_id:0,
             'client_city_sector_id' =>  isset($request->city_sector_id)? $request->city_sector_id:0,
-            'contacts'      =>  json_encode($contacts)
+            'contacts'      =>  json_encode($contacts),
+            'is_new'        =>  isset($request->is_new)? 1: 0
         ]);
         $client->update($request->all());
         return redirect()->route('client.index');
