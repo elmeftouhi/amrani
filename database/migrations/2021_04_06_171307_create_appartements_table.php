@@ -23,11 +23,15 @@ class CreateAppartementsTable extends Migration
             $table->integer('appartements_en_etage')->default(0)->nullable(); // 0/1/2/3
             $table->integer('appartements_en_immeuble')->default(0)->nullable(); // 0/1/2/3
             $table->string('appartement_facade')->nullable();   // Rue, Patio, Place, Piscine, Sur Mer
+            $table->timestamp('appartement_date')->default(DB::raw('CURRENT_TIMESTAMP'));   // La date jj/mm/yyyy hh:mm
+            $table->date('date_disponibilite')->nullable();    // La date disponibilite
+            $table->boolean('is_urgent')->default(0);    
             $table->integer('largeur_1')->default(0)->nullable();
             $table->integer('largeur_2')->default(0)->nullable();
             $table->integer('largeur_3')->default(0)->nullable();
             $table->string('surface')->nullable();
             $table->string('description')->nullable();
+            $table->string('localisation')->nullable(); //description de la localisation
             $table->string('facade_details')->nullable();
             $table->integer('ascenseur')->default(0)->nullable();
             $table->integer('parking')->default(0)->nullable();

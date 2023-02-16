@@ -38,6 +38,9 @@ class AppartementServiceSeeder extends Seeder
             ],
             [
                 'appartement_service'   => 'Offre Vente Sur Mer'
+            ],
+            [
+                'appartement_service'   => 'Exchange / تبادل'
             ]
         ]);
     }
